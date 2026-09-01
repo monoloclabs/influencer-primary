@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AssistantRouteImport } from './routes/assistant'
 import { Route as CreateRouteImport } from './routes/create'
 import { Route as MessagesRouteImport } from './routes/messages'
+import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as TimelineRouteImport } from './routes/timeline'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +36,11 @@ const MessagesRoute = MessagesRouteImport.update({
   path: '/messages',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TasksRoute = TasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TimelineRoute = TimelineRouteImport.update({
   id: '/timeline',
   path: '/timeline',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
   '/messages': typeof MessagesRoute
+  '/tasks': typeof TasksRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
   '/messages': typeof MessagesRoute
+  '/tasks': typeof TasksRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,23 @@ export interface FileRoutesById {
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
   '/messages': typeof MessagesRoute
+  '/tasks': typeof TasksRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/assistant' | '/create' | '/messages' | '/timeline'
+  fullPaths:
+    '/' | '/assistant' | '/create' | '/messages' | '/tasks' | '/timeline'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/assistant' | '/create' | '/messages' | '/timeline'
-  id: '__root__' | '/' | '/assistant' | '/create' | '/messages' | '/timeline'
+  to: '/' | '/assistant' | '/create' | '/messages' | '/tasks' | '/timeline'
+  id:
+    | '__root__'
+    | '/'
+    | '/assistant'
+    | '/create'
+    | '/messages'
+    | '/tasks'
+    | '/timeline'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +93,7 @@ export interface RootRouteChildren {
   AssistantRoute: typeof AssistantRoute
   CreateRoute: typeof CreateRoute
   MessagesRoute: typeof MessagesRoute
+  TasksRoute: typeof TasksRoute
   TimelineRoute: typeof TimelineRoute
 }
 
@@ -109,6 +127,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MessagesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tasks': {
+      id: '/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof TasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/timeline': {
       id: '/timeline'
       path: '/timeline'
@@ -124,6 +149,7 @@ const rootRouteChildren: RootRouteChildren = {
   AssistantRoute: AssistantRoute,
   CreateRoute: CreateRoute,
   MessagesRoute: MessagesRoute,
+  TasksRoute: TasksRoute,
   TimelineRoute: TimelineRoute,
 }
 export const routeTree = rootRouteImport
