@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApprovalsRouteImport } from './routes/approvals'
 import { Route as AssistantRouteImport } from './routes/assistant'
 import { Route as CreateRouteImport } from './routes/create'
 import { Route as MessagesRouteImport } from './routes/messages'
@@ -19,6 +20,11 @@ import { Route as TimelineRouteImport } from './routes/timeline'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApprovalsRoute = ApprovalsRouteImport.update({
+  id: '/approvals',
+  path: '/approvals',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AssistantRoute = AssistantRouteImport.update({
@@ -49,6 +55,7 @@ const TimelineRoute = TimelineRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
   '/messages': typeof MessagesRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
   '/messages': typeof MessagesRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
   '/messages': typeof MessagesRoute
@@ -75,12 +84,26 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/assistant' | '/create' | '/messages' | '/tasks' | '/timeline'
+    | '/'
+    | '/approvals'
+    | '/assistant'
+    | '/create'
+    | '/messages'
+    | '/tasks'
+    | '/timeline'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/assistant' | '/create' | '/messages' | '/tasks' | '/timeline'
+  to:
+    | '/'
+    | '/approvals'
+    | '/assistant'
+    | '/create'
+    | '/messages'
+    | '/tasks'
+    | '/timeline'
   id:
     | '__root__'
     | '/'
+    | '/approvals'
     | '/assistant'
     | '/create'
     | '/messages'
@@ -90,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApprovalsRoute: typeof ApprovalsRoute
   AssistantRoute: typeof AssistantRoute
   CreateRoute: typeof CreateRoute
   MessagesRoute: typeof MessagesRoute
@@ -104,6 +128,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/approvals': {
+      id: '/approvals'
+      path: '/approvals'
+      fullPath: '/approvals'
+      preLoaderRoute: typeof ApprovalsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/assistant': {
@@ -146,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApprovalsRoute: ApprovalsRoute,
   AssistantRoute: AssistantRoute,
   CreateRoute: CreateRoute,
   MessagesRoute: MessagesRoute,
