@@ -1,4 +1,5 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { useRouterState } from "@tanstack/react-router";
+import { Link } from "@/components/alfred/ui";
 import { Bell, Home, CalendarClock, SquarePen, MessageSquare, Sparkles, Menu } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";

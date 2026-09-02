@@ -1,4 +1,5 @@
-import { createFileRoute, Link, useParams } from "@tanstack/react-router";
+import { createFileRoute, useParams } from "@tanstack/react-router";
+import { Link } from "@/components/alfred/ui";
 import { ArrowLeft, Sparkles } from "lucide-react";
 import { AppShell } from "@/components/alfred/AppShell";
 import { AButton, ActionPair, Card, IconBadge } from "@/components/alfred/ui";

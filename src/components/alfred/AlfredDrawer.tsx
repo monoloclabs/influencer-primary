@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/alfred/ui";
 import {
   X,
   ChevronRight,
@@ -39,38 +39,38 @@ type Item = { label: string; icon: React.ComponentType<{ className?: string; str
 
 const life: Item[] = [
   { label: "Tasks", icon: CheckCircle2, to: "/tasks", meta: "5 today · 2 overdue" },
-  { label: "Reminders", icon: Bell, to: "/a/$slug" as const, params: { slug: "reminders" } },
-  { label: "Events", icon: CalendarDays, to: "/a/$slug" as const, params: { slug: "events" } },
-  { label: "Calendar", icon: Calendar, to: "/a/$slug" as const, params: { slug: "calendar" } },
-  { label: "Files", icon: Folder, to: "/a/$slug" as const, params: { slug: "files" } },
+  { label: "Reminders", icon: Bell, to: "/a/reminders" },
+  { label: "Events", icon: CalendarDays, to: "/a/events" },
+  { label: "Calendar", icon: Calendar, to: "/a/calendar" },
+  { label: "Files", icon: Folder, to: "/a/files" },
 ];
 
 const workspace: Item[] = [
-  { label: "Projects", icon: Layers, to: "/a/$slug" as const, params: { slug: "projects" } },
-  { label: "Journal", icon: BookOpen, to: "/a/$slug" as const, params: { slug: "journal" } },
-  { label: "Ideas", icon: Lightbulb, to: "/a/$slug" as const, params: { slug: "ideas" } },
+  { label: "Projects", icon: Layers, to: "/a/projects" },
+  { label: "Journal", icon: BookOpen, to: "/a/journal" },
+  { label: "Ideas", icon: Lightbulb, to: "/a/ideas" },
 ];
 
 const alfred: Item[] = [
   { label: "Instructions", icon: ScrollText, to: "/instructions", meta: "6 rules running" },
   { label: "Approvals", icon: ShieldCheck, to: "/approvals", meta: "3 waiting on you" },
-  { label: "Activity", icon: Activity, to: "/a/$slug" as const, params: { slug: "activity" } },
+  { label: "Activity", icon: Activity, to: "/a/activity" },
 ];
 
 const money: Item[] = [
   { label: "Wallet", icon: Wallet, to: "/wallet", meta: "₦248,400" },
-  { label: "Transactions", icon: ArrowLeftRight, to: "/a/$slug" as const, params: { slug: "transactions" } },
-  { label: "Subscriptions", icon: Repeat, to: "/a/$slug" as const, params: { slug: "subscriptions" } },
-  { label: "Purchases", icon: ShoppingBag, to: "/a/$slug" as const, params: { slug: "purchases" } },
+  { label: "Transactions", icon: ArrowLeftRight, to: "/a/transactions" },
+  { label: "Subscriptions", icon: Repeat, to: "/a/subscriptions" },
+  { label: "Purchases", icon: ShoppingBag, to: "/a/purchases" },
 ];
 
 const account: Item[] = [
-  { label: "Profile", icon: User, to: "/a/$slug" as const, params: { slug: "profile" } },
-  { label: "Plans", icon: BadgeCheck, to: "/a/$slug" as const, params: { slug: "plans" } },
-  { label: "What's New", icon: Sparkles, to: "/a/$slug" as const, params: { slug: "whats-new" } },
-  { label: "Invite a Friend", icon: UserPlus, to: "/a/$slug" as const, params: { slug: "invite" } },
-  { label: "Support", icon: LifeBuoy, to: "/a/$slug" as const, params: { slug: "support" } },
-  { label: "Settings", icon: Settings, to: "/a/$slug" as const, params: { slug: "settings" } },
+  { label: "Profile", icon: User, to: "/a/profile" },
+  { label: "Plans", icon: BadgeCheck, to: "/a/plans" },
+  { label: "What's New", icon: Sparkles, to: "/a/whats-new" },
+  { label: "Invite a Friend", icon: UserPlus, to: "/a/invite" },
+  { label: "Support", icon: LifeBuoy, to: "/a/support" },
+  { label: "Settings", icon: Settings, to: "/a/settings" },
 ];
 
 function Group({ label, children }: { label: string; children: React.ReactNode }) {
@@ -200,7 +200,7 @@ export function AlfredDrawer({
 
           <div className="mt-7 grid grid-cols-2 gap-2.5">
             <Link
-              to="/a/$slug" params={{ slug: "clique" }}
+              to="/a/clique"
               onClick={close}
               className="rounded-3xl bg-tint-blue p-4 active:scale-[0.98]"
             >
@@ -209,7 +209,7 @@ export function AlfredDrawer({
               <p className="text-xs text-muted-foreground">People who matter</p>
             </Link>
             <Link
-              to="/a/$slug" params={{ slug: "my-office" }}
+              to="/a/my-office"
               onClick={close}
               className="rounded-3xl bg-tint-amber p-4 active:scale-[0.98]"
             >
@@ -222,8 +222,8 @@ export function AlfredDrawer({
           <Group label="Discover">
             <div className="flex gap-2.5">
               {[
-                { label: "Discover", icon: Compass, to: "/a/$slug" as const, params: { slug: "discover" } },
-                { label: "Research", icon: Search, to: "/a/$slug" as const, params: { slug: "research" } },
+                { label: "Discover", icon: Compass, to: "/a/discover" },
+                { label: "Research", icon: Search, to: "/a/research" },
               ].map((i) => {
                 const Icon = i.icon;
                 return (
@@ -243,7 +243,7 @@ export function AlfredDrawer({
 
           <Group label="Connections">
             <Link
-              to="/a/$slug" params={{ slug: "integrations" }}
+              to="/a/integrations"
               onClick={close}
               className="flex items-center gap-3.5 rounded-3xl bg-surface px-4 py-3.5 active:opacity-80"
             >
