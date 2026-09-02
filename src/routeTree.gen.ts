@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApprovalsRouteImport } from './routes/approvals'
 import { Route as AssistantRouteImport } from './routes/assistant'
 import { Route as CreateRouteImport } from './routes/create'
+import { Route as InstructionsRouteImport } from './routes/instructions'
 import { Route as MessagesRouteImport } from './routes/messages'
 import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as TimelineRouteImport } from './routes/timeline'
@@ -37,6 +38,11 @@ const CreateRoute = CreateRouteImport.update({
   path: '/create',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InstructionsRoute = InstructionsRouteImport.update({
+  id: '/instructions',
+  path: '/instructions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MessagesRoute = MessagesRouteImport.update({
   id: '/messages',
   path: '/messages',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
+  '/instructions': typeof InstructionsRoute
   '/messages': typeof MessagesRoute
   '/tasks': typeof TasksRoute
   '/timeline': typeof TimelineRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
+  '/instructions': typeof InstructionsRoute
   '/messages': typeof MessagesRoute
   '/tasks': typeof TasksRoute
   '/timeline': typeof TimelineRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
+  '/instructions': typeof InstructionsRoute
   '/messages': typeof MessagesRoute
   '/tasks': typeof TasksRoute
   '/timeline': typeof TimelineRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/approvals'
     | '/assistant'
     | '/create'
+    | '/instructions'
     | '/messages'
     | '/tasks'
     | '/timeline'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/approvals'
     | '/assistant'
     | '/create'
+    | '/instructions'
     | '/messages'
     | '/tasks'
     | '/timeline'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/approvals'
     | '/assistant'
     | '/create'
+    | '/instructions'
     | '/messages'
     | '/tasks'
     | '/timeline'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   ApprovalsRoute: typeof ApprovalsRoute
   AssistantRoute: typeof AssistantRoute
   CreateRoute: typeof CreateRoute
+  InstructionsRoute: typeof InstructionsRoute
   MessagesRoute: typeof MessagesRoute
   TasksRoute: typeof TasksRoute
   TimelineRoute: typeof TimelineRoute
@@ -151,6 +164,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/instructions': {
+      id: '/instructions'
+      path: '/instructions'
+      fullPath: '/instructions'
+      preLoaderRoute: typeof InstructionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/messages': {
       id: '/messages'
       path: '/messages'
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApprovalsRoute: ApprovalsRoute,
   AssistantRoute: AssistantRoute,
   CreateRoute: CreateRoute,
+  InstructionsRoute: InstructionsRoute,
   MessagesRoute: MessagesRoute,
   TasksRoute: TasksRoute,
   TimelineRoute: TimelineRoute,
