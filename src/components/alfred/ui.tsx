@@ -10,7 +10,8 @@ export function Link({ to, ...props }: LinkProps) {
   const target = to.startsWith("/a/")
     ? { to: "/a/$slug", params: { slug: to.slice(3) } }
     : { to };
-  return <RouterLink {...(target as never)} {...props} />;
+  const linkProps = target as unknown as Record<string, unknown>;
+  return <RouterLink {...(linkProps as ComponentProps<typeof RouterLink>)} {...props} />;
 }
 
 export const buttonVariants = cva(
