@@ -66,7 +66,7 @@ function InstructionsScreen() {
               </div>
             </div>
             <Switch
-              checked={state[r.id]}
+              checked={!!state[r.id]}
               onCheckedChange={(v) => setState((s) => ({ ...s, [r.id]: v }))}
               className="mt-1 shrink-0 data-[state=checked]:bg-primary"
             />

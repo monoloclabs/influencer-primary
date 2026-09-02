@@ -78,7 +78,7 @@ function HomeScreen() {
           [
             { label: "Tasks today", value: "5", sub: "2 overdue", tone: "orange", icon: "check", to: "/tasks" },
             { label: "Approvals", value: "3", sub: "Alfred is waiting", tone: "blue", icon: "shield", to: "/approvals" },
-            { label: "Reminders", value: "4", sub: "Next at 20:00", tone: "violet", icon: "bell", to: "/a/reminders" },
+            { label: "Reminders", value: "4", sub: "Next at 20:00", tone: "violet", icon: "bell", to: "/a/$slug" as const, params: { slug: "reminders" } },
             { label: "Wallet", value: "₦248k", sub: "Fund on 30th", tone: "green", icon: "wallet", to: "/wallet" },
           ] as const
         ).map((s) => {
@@ -207,7 +207,7 @@ function HomeScreen() {
             </li>
           ))}
         </ul>
-        <Link to="/a/activity" className="mt-4 block">
+        <Link to="/a/$slug" params={{ slug: "activity" }} className="mt-4 block">
           <AButton variant="soft" size="md" className="w-full bg-background">
             See all activity
           </AButton>
