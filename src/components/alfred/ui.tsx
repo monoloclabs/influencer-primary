@@ -1,6 +1,17 @@
+import { Link as RouterLink } from "@tanstack/react-router";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/utils";
+
+type LinkProps = Omit<ComponentProps<"a">, "href"> & { to: string };
+
+/** Router link that accepts plain paths, including /a/<slug> placeholders. */
+export function Link({ to, ...props }: LinkProps) {
+  const target = to.startsWith("/a/")
+    ? { to: "/a/$slug", params: { slug: to.slice(3) } }
+    : { to };
+  return <RouterLink {...(target as never)} {...props} />;
+}
 
 export const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all active:scale-[0.97] disabled:opacity-50 disabled:pointer-events-none whitespace-nowrap",
@@ -115,7 +126,7 @@ export function Pill({
   className,
 }: {
   children: ReactNode;
-  tone?: "neutral" | "blue" | "orange" | "green" | "red" | "amber";
+  tone?: "neutral" | "blue" | "orange" | "green" | "red" | "amber" | "violet";
   className?: string;
 }) {
   const tones: Record<string, string> = {
@@ -125,6 +136,7 @@ export function Pill({
     green: "bg-tint-green text-tint-green-foreground",
     amber: "bg-tint-amber text-tint-amber-foreground",
     red: "bg-destructive-soft text-destructive",
+    violet: "bg-tint-violet text-tint-violet-foreground",
   };
   return (
     <span
