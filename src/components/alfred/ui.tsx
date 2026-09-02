@@ -1,6 +1,6 @@
 import { Link as RouterLink } from "@tanstack/react-router";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps, JSX, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type LinkProps = Omit<ComponentProps<"a">, "href"> & { to: string };
@@ -10,8 +10,8 @@ export function Link({ to, ...props }: LinkProps) {
   const target = to.startsWith("/a/")
     ? { to: "/a/$slug", params: { slug: to.slice(3) } }
     : { to };
-  const linkProps = target as unknown as Record<string, unknown>;
-  return <RouterLink {...(linkProps as ComponentProps<typeof RouterLink>)} {...props} />;
+  const Any = RouterLink as unknown as (p: Record<string, unknown>) => JSX.Element;
+  return <Any {...target} {...props} />;
 }
 
 export const buttonVariants = cva(
