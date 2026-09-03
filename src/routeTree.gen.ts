@@ -13,12 +13,18 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApprovalsRouteImport } from './routes/approvals'
 import { Route as AssistantRouteImport } from './routes/assistant'
 import { Route as CreateRouteImport } from './routes/create'
+import { Route as EventsRouteImport } from './routes/events'
 import { Route as InstructionsRouteImport } from './routes/instructions'
 import { Route as MessagesRouteImport } from './routes/messages'
+import { Route as PlansRouteImport } from './routes/plans'
+import { Route as SubscriptionRouteImport } from './routes/subscription'
 import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as WalletRouteImport } from './routes/wallet'
 import { Route as ASlugRouteImport } from './routes/a.$slug'
+import { Route as WalletIndexRouteImport } from './routes/wallet.index'
+import { Route as WalletApprovalsRouteImport } from './routes/wallet.approvals'
+import { Route as WalletTransactionsRouteImport } from './routes/wallet.transactions'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +46,11 @@ const CreateRoute = CreateRouteImport.update({
   path: '/create',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InstructionsRoute = InstructionsRouteImport.update({
   id: '/instructions',
   path: '/instructions',
@@ -48,6 +59,16 @@ const InstructionsRoute = InstructionsRouteImport.update({
 const MessagesRoute = MessagesRouteImport.update({
   id: '/messages',
   path: '/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlansRoute = PlansRouteImport.update({
+  id: '/plans',
+  path: '/plans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SubscriptionRoute = SubscriptionRouteImport.update({
+  id: '/subscription',
+  path: '/subscription',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TasksRoute = TasksRouteImport.update({
@@ -70,30 +91,56 @@ const ASlugRoute = ASlugRouteImport.update({
   path: '/a/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WalletIndexRoute = WalletIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => WalletRoute,
+} as any)
+const WalletApprovalsRoute = WalletApprovalsRouteImport.update({
+  id: '/approvals',
+  path: '/approvals',
+  getParentRoute: () => WalletRoute,
+} as any)
+const WalletTransactionsRoute = WalletTransactionsRouteImport.update({
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => WalletRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
+  '/events': typeof EventsRoute
   '/instructions': typeof InstructionsRoute
   '/messages': typeof MessagesRoute
+  '/plans': typeof PlansRoute
+  '/subscription': typeof SubscriptionRoute
   '/tasks': typeof TasksRoute
   '/timeline': typeof TimelineRoute
-  '/wallet': typeof WalletRoute
+  '/wallet': typeof WalletRouteWithChildren
   '/a/$slug': typeof ASlugRoute
+  '/wallet/approvals': typeof WalletApprovalsRoute
+  '/wallet/transactions': typeof WalletTransactionsRoute
+  '/wallet/': typeof WalletIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
+  '/events': typeof EventsRoute
   '/instructions': typeof InstructionsRoute
   '/messages': typeof MessagesRoute
+  '/plans': typeof PlansRoute
+  '/subscription': typeof SubscriptionRoute
   '/tasks': typeof TasksRoute
   '/timeline': typeof TimelineRoute
-  '/wallet': typeof WalletRoute
   '/a/$slug': typeof ASlugRoute
+  '/wallet/approvals': typeof WalletApprovalsRoute
+  '/wallet/transactions': typeof WalletTransactionsRoute
+  '/wallet': typeof WalletIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -101,12 +148,18 @@ export interface FileRoutesById {
   '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
+  '/events': typeof EventsRoute
   '/instructions': typeof InstructionsRoute
   '/messages': typeof MessagesRoute
+  '/plans': typeof PlansRoute
+  '/subscription': typeof SubscriptionRoute
   '/tasks': typeof TasksRoute
   '/timeline': typeof TimelineRoute
-  '/wallet': typeof WalletRoute
+  '/wallet': typeof WalletRouteWithChildren
   '/a/$slug': typeof ASlugRoute
+  '/wallet/approvals': typeof WalletApprovalsRoute
+  '/wallet/transactions': typeof WalletTransactionsRoute
+  '/wallet/': typeof WalletIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -115,36 +168,53 @@ export interface FileRouteTypes {
     | '/approvals'
     | '/assistant'
     | '/create'
+    | '/events'
     | '/instructions'
     | '/messages'
+    | '/plans'
+    | '/subscription'
     | '/tasks'
     | '/timeline'
     | '/wallet'
     | '/a/$slug'
+    | '/wallet/approvals'
+    | '/wallet/transactions'
+    | '/wallet/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/approvals'
     | '/assistant'
     | '/create'
+    | '/events'
     | '/instructions'
     | '/messages'
+    | '/plans'
+    | '/subscription'
     | '/tasks'
     | '/timeline'
-    | '/wallet'
     | '/a/$slug'
+    | '/wallet/approvals'
+    | '/wallet/transactions'
+    | '/wallet'
   id:
     | '__root__'
     | '/'
     | '/approvals'
     | '/assistant'
     | '/create'
+    | '/events'
     | '/instructions'
     | '/messages'
+    | '/plans'
+    | '/subscription'
     | '/tasks'
     | '/timeline'
     | '/wallet'
     | '/a/$slug'
+    | '/wallet/approvals'
+    | '/wallet/transactions'
+    | '/wallet/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -152,11 +222,14 @@ export interface RootRouteChildren {
   ApprovalsRoute: typeof ApprovalsRoute
   AssistantRoute: typeof AssistantRoute
   CreateRoute: typeof CreateRoute
+  EventsRoute: typeof EventsRoute
   InstructionsRoute: typeof InstructionsRoute
   MessagesRoute: typeof MessagesRoute
+  PlansRoute: typeof PlansRoute
+  SubscriptionRoute: typeof SubscriptionRoute
   TasksRoute: typeof TasksRoute
   TimelineRoute: typeof TimelineRoute
-  WalletRoute: typeof WalletRoute
+  WalletRoute: typeof WalletRouteWithChildren
   ASlugRoute: typeof ASlugRoute
 }
 
@@ -190,6 +263,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/instructions': {
       id: '/instructions'
       path: '/instructions'
@@ -202,6 +282,20 @@ declare module '@tanstack/react-router' {
       path: '/messages'
       fullPath: '/messages'
       preLoaderRoute: typeof MessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/plans': {
+      id: '/plans'
+      path: '/plans'
+      fullPath: '/plans'
+      preLoaderRoute: typeof PlansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/subscription': {
+      id: '/subscription'
+      path: '/subscription'
+      fullPath: '/subscription'
+      preLoaderRoute: typeof SubscriptionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tasks': {
@@ -232,19 +326,58 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ASlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/wallet/': {
+      id: '/wallet/'
+      path: '/'
+      fullPath: '/wallet/'
+      preLoaderRoute: typeof WalletIndexRouteImport
+      parentRoute: typeof WalletRoute
+    }
+    '/wallet/approvals': {
+      id: '/wallet/approvals'
+      path: '/approvals'
+      fullPath: '/wallet/approvals'
+      preLoaderRoute: typeof WalletApprovalsRouteImport
+      parentRoute: typeof WalletRoute
+    }
+    '/wallet/transactions': {
+      id: '/wallet/transactions'
+      path: '/transactions'
+      fullPath: '/wallet/transactions'
+      preLoaderRoute: typeof WalletTransactionsRouteImport
+      parentRoute: typeof WalletRoute
+    }
   }
 }
+
+interface WalletRouteChildren {
+  WalletApprovalsRoute: typeof WalletApprovalsRoute
+  WalletTransactionsRoute: typeof WalletTransactionsRoute
+  WalletIndexRoute: typeof WalletIndexRoute
+}
+
+const WalletRouteChildren: WalletRouteChildren = {
+  WalletApprovalsRoute: WalletApprovalsRoute,
+  WalletTransactionsRoute: WalletTransactionsRoute,
+  WalletIndexRoute: WalletIndexRoute,
+}
+
+const WalletRouteWithChildren =
+  WalletRoute._addFileChildren(WalletRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApprovalsRoute: ApprovalsRoute,
   AssistantRoute: AssistantRoute,
   CreateRoute: CreateRoute,
+  EventsRoute: EventsRoute,
   InstructionsRoute: InstructionsRoute,
   MessagesRoute: MessagesRoute,
+  PlansRoute: PlansRoute,
+  SubscriptionRoute: SubscriptionRoute,
   TasksRoute: TasksRoute,
   TimelineRoute: TimelineRoute,
-  WalletRoute: WalletRoute,
+  WalletRoute: WalletRouteWithChildren,
   ASlugRoute: ASlugRoute,
 }
 export const routeTree = rootRouteImport
