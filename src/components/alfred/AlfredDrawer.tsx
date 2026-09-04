@@ -14,12 +14,11 @@ import {
   ShieldCheck,
   Activity,
   Wallet,
-  ArrowLeftRight,
   Repeat,
   ShoppingBag,
   Users,
   Compass,
-  Search,
+  Library,
   Briefcase,
   Plug,
   User,
@@ -28,21 +27,22 @@ import {
   UserPlus,
   LifeBuoy,
   Settings,
-  LogOut,
+  DoorOpen,
 } from "lucide-react";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { IconBadge } from "./ui";
 import { user } from "@/data/alfred";
 import { cn } from "@/lib/utils";
 
-type Item = { label: string; icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; to?: string; meta?: string };
+type IconType = React.ComponentType<{ className?: string; strokeWidth?: number }>;
+type Item = { label: string; icon: IconType; to: string; meta?: string; blue?: boolean };
 
 const life: Item[] = [
-  { label: "Tasks", icon: CheckCircle2, to: "/tasks", meta: "5 today · 2 overdue" },
-  { label: "Reminders", icon: Bell, to: "/a/reminders" },
-  { label: "Events", icon: CalendarDays, to: "/a/events" },
-  { label: "Calendar", icon: Calendar, to: "/a/calendar" },
-  { label: "Files", icon: Folder, to: "/a/files" },
+  { label: "Tasks", icon: CheckCircle2, to: "/tasks", meta: "4 due today", blue: true },
+  { label: "Reminders", icon: Bell, to: "/a/reminders", meta: "2 coming up", blue: true },
+  { label: "Events", icon: CalendarDays, to: "/events", meta: "3 this week", blue: true },
+  { label: "Calendar", icon: Calendar, to: "/a/calendar", meta: "Your schedule" },
+  { label: "Files", icon: Folder, to: "/a/files", meta: "12 recent" },
 ];
 
 const workspace: Item[] = [
@@ -58,59 +58,78 @@ const alfred: Item[] = [
 ];
 
 const money: Item[] = [
-  { label: "Wallet", icon: Wallet, to: "/wallet", meta: "₦248,400" },
-  { label: "Transactions", icon: ArrowLeftRight, to: "/a/transactions" },
-  { label: "Subscriptions", icon: Repeat, to: "/a/subscriptions" },
-  { label: "Purchases", icon: ShoppingBag, to: "/a/purchases" },
+  { label: "Wallet", icon: Wallet, to: "/wallet", meta: "₦248,400 available" },
+  { label: "Purchases", icon: ShoppingBag, to: "/a/purchases", meta: "24 purchases this month" },
+  { label: "Subscription", icon: Repeat, to: "/subscription", meta: "Standard · renews Oct 12" },
 ];
 
 const account: Item[] = [
   { label: "Profile", icon: User, to: "/a/profile" },
-  { label: "Plans", icon: BadgeCheck, to: "/a/plans" },
-  { label: "What's New", icon: Sparkles, to: "/a/whats-new" },
-  { label: "Invite a Friend", icon: UserPlus, to: "/a/invite" },
-  { label: "Support", icon: LifeBuoy, to: "/a/support" },
+  { label: "Subscription", icon: BadgeCheck, to: "/subscription" },
+  { label: "What's new", icon: Sparkles, to: "/a/whats-new" },
+  { label: "Invite friend", icon: UserPlus, to: "/a/invite" },
   { label: "Settings", icon: Settings, to: "/a/settings" },
+  { label: "Support", icon: LifeBuoy, to: "/a/support" },
 ];
 
-function Group({ label, children }: { label: string; children: React.ReactNode }) {
+function Group({
+  label,
+  children,
+  labelClassName,
+}: {
+  label: string;
+  children: React.ReactNode;
+  labelClassName?: string;
+}) {
   return (
     <section className="mt-7 first:mt-0">
-      <p className="eyebrow mb-3 px-2 text-muted-foreground">{label}</p>
+      <p className={cn("eyebrow mb-3 px-2 text-muted-foreground", labelClassName)}>{label}</p>
       {children}
     </section>
   );
 }
 
-function Row({
-  item,
-  onNavigate,
-  tone,
-  shape = "squircle",
-  contained = true,
-}: {
-  item: Item;
-  onNavigate: () => void;
-  tone: "orange" | "blue" | "green" | "violet" | "amber" | "neutral" | "dark";
-  shape?: "round" | "squircle";
-  contained?: boolean;
-}) {
+/** Life row: divided list item, tinted icon, delta text, no chevron. */
+function LifeRow({ item, onNavigate }: { item: Item; onNavigate: () => void }) {
   const Icon = item.icon;
   return (
     <Link
-      to={item.to ?? "/"}
+      to={item.to}
+      onClick={onNavigate}
+      className="flex items-center gap-3.5 px-3 py-3.5 active:bg-surface"
+    >
+      <IconBadge tone={item.blue ? "blue" : "neutral"} shape="squircle" size="sm">
+        <Icon className="h-[1.05rem] w-[1.05rem]" strokeWidth={2.2} />
+      </IconBadge>
+      <span className="min-w-0 flex-1">
+        <span
+          className={cn(
+            "block truncate text-[0.9375rem] font-semibold",
+            item.blue && "text-tint-blue-foreground",
+          )}
+        >
+          {item.label}
+        </span>
+        {item.meta && (
+          <span className="block truncate text-xs text-muted-foreground">{item.meta}</span>
+        )}
+      </span>
+    </Link>
+  );
+}
+
+/** Alfred-section row keeps the existing contained treatment. */
+function AlfredRow({ item, onNavigate }: { item: Item; onNavigate: () => void }) {
+  const Icon = item.icon;
+  return (
+    <Link
+      to={item.to}
       onClick={onNavigate}
       className="flex items-center gap-3.5 rounded-2xl px-2 py-2.5 active:bg-surface"
     >
-      {contained ? (
-        <IconBadge tone={tone} shape={shape} size="sm">
-          <Icon className="h-[1.05rem] w-[1.05rem]" strokeWidth={2.1} />
-        </IconBadge>
-      ) : (
-        <span className="grid h-9 w-9 place-items-center text-foreground">
-          <Icon className="h-5 w-5" strokeWidth={1.8} />
-        </span>
-      )}
+      <IconBadge tone="orange" shape="round" size="sm">
+        <Icon className="h-[1.05rem] w-[1.05rem]" strokeWidth={2.1} />
+      </IconBadge>
       <span className="min-w-0 flex-1">
         <span className="block truncate text-[0.9375rem] font-semibold">{item.label}</span>
         {item.meta && (
@@ -143,7 +162,7 @@ export function AlfredDrawer({
           </div>
           <div className="min-w-0 flex-1">
             <p className="truncate text-lg font-bold">{user.fullName}</p>
-            <p className="truncate text-xs text-muted-foreground">{user.plan} · Personal</p>
+            <p className="truncate text-xs text-muted-foreground">Standard · Personal</p>
           </div>
           <button
             aria-label="Close menu"
@@ -156,9 +175,9 @@ export function AlfredDrawer({
 
         <div className="px-4 pb-12">
           <Group label="Life">
-            <div className="rounded-3xl bg-surface/70 p-1.5">
+            <div className="divide-y divide-border/70 rounded-3xl border border-border/70 bg-card px-1.5 shadow-card">
               {life.map((i) => (
-                <Row key={i.label} item={i} onNavigate={close} tone="blue" shape="squircle" />
+                <LifeRow key={i.label} item={i} onNavigate={close} />
               ))}
             </div>
           </Group>
@@ -170,7 +189,7 @@ export function AlfredDrawer({
                 return (
                   <Link
                     key={i.label}
-                    to={i.to ?? "/"}
+                    to={i.to}
                     onClick={close}
                     className="rounded-2xl border border-border/70 bg-card p-3 text-center shadow-card active:scale-[0.98]"
                   >
@@ -185,16 +204,30 @@ export function AlfredDrawer({
           <Group label="Alfred">
             <div className="rounded-3xl bg-primary-soft p-1.5">
               {alfred.map((i) => (
-                <Row key={i.label} item={i} onNavigate={close} tone="orange" shape="round" />
+                <AlfredRow key={i.label} item={i} onNavigate={close} />
               ))}
             </div>
           </Group>
 
           <Group label="Money">
-            <div className="rounded-3xl border border-border/70 bg-card p-1.5 shadow-card">
-              {money.map((i) => (
-                <Row key={i.label} item={i} onNavigate={close} tone="green" shape="round" />
-              ))}
+            <div className="space-y-2.5">
+              {money.map((i) => {
+                const Icon = i.icon;
+                return (
+                  <Link
+                    key={i.label}
+                    to={i.to}
+                    onClick={close}
+                    className="flex items-center gap-4 rounded-3xl border border-border/70 bg-card px-4 py-4 shadow-card active:scale-[0.99]"
+                  >
+                    <Icon className="h-6 w-6 shrink-0 text-foreground" strokeWidth={2.4} />
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-[0.9375rem] font-bold">{i.label}</span>
+                      <span className="block truncate text-xs text-muted-foreground">{i.meta}</span>
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
           </Group>
 
@@ -215,29 +248,28 @@ export function AlfredDrawer({
             >
               <Briefcase className="h-5 w-5 text-tint-amber-foreground" strokeWidth={2.3} />
               <p className="mt-3 text-sm font-bold">My Office</p>
-              <p className="text-xs text-muted-foreground">Work side of life</p>
+              <p className="text-xs text-muted-foreground">Premium · work side of life</p>
             </Link>
           </div>
 
           <Group label="Discover">
             <div className="flex gap-2.5">
-              {[
-                { label: "Discover", icon: Compass, to: "/a/discover" },
-                { label: "Research", icon: Search, to: "/a/research" },
-              ].map((i) => {
-                const Icon = i.icon;
-                return (
-                  <Link
-                    key={i.label}
-                    to={i.to}
-                    onClick={close}
-                    className="flex flex-1 items-center gap-2.5 rounded-full border border-border bg-background px-4 py-3 active:bg-surface"
-                  >
-                    <Icon className="h-[1.1rem] w-[1.1rem]" strokeWidth={2.2} />
-                    <span className="text-sm font-semibold">{i.label}</span>
-                  </Link>
-                );
-              })}
+              <Link
+                to="/a/discover"
+                onClick={close}
+                className="flex flex-1 items-center gap-2.5 rounded-full border border-primary/50 bg-primary-soft px-4 py-3 active:opacity-80"
+              >
+                <Compass className="h-[1.1rem] w-[1.1rem] text-primary" strokeWidth={2.3} />
+                <span className="text-sm font-bold text-primary">Discover</span>
+              </Link>
+              <Link
+                to="/a/research"
+                onClick={close}
+                className="flex flex-1 items-center gap-2.5 rounded-full border border-tint-blue-foreground/30 bg-tint-blue px-4 py-3 active:opacity-80"
+              >
+                <Library className="h-[1.1rem] w-[1.1rem] text-tint-blue-foreground" strokeWidth={2.3} />
+                <span className="text-sm font-bold text-tint-blue-foreground">Research</span>
+              </Link>
             </div>
           </Group>
 
@@ -260,22 +292,30 @@ export function AlfredDrawer({
             </Link>
           </Group>
 
-          <Group label="Account">
-            <div className="divide-y divide-border/70">
-              {account.map((i) => (
-                <Row key={i.label} item={i} onNavigate={close} tone="neutral" contained={false} />
-              ))}
+          <Group label="Account" labelClassName="text-primary">
+            <div>
+              {account.map((i) => {
+                const Icon = i.icon;
+                return (
+                  <Link
+                    key={i.label}
+                    to={i.to}
+                    onClick={close}
+                    className="flex items-center gap-3.5 px-2 py-3 active:opacity-70"
+                  >
+                    <Icon className="h-5 w-5 shrink-0 text-foreground" strokeWidth={1.9} />
+                    <span className="truncate text-[0.9375rem] font-semibold">{i.label}</span>
+                  </Link>
+                );
+              })}
+              <button
+                onClick={close}
+                className="flex w-full items-center gap-3.5 px-2 py-3 text-left active:opacity-70"
+              >
+                <DoorOpen className="h-5 w-5 shrink-0 text-destructive" strokeWidth={1.9} />
+                <span className="text-[0.9375rem] font-semibold text-destructive">Logout</span>
+              </button>
             </div>
-            <button
-              onClick={close}
-              className={cn(
-                "mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-destructive px-5 py-3.5",
-                "text-sm font-bold text-destructive-foreground active:scale-[0.98]",
-              )}
-            >
-              <LogOut className="h-[1.05rem] w-[1.05rem]" strokeWidth={2.4} />
-              Logout
-            </button>
           </Group>
         </div>
       </SheetContent>
