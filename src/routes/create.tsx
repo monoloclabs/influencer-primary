@@ -34,6 +34,7 @@ const quick = [
 ];
 
 const work = [
+  { id: "w0", eyebrow: "PLAN", title: "New plan", sub: "A trip, dinner, birthday — with everything inside it", icon: Route, tone: "orange" as const },
   { id: "w1", eyebrow: "INSTRUCTION", title: "New instruction", sub: "A rule Alfred should always follow", icon: ScrollText, tone: "orange" as const },
   { id: "w2", eyebrow: "EVENT", title: "Event or booking", sub: "Put it on your timeline", icon: CalendarPlus, tone: "blue" as const },
   { id: "w3", eyebrow: "MONEY", title: "Log a purchase", sub: "Receipts, spend and subscriptions", icon: Receipt, tone: "green" as const },
