@@ -152,20 +152,29 @@ function HomeScreen() {
         ))}
       </Card>
 
-      {/* Events */}
-      <SectionHeader className="mt-8 mb-3" title="Later today" />
-      <div className="space-y-2.5">
+      {/* Today's schedule */}
+      <SectionHeader
+        className="mt-8 mb-3"
+        title="Today's schedule"
+        action={
+          <Link to="/timeline" className="text-sm font-bold text-tint-blue-foreground">
+            Timeline
+          </Link>
+        }
+      />
+      <Card className="divide-y divide-border/70 p-0">
         {events.map((e) => (
-          <div
-            key={e.id}
-            className="flex items-center gap-4 rounded-3xl bg-surface px-4 py-3.5"
-          >
-            <span className="w-12 shrink-0 text-sm font-extrabold">{e.time}</span>
-            <span className="min-w-0 flex-1 truncate text-[0.9375rem] font-semibold">{e.title}</span>
-            <Pill tone={e.tone}>{e.tag}</Pill>
+          <div key={e.id} className="flex items-start gap-4 px-4 py-4">
+            <span className="w-12 shrink-0 pt-0.5 text-sm font-extrabold tabular-nums">{e.time}</span>
+            <span className="min-w-0 flex-1">
+              <span className="block truncate text-[0.9375rem] font-bold">{e.title}</span>
+              <span className="mt-1.5 block">
+                <Pill tone={e.tone}>{e.tag}</Pill>
+              </span>
+            </span>
           </div>
         ))}
-      </div>
+      </Card>
 
       {/* Messages */}
       <SectionHeader
