@@ -150,3 +150,16 @@
     display: none;
   }
 }
+
+/* Warm orange aurora surface for the Alfred card. */
+@utility aurora-card {
+  background-color: oklch(0.9 0.09 60);
+  background-image:
+    radial-gradient(120% 90% at 8% 12%, oklch(0.93 0.06 88 / 95%) 0%, transparent 58%),
+    radial-gradient(110% 100% at 92% 8%, oklch(0.86 0.13 45 / 92%) 0%, transparent 62%),
+    radial-gradient(130% 120% at 78% 96%, oklch(0.8 0.17 36 / 88%) 0%, transparent 66%),
+    linear-gradient(128deg, oklch(0.95 0.05 78) 0%, oklch(0.88 0.11 52) 46%, oklch(0.83 0.15 38) 100%);
+  box-shadow:
+    0 18px 40px -24px oklch(0.65 0.235 33.9 / 55%),
+    inset 0 1px 0 oklch(1 0 0 / 45%);
+}
