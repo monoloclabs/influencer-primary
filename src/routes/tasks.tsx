@@ -44,20 +44,34 @@ const groups = [
 
 function TasksScreen() {
   const [done, setDone] = useState<string[]>([]);
-  const toggle = (id: string) =>
+  const [saved, setSaved] = useState(true);
+  const toggle = (id: string) => {
     setDone((d) => (d.includes(id) ? d.filter((x) => x !== id) : [...d, id]));
+    setSaved(false);
+  };
 
   return (
     <AppShell title="Tasks">
       <h2 className="text-[1.75rem] leading-tight font-extrabold">Tasks</h2>
       <p className="mt-1.5 text-[0.9375rem] text-muted-foreground">
-        Seven open · {done.length} cleared today. Alfred can take three of these.
+        Seven open · {done.length} ticked. {saved ? "Everything is saved." : "Tap Save to keep your changes."}
       </p>
 
-      <AButton size="lg" className="mt-5 w-full">
-        <Plus className="h-4 w-4" strokeWidth={3} />
-        Add a task
-      </AButton>
+      <div className="mt-5 grid grid-cols-3 gap-3">
+        <AButton size="lg" className="col-span-2 w-full">
+          <Plus className="h-4 w-4" strokeWidth={3} />
+          Create new task
+        </AButton>
+        <AButton
+          size="lg"
+          variant="soft"
+          className="w-full"
+          disabled={saved}
+          onClick={() => setSaved(true)}
+        >
+          {saved ? "Saved" : "Save"}
+        </AButton>
+      </div>
 
       <div className="mt-8 space-y-7">
         {groups.map((g) => (

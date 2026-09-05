@@ -5,15 +5,13 @@ import {
   CheckCircle2,
   FileText,
   MapPin,
-  Plane,
   Plus,
   Sparkles,
-  UtensilsCrossed,
-  Cake,
   Users,
 } from "lucide-react";
 import { AppShell } from "@/components/alfred/AppShell";
 import { AButton, Card, IconBadge, Pill, SectionHeader } from "@/components/alfred/ui";
+import { plans } from "@/data/plans";
 
 export const Route = createFileRoute("/plans")({
   head: () => ({
@@ -28,42 +26,6 @@ export const Route = createFileRoute("/plans")({
   }),
   component: PlansScreen,
 });
-
-const plans = [
-  {
-    id: "p1",
-    title: "Paris vacation",
-    when: "12 – 19 October",
-    icon: Plane,
-    tone: "blue" as const,
-    progress: "6 of 11 done",
-    people: "You · Ada",
-    parts: ["Flight booked", "Hotel held", "Dinner at Septime", "Places to visit", "Visa documents"],
-    alfred: "Alfred is watching fares for the return leg.",
-  },
-  {
-    id: "p2",
-    title: "Dinner with Mum",
-    when: "Tonight · 18:40",
-    icon: UtensilsCrossed,
-    tone: "orange" as const,
-    progress: "3 of 4 done",
-    people: "You · Mum",
-    parts: ["Table for two — Yellow Chilli", "Ride at 18:20", "Pick up flowers"],
-    alfred: "Alfred will nudge you 40 minutes before.",
-  },
-  {
-    id: "p3",
-    title: "Ada's birthday",
-    when: "Sat 20 September",
-    icon: Cake,
-    tone: "violet" as const,
-    progress: "2 of 7 done",
-    people: "You · 8 guests",
-    parts: ["Venue shortlist", "Cake order", "Guest list", "Gift budget ₦120,000"],
-    alfred: "Alfred drafted the invite message.",
-  },
-];
 
 function PlansScreen() {
   return (
@@ -134,6 +96,12 @@ function PlansScreen() {
                 Notes & files
               </span>
             </div>
+
+            <Link to={`/plan/${p.id}`} className="mt-4 block">
+              <AButton variant="soft" size="md" className="w-full">
+                Open the plan
+              </AButton>
+            </Link>
           </Card>
         ))}
       </div>

@@ -16,12 +16,18 @@ import { Route as CreateRouteImport } from './routes/create'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as InstructionsRouteImport } from './routes/instructions'
 import { Route as MessagesRouteImport } from './routes/messages'
+import { Route as OfficeRouteImport } from './routes/office'
 import { Route as PlansRouteImport } from './routes/plans'
 import { Route as SubscriptionRouteImport } from './routes/subscription'
 import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as WalletRouteImport } from './routes/wallet'
 import { Route as ASlugRouteImport } from './routes/a.$slug'
+import { Route as OfficeIndexRouteImport } from './routes/office.index'
+import { Route as OfficeSalariesRouteImport } from './routes/office.salaries'
+import { Route as OfficeStaffRouteImport } from './routes/office.staff'
+import { Route as OfficeWorkRouteImport } from './routes/office.work'
+import { Route as PlanPlanIdRouteImport } from './routes/plan.$planId'
 import { Route as WalletIndexRouteImport } from './routes/wallet.index'
 import { Route as WalletApprovalsRouteImport } from './routes/wallet.approvals'
 import { Route as WalletTransactionsRouteImport } from './routes/wallet.transactions'
@@ -61,6 +67,11 @@ const MessagesRoute = MessagesRouteImport.update({
   path: '/messages',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OfficeRoute = OfficeRouteImport.update({
+  id: '/office',
+  path: '/office',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlansRoute = PlansRouteImport.update({
   id: '/plans',
   path: '/plans',
@@ -91,6 +102,31 @@ const ASlugRoute = ASlugRouteImport.update({
   path: '/a/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OfficeIndexRoute = OfficeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => OfficeRoute,
+} as any)
+const OfficeSalariesRoute = OfficeSalariesRouteImport.update({
+  id: '/salaries',
+  path: '/salaries',
+  getParentRoute: () => OfficeRoute,
+} as any)
+const OfficeStaffRoute = OfficeStaffRouteImport.update({
+  id: '/staff',
+  path: '/staff',
+  getParentRoute: () => OfficeRoute,
+} as any)
+const OfficeWorkRoute = OfficeWorkRouteImport.update({
+  id: '/work',
+  path: '/work',
+  getParentRoute: () => OfficeRoute,
+} as any)
+const PlanPlanIdRoute = PlanPlanIdRouteImport.update({
+  id: '/plan/$planId',
+  path: '/plan/$planId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WalletIndexRoute = WalletIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -115,14 +151,20 @@ export interface FileRoutesByFullPath {
   '/events': typeof EventsRoute
   '/instructions': typeof InstructionsRoute
   '/messages': typeof MessagesRoute
+  '/office': typeof OfficeRouteWithChildren
   '/plans': typeof PlansRoute
   '/subscription': typeof SubscriptionRoute
   '/tasks': typeof TasksRoute
   '/timeline': typeof TimelineRoute
   '/wallet': typeof WalletRouteWithChildren
   '/a/$slug': typeof ASlugRoute
+  '/office/salaries': typeof OfficeSalariesRoute
+  '/office/staff': typeof OfficeStaffRoute
+  '/office/work': typeof OfficeWorkRoute
+  '/plan/$planId': typeof PlanPlanIdRoute
   '/wallet/approvals': typeof WalletApprovalsRoute
   '/wallet/transactions': typeof WalletTransactionsRoute
+  '/office/': typeof OfficeIndexRoute
   '/wallet/': typeof WalletIndexRoute
 }
 export interface FileRoutesByTo {
@@ -138,8 +180,13 @@ export interface FileRoutesByTo {
   '/tasks': typeof TasksRoute
   '/timeline': typeof TimelineRoute
   '/a/$slug': typeof ASlugRoute
+  '/office/salaries': typeof OfficeSalariesRoute
+  '/office/staff': typeof OfficeStaffRoute
+  '/office/work': typeof OfficeWorkRoute
+  '/plan/$planId': typeof PlanPlanIdRoute
   '/wallet/approvals': typeof WalletApprovalsRoute
   '/wallet/transactions': typeof WalletTransactionsRoute
+  '/office': typeof OfficeIndexRoute
   '/wallet': typeof WalletIndexRoute
 }
 export interface FileRoutesById {
@@ -151,14 +198,20 @@ export interface FileRoutesById {
   '/events': typeof EventsRoute
   '/instructions': typeof InstructionsRoute
   '/messages': typeof MessagesRoute
+  '/office': typeof OfficeRouteWithChildren
   '/plans': typeof PlansRoute
   '/subscription': typeof SubscriptionRoute
   '/tasks': typeof TasksRoute
   '/timeline': typeof TimelineRoute
   '/wallet': typeof WalletRouteWithChildren
   '/a/$slug': typeof ASlugRoute
+  '/office/salaries': typeof OfficeSalariesRoute
+  '/office/staff': typeof OfficeStaffRoute
+  '/office/work': typeof OfficeWorkRoute
+  '/plan/$planId': typeof PlanPlanIdRoute
   '/wallet/approvals': typeof WalletApprovalsRoute
   '/wallet/transactions': typeof WalletTransactionsRoute
+  '/office/': typeof OfficeIndexRoute
   '/wallet/': typeof WalletIndexRoute
 }
 export interface FileRouteTypes {
@@ -171,14 +224,20 @@ export interface FileRouteTypes {
     | '/events'
     | '/instructions'
     | '/messages'
+    | '/office'
     | '/plans'
     | '/subscription'
     | '/tasks'
     | '/timeline'
     | '/wallet'
     | '/a/$slug'
+    | '/office/salaries'
+    | '/office/staff'
+    | '/office/work'
+    | '/plan/$planId'
     | '/wallet/approvals'
     | '/wallet/transactions'
+    | '/office/'
     | '/wallet/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -194,8 +253,13 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/timeline'
     | '/a/$slug'
+    | '/office/salaries'
+    | '/office/staff'
+    | '/office/work'
+    | '/plan/$planId'
     | '/wallet/approvals'
     | '/wallet/transactions'
+    | '/office'
     | '/wallet'
   id:
     | '__root__'
@@ -206,14 +270,20 @@ export interface FileRouteTypes {
     | '/events'
     | '/instructions'
     | '/messages'
+    | '/office'
     | '/plans'
     | '/subscription'
     | '/tasks'
     | '/timeline'
     | '/wallet'
     | '/a/$slug'
+    | '/office/salaries'
+    | '/office/staff'
+    | '/office/work'
+    | '/plan/$planId'
     | '/wallet/approvals'
     | '/wallet/transactions'
+    | '/office/'
     | '/wallet/'
   fileRoutesById: FileRoutesById
 }
@@ -225,12 +295,14 @@ export interface RootRouteChildren {
   EventsRoute: typeof EventsRoute
   InstructionsRoute: typeof InstructionsRoute
   MessagesRoute: typeof MessagesRoute
+  OfficeRoute: typeof OfficeRouteWithChildren
   PlansRoute: typeof PlansRoute
   SubscriptionRoute: typeof SubscriptionRoute
   TasksRoute: typeof TasksRoute
   TimelineRoute: typeof TimelineRoute
   WalletRoute: typeof WalletRouteWithChildren
   ASlugRoute: typeof ASlugRoute
+  PlanPlanIdRoute: typeof PlanPlanIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -284,6 +356,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MessagesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/office': {
+      id: '/office'
+      path: '/office'
+      fullPath: '/office'
+      preLoaderRoute: typeof OfficeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/plans': {
       id: '/plans'
       path: '/plans'
@@ -326,6 +405,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ASlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/office/': {
+      id: '/office/'
+      path: '/'
+      fullPath: '/office/'
+      preLoaderRoute: typeof OfficeIndexRouteImport
+      parentRoute: typeof OfficeRoute
+    }
+    '/office/salaries': {
+      id: '/office/salaries'
+      path: '/salaries'
+      fullPath: '/office/salaries'
+      preLoaderRoute: typeof OfficeSalariesRouteImport
+      parentRoute: typeof OfficeRoute
+    }
+    '/office/staff': {
+      id: '/office/staff'
+      path: '/staff'
+      fullPath: '/office/staff'
+      preLoaderRoute: typeof OfficeStaffRouteImport
+      parentRoute: typeof OfficeRoute
+    }
+    '/office/work': {
+      id: '/office/work'
+      path: '/work'
+      fullPath: '/office/work'
+      preLoaderRoute: typeof OfficeWorkRouteImport
+      parentRoute: typeof OfficeRoute
+    }
+    '/plan/$planId': {
+      id: '/plan/$planId'
+      path: '/plan/$planId'
+      fullPath: '/plan/$planId'
+      preLoaderRoute: typeof PlanPlanIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/wallet/': {
       id: '/wallet/'
       path: '/'
@@ -350,6 +464,23 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface OfficeRouteChildren {
+  OfficeSalariesRoute: typeof OfficeSalariesRoute
+  OfficeStaffRoute: typeof OfficeStaffRoute
+  OfficeWorkRoute: typeof OfficeWorkRoute
+  OfficeIndexRoute: typeof OfficeIndexRoute
+}
+
+const OfficeRouteChildren: OfficeRouteChildren = {
+  OfficeSalariesRoute: OfficeSalariesRoute,
+  OfficeStaffRoute: OfficeStaffRoute,
+  OfficeWorkRoute: OfficeWorkRoute,
+  OfficeIndexRoute: OfficeIndexRoute,
+}
+
+const OfficeRouteWithChildren =
+  OfficeRoute._addFileChildren(OfficeRouteChildren)
+
 interface WalletRouteChildren {
   WalletApprovalsRoute: typeof WalletApprovalsRoute
   WalletTransactionsRoute: typeof WalletTransactionsRoute
@@ -373,12 +504,14 @@ const rootRouteChildren: RootRouteChildren = {
   EventsRoute: EventsRoute,
   InstructionsRoute: InstructionsRoute,
   MessagesRoute: MessagesRoute,
+  OfficeRoute: OfficeRouteWithChildren,
   PlansRoute: PlansRoute,
   SubscriptionRoute: SubscriptionRoute,
   TasksRoute: TasksRoute,
   TimelineRoute: TimelineRoute,
   WalletRoute: WalletRouteWithChildren,
   ASlugRoute: ASlugRoute,
+  PlanPlanIdRoute: PlanPlanIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
