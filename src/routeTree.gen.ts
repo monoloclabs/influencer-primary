@@ -23,6 +23,7 @@ import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as WalletRouteImport } from './routes/wallet'
 import { Route as ASlugRouteImport } from './routes/a.$slug'
+import { Route as OfficeIndexRouteImport } from './routes/office.index'
 import { Route as WalletIndexRouteImport } from './routes/wallet.index'
 import { Route as WalletApprovalsRouteImport } from './routes/wallet.approvals'
 import { Route as WalletTransactionsRouteImport } from './routes/wallet.transactions'
@@ -97,6 +98,11 @@ const ASlugRoute = ASlugRouteImport.update({
   path: '/a/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OfficeIndexRoute = OfficeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => OfficeRoute,
+} as any)
 const WalletIndexRoute = WalletIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -121,7 +127,7 @@ export interface FileRoutesByFullPath {
   '/events': typeof EventsRoute
   '/instructions': typeof InstructionsRoute
   '/messages': typeof MessagesRoute
-  '/office': typeof OfficeRoute
+  '/office': typeof OfficeRouteWithChildren
   '/plans': typeof PlansRoute
   '/subscription': typeof SubscriptionRoute
   '/tasks': typeof TasksRoute
@@ -130,6 +136,7 @@ export interface FileRoutesByFullPath {
   '/a/$slug': typeof ASlugRoute
   '/wallet/approvals': typeof WalletApprovalsRoute
   '/wallet/transactions': typeof WalletTransactionsRoute
+  '/office/': typeof OfficeIndexRoute
   '/wallet/': typeof WalletIndexRoute
 }
 export interface FileRoutesByTo {
@@ -140,7 +147,6 @@ export interface FileRoutesByTo {
   '/events': typeof EventsRoute
   '/instructions': typeof InstructionsRoute
   '/messages': typeof MessagesRoute
-  '/office': typeof OfficeRoute
   '/plans': typeof PlansRoute
   '/subscription': typeof SubscriptionRoute
   '/tasks': typeof TasksRoute
@@ -148,6 +154,7 @@ export interface FileRoutesByTo {
   '/a/$slug': typeof ASlugRoute
   '/wallet/approvals': typeof WalletApprovalsRoute
   '/wallet/transactions': typeof WalletTransactionsRoute
+  '/office': typeof OfficeIndexRoute
   '/wallet': typeof WalletIndexRoute
 }
 export interface FileRoutesById {
@@ -159,7 +166,7 @@ export interface FileRoutesById {
   '/events': typeof EventsRoute
   '/instructions': typeof InstructionsRoute
   '/messages': typeof MessagesRoute
-  '/office': typeof OfficeRoute
+  '/office': typeof OfficeRouteWithChildren
   '/plans': typeof PlansRoute
   '/subscription': typeof SubscriptionRoute
   '/tasks': typeof TasksRoute
@@ -168,6 +175,7 @@ export interface FileRoutesById {
   '/a/$slug': typeof ASlugRoute
   '/wallet/approvals': typeof WalletApprovalsRoute
   '/wallet/transactions': typeof WalletTransactionsRoute
+  '/office/': typeof OfficeIndexRoute
   '/wallet/': typeof WalletIndexRoute
 }
 export interface FileRouteTypes {
@@ -189,6 +197,7 @@ export interface FileRouteTypes {
     | '/a/$slug'
     | '/wallet/approvals'
     | '/wallet/transactions'
+    | '/office/'
     | '/wallet/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -199,7 +208,6 @@ export interface FileRouteTypes {
     | '/events'
     | '/instructions'
     | '/messages'
-    | '/office'
     | '/plans'
     | '/subscription'
     | '/tasks'
@@ -207,6 +215,7 @@ export interface FileRouteTypes {
     | '/a/$slug'
     | '/wallet/approvals'
     | '/wallet/transactions'
+    | '/office'
     | '/wallet'
   id:
     | '__root__'
@@ -226,6 +235,7 @@ export interface FileRouteTypes {
     | '/a/$slug'
     | '/wallet/approvals'
     | '/wallet/transactions'
+    | '/office/'
     | '/wallet/'
   fileRoutesById: FileRoutesById
 }
@@ -237,7 +247,7 @@ export interface RootRouteChildren {
   EventsRoute: typeof EventsRoute
   InstructionsRoute: typeof InstructionsRoute
   MessagesRoute: typeof MessagesRoute
-  OfficeRoute: typeof OfficeRoute
+  OfficeRoute: typeof OfficeRouteWithChildren
   PlansRoute: typeof PlansRoute
   SubscriptionRoute: typeof SubscriptionRoute
   TasksRoute: typeof TasksRoute
@@ -346,6 +356,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ASlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/office/': {
+      id: '/office/'
+      path: '/'
+      fullPath: '/office/'
+      preLoaderRoute: typeof OfficeIndexRouteImport
+      parentRoute: typeof OfficeRoute
+    }
     '/wallet/': {
       id: '/wallet/'
       path: '/'
@@ -370,6 +387,17 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface OfficeRouteChildren {
+  OfficeIndexRoute: typeof OfficeIndexRoute
+}
+
+const OfficeRouteChildren: OfficeRouteChildren = {
+  OfficeIndexRoute: OfficeIndexRoute,
+}
+
+const OfficeRouteWithChildren =
+  OfficeRoute._addFileChildren(OfficeRouteChildren)
+
 interface WalletRouteChildren {
   WalletApprovalsRoute: typeof WalletApprovalsRoute
   WalletTransactionsRoute: typeof WalletTransactionsRoute
@@ -393,7 +421,7 @@ const rootRouteChildren: RootRouteChildren = {
   EventsRoute: EventsRoute,
   InstructionsRoute: InstructionsRoute,
   MessagesRoute: MessagesRoute,
-  OfficeRoute: OfficeRoute,
+  OfficeRoute: OfficeRouteWithChildren,
   PlansRoute: PlansRoute,
   SubscriptionRoute: SubscriptionRoute,
   TasksRoute: TasksRoute,
