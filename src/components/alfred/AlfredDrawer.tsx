@@ -41,8 +41,8 @@ const life: Item[] = [
   { label: "Tasks", icon: CheckCircle2, to: "/tasks", meta: "4 due today", blue: true },
   { label: "Reminders", icon: Bell, to: "/a/reminders", meta: "2 coming up", blue: true },
   { label: "Events", icon: CalendarDays, to: "/events", meta: "3 this week", blue: true },
-  { label: "Calendar", icon: Calendar, to: "/a/calendar", meta: "Your schedule" },
-  { label: "Files", icon: Folder, to: "/a/files", meta: "12 recent" },
+  { label: "Calendar", icon: Calendar, to: "/a/calendar", meta: "Your schedule", blue: true },
+  { label: "Files", icon: Folder, to: "/a/files", meta: "12 recent", blue: true },
 ];
 
 const workspace: Item[] = [
