@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { Link } from "@/components/alfred/ui";
 import {
   ArrowRight,
@@ -37,6 +38,8 @@ export const Route = createFileRoute("/")({
 const statIcons = { check: CheckCircle2, shield: ShieldCheck, bell: Bell, wallet: Wallet };
 
 function HomeScreen() {
+  const [handled, setHandled] = useState<string[]>([]);
+
   return (
     <AppShell title="Alfred">
       <p className="eyebrow text-primary">Tuesday · 1 September</p>
@@ -65,10 +68,12 @@ function HomeScreen() {
             </AButton>
           }
           primary={
-            <AButton size="lg">
-              {upNext.cta}
-              <ArrowRight className="h-4 w-4" strokeWidth={2.6} />
-            </AButton>
+            <Link to="/plan/p2" className="block">
+              <AButton size="lg" className="w-full">
+                {upNext.cta}
+                <ArrowRight className="h-4 w-4" strokeWidth={2.6} />
+              </AButton>
+            </Link>
           }
         />
       </div>
@@ -113,20 +118,38 @@ function HomeScreen() {
         }
       />
       <div className="space-y-2.5">
-        {approvals.map((a) => (
-          <Card key={a.id} className="flex items-center gap-3.5 p-4">
-            <IconBadge tone={a.tone} shape="round" size="md">
-              <ShieldCheck className="h-5 w-5" strokeWidth={2.2} />
-            </IconBadge>
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-[0.9375rem] font-bold">{a.title}</p>
-              <p className="truncate text-xs text-muted-foreground">{a.meta}</p>
-            </div>
-            <AButton size="sm" variant="secondary">
-              Approve
-            </AButton>
-          </Card>
-        ))}
+        {approvals.map((a) => {
+          const decided = handled.includes(a.id);
+          return (
+            <Card key={a.id} className="p-4">
+              <div className="flex items-center gap-3.5">
+                <IconBadge tone={a.tone} shape="round" size="md">
+                  <ShieldCheck className="h-5 w-5" strokeWidth={2.2} />
+                </IconBadge>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-[0.9375rem] font-bold">{a.title}</p>
+                  <p className="truncate text-xs text-muted-foreground">{a.meta}</p>
+                </div>
+                {decided && <Pill tone="green">Approved</Pill>}
+              </div>
+              {!decided && (
+                <ActionPair
+                  className="mt-3.5"
+                  secondary={
+                    <AButton size="md" variant="neutral" onClick={() => setHandled((h) => [...h, a.id])}>
+                      Decline
+                    </AButton>
+                  }
+                  primary={
+                    <AButton size="md" onClick={() => setHandled((h) => [...h, a.id])}>
+                      Approve
+                    </AButton>
+                  }
+                />
+              )}
+            </Card>
+          );
+        })}
       </div>
 
       {/* Tasks */}
