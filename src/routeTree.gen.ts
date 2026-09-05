@@ -16,6 +16,7 @@ import { Route as CreateRouteImport } from './routes/create'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as InstructionsRouteImport } from './routes/instructions'
 import { Route as MessagesRouteImport } from './routes/messages'
+import { Route as OfficeRouteImport } from './routes/office'
 import { Route as PlansRouteImport } from './routes/plans'
 import { Route as SubscriptionRouteImport } from './routes/subscription'
 import { Route as TasksRouteImport } from './routes/tasks'
@@ -59,6 +60,11 @@ const InstructionsRoute = InstructionsRouteImport.update({
 const MessagesRoute = MessagesRouteImport.update({
   id: '/messages',
   path: '/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfficeRoute = OfficeRouteImport.update({
+  id: '/office',
+  path: '/office',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlansRoute = PlansRouteImport.update({
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/events': typeof EventsRoute
   '/instructions': typeof InstructionsRoute
   '/messages': typeof MessagesRoute
+  '/office': typeof OfficeRoute
   '/plans': typeof PlansRoute
   '/subscription': typeof SubscriptionRoute
   '/tasks': typeof TasksRoute
@@ -133,6 +140,7 @@ export interface FileRoutesByTo {
   '/events': typeof EventsRoute
   '/instructions': typeof InstructionsRoute
   '/messages': typeof MessagesRoute
+  '/office': typeof OfficeRoute
   '/plans': typeof PlansRoute
   '/subscription': typeof SubscriptionRoute
   '/tasks': typeof TasksRoute
@@ -151,6 +159,7 @@ export interface FileRoutesById {
   '/events': typeof EventsRoute
   '/instructions': typeof InstructionsRoute
   '/messages': typeof MessagesRoute
+  '/office': typeof OfficeRoute
   '/plans': typeof PlansRoute
   '/subscription': typeof SubscriptionRoute
   '/tasks': typeof TasksRoute
@@ -171,6 +180,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/instructions'
     | '/messages'
+    | '/office'
     | '/plans'
     | '/subscription'
     | '/tasks'
@@ -189,6 +199,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/instructions'
     | '/messages'
+    | '/office'
     | '/plans'
     | '/subscription'
     | '/tasks'
@@ -206,6 +217,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/instructions'
     | '/messages'
+    | '/office'
     | '/plans'
     | '/subscription'
     | '/tasks'
@@ -225,6 +237,7 @@ export interface RootRouteChildren {
   EventsRoute: typeof EventsRoute
   InstructionsRoute: typeof InstructionsRoute
   MessagesRoute: typeof MessagesRoute
+  OfficeRoute: typeof OfficeRoute
   PlansRoute: typeof PlansRoute
   SubscriptionRoute: typeof SubscriptionRoute
   TasksRoute: typeof TasksRoute
@@ -282,6 +295,13 @@ declare module '@tanstack/react-router' {
       path: '/messages'
       fullPath: '/messages'
       preLoaderRoute: typeof MessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/office': {
+      id: '/office'
+      path: '/office'
+      fullPath: '/office'
+      preLoaderRoute: typeof OfficeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/plans': {
@@ -373,6 +393,7 @@ const rootRouteChildren: RootRouteChildren = {
   EventsRoute: EventsRoute,
   InstructionsRoute: InstructionsRoute,
   MessagesRoute: MessagesRoute,
+  OfficeRoute: OfficeRoute,
   PlansRoute: PlansRoute,
   SubscriptionRoute: SubscriptionRoute,
   TasksRoute: TasksRoute,
