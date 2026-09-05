@@ -242,7 +242,7 @@ export function AlfredDrawer({
               <p className="text-xs text-muted-foreground">People who matter</p>
             </Link>
             <Link
-              to="/a/my-office"
+              to="/office"
               onClick={close}
               className="rounded-3xl bg-tint-amber p-4 active:scale-[0.98]"
             >
