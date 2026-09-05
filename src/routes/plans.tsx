@@ -5,15 +5,13 @@ import {
   CheckCircle2,
   FileText,
   MapPin,
-  Plane,
   Plus,
   Sparkles,
-  UtensilsCrossed,
-  Cake,
   Users,
 } from "lucide-react";
 import { AppShell } from "@/components/alfred/AppShell";
 import { AButton, Card, IconBadge, Pill, SectionHeader } from "@/components/alfred/ui";
+import { plans } from "@/data/plans";
 
 export const Route = createFileRoute("/plans")({
   head: () => ({
@@ -28,8 +26,6 @@ export const Route = createFileRoute("/plans")({
   }),
   component: PlansScreen,
 });
-
-import { plans } from "@/data/plans";
 
 function PlansScreen() {
   return (
@@ -100,6 +96,12 @@ function PlansScreen() {
                 Notes & files
               </span>
             </div>
+
+            <Link to={`/plan/${p.id}`} className="mt-4 block">
+              <AButton variant="soft" size="md" className="w-full">
+                Open the plan
+              </AButton>
+            </Link>
           </Card>
         ))}
       </div>
