@@ -24,6 +24,7 @@ import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as WalletRouteImport } from './routes/wallet'
 import { Route as ASlugRouteImport } from './routes/a.$slug'
 import { Route as OfficeIndexRouteImport } from './routes/office.index'
+import { Route as OfficeStaffRouteImport } from './routes/office.staff'
 import { Route as WalletIndexRouteImport } from './routes/wallet.index'
 import { Route as WalletApprovalsRouteImport } from './routes/wallet.approvals'
 import { Route as WalletTransactionsRouteImport } from './routes/wallet.transactions'
@@ -103,6 +104,11 @@ const OfficeIndexRoute = OfficeIndexRouteImport.update({
   path: '/',
   getParentRoute: () => OfficeRoute,
 } as any)
+const OfficeStaffRoute = OfficeStaffRouteImport.update({
+  id: '/staff',
+  path: '/staff',
+  getParentRoute: () => OfficeRoute,
+} as any)
 const WalletIndexRoute = WalletIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -134,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/timeline': typeof TimelineRoute
   '/wallet': typeof WalletRouteWithChildren
   '/a/$slug': typeof ASlugRoute
+  '/office/staff': typeof OfficeStaffRoute
   '/wallet/approvals': typeof WalletApprovalsRoute
   '/wallet/transactions': typeof WalletTransactionsRoute
   '/office/': typeof OfficeIndexRoute
@@ -152,6 +159,7 @@ export interface FileRoutesByTo {
   '/tasks': typeof TasksRoute
   '/timeline': typeof TimelineRoute
   '/a/$slug': typeof ASlugRoute
+  '/office/staff': typeof OfficeStaffRoute
   '/wallet/approvals': typeof WalletApprovalsRoute
   '/wallet/transactions': typeof WalletTransactionsRoute
   '/office': typeof OfficeIndexRoute
@@ -173,6 +181,7 @@ export interface FileRoutesById {
   '/timeline': typeof TimelineRoute
   '/wallet': typeof WalletRouteWithChildren
   '/a/$slug': typeof ASlugRoute
+  '/office/staff': typeof OfficeStaffRoute
   '/wallet/approvals': typeof WalletApprovalsRoute
   '/wallet/transactions': typeof WalletTransactionsRoute
   '/office/': typeof OfficeIndexRoute
@@ -195,6 +204,7 @@ export interface FileRouteTypes {
     | '/timeline'
     | '/wallet'
     | '/a/$slug'
+    | '/office/staff'
     | '/wallet/approvals'
     | '/wallet/transactions'
     | '/office/'
@@ -213,6 +223,7 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/timeline'
     | '/a/$slug'
+    | '/office/staff'
     | '/wallet/approvals'
     | '/wallet/transactions'
     | '/office'
@@ -233,6 +244,7 @@ export interface FileRouteTypes {
     | '/timeline'
     | '/wallet'
     | '/a/$slug'
+    | '/office/staff'
     | '/wallet/approvals'
     | '/wallet/transactions'
     | '/office/'
@@ -363,6 +375,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OfficeIndexRouteImport
       parentRoute: typeof OfficeRoute
     }
+    '/office/staff': {
+      id: '/office/staff'
+      path: '/staff'
+      fullPath: '/office/staff'
+      preLoaderRoute: typeof OfficeStaffRouteImport
+      parentRoute: typeof OfficeRoute
+    }
     '/wallet/': {
       id: '/wallet/'
       path: '/'
@@ -388,10 +407,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface OfficeRouteChildren {
+  OfficeStaffRoute: typeof OfficeStaffRoute
   OfficeIndexRoute: typeof OfficeIndexRoute
 }
 
 const OfficeRouteChildren: OfficeRouteChildren = {
+  OfficeStaffRoute: OfficeStaffRoute,
   OfficeIndexRoute: OfficeIndexRoute,
 }
 
