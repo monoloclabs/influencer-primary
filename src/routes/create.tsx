@@ -88,7 +88,7 @@ function CreateScreen() {
         ))}
       </Card>
 
-      <p className="eyebrow mt-8 mb-3 px-1 text-primary">Life work items</p>
+      <p className="eyebrow mt-8 mb-3 px-1 text-primary">Business items</p>
       <div className="space-y-3">
         {work.map((w) => (
           <button
