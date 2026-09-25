@@ -1,47 +1,63 @@
-# Alfred UI Update & Navigation Refinement
+# INFLUENCER Offer and Activation Refinement
 
 ## Goal
-Refine the existing Alfred mobile UI without changing its established white, orange/blue, rounded, spacious visual language. The update will separate life Plans from Alfred Subscription, strengthen the financial experience, and simplify schedule/navigation patterns.
+Refine the existing INFLUENCER prototype in place so received brand offers, accepted campaigns, and creator-run Activations form one coherent flow. Preserve the current mobile visual system, five-tab app navigation, reusable UI components, static demo approach, and contained Wallet/Office experiences.
 
 ## Implementation
 
-### 1. Navigation and app shell
-- Replace bottom tabs with **Home, Plans, Transactions, Approvals, Assistant** and highlight them by route.
-- Add a centered floating orange **+** action above the nav that opens the existing Create experience; retain `/create` as the underlying flow but no longer present it as a destination tab.
-- Update the top brand treatment to an orange **Alfred** wordmark with a small tie mark while preserving menu and notification controls.
-- Keep safe-area spacing, fixed mobile navigation, and existing app width behavior.
+### 1. Global shell and shared identity marks
+- Replace the top-left hamburger with a compact text **MENU** control and the top-right bell with a curved messages/chat icon; keep the opened drawer free of any MENU label.
+- Preserve the existing Dashboard, Timeline, Campaigns, Approvals, Assistant bottom navigation and floating Create action.
+- Add reusable `BrandMark` and `PlatformMark` components backed by a reputable brand-icon set, with accessible labels and graceful fallback marks.
+- Cover Gymshark, Spotify, Notion, Sephora, Apple Music, Instagram, TikTok, YouTube, Facebook, and any other platform present in the demo data.
 
-### 2. Side drawer restructuring
-- **Life:** Tasks, Reminders, Events, Calendar, Files in one divided card, with short deltas, blue treatment for Tasks/Reminders/Events, and no chevrons.
-- **Money:** exactly Wallet, Purchases, Subscription; each as its own rounded card with larger uncontained icons and concise deltas. Rename membership references from Plans to Subscription.
-- **Account:** clean uncontained rows for Profile, Subscription, What’s new, Invite friend, Settings, Support; orange ACCOUNT heading; simple red Logout row with door icon and no container.
-- **Discover:** orange outlined Discover and blue Research using a book/reference icon.
-- Preserve unrelated drawer groups and add unobtrusive Standard/Premium lock cues only where Money/My Office access is communicated.
+### 2. Shared prototype state and commercial data
+- Keep `Campaign` as the brand-owned deal/brief and extend the existing influencer data with typed platform identifiers plus `Activation`, activation status, content items, dates, steps, and campaign references.
+- Add a small client-side prototype state provider so accepting or declining an offer persists while navigating among Dashboard, Approvals, Campaigns, campaign detail, and Activations during the current session.
+- Transition accepted offers to the existing next commercial state (`pending_approval`), hide resolved offers from pending queues, and prevent activation creation until a campaign is accepted.
+- Keep all data static and local; add no authentication, backend, API, or AI integration.
 
-### 3. Plans and Events
-- Add a dedicated **Plans** destination showing substantial life-plan containers with dates, people, bookings, tasks, reminders, notes/files, locations, and Alfred actions.
-- Add “Plan” to the existing Create flow so plans can be started manually; keep Assistant language capable of creating plans.
-- Replace the Events placeholder with a focused scheduled-happenings screen, showing event time and optional parent Plan so Events and Plans remain clearly distinct.
+### 3. Dashboard and Campaigns
+- Update Dashboard money details: Earnings shows `+$5,760 last payout` in positive green, and the `$13,500` pending-payment value uses the same positive treatment.
+- Change compact brand-offer actions to **Open** plus a wider **Accept**; Open uses the existing generic `/plan/$planId` route, while Decline remains exclusive to offer detail.
+- Remove embedded Ask AI controls from Campaigns and Approvals.
+- Use brand marks on campaign cards, platform marks on platform-specific summary/deliverable rows, green gross fees, and shared blue treatment for net values and the existing Offers vs campaigns explanation.
+- Retain text-only commercial requirements such as paid usage rather than forcing a platform logo onto them.
 
-### 4. Wallet and financial screens
-- Refine Wallet around a dominant, correctly proportioned debit card with semantic warm-orange aurora/iridescent tokens, crisp dark details, and restrained peach/gold/amber light shifts.
-- Add balanced **Withdraw, Top up, Controls** actions beneath the card.
-- Create a bottom-nav **Transactions** screen with working **History | Subscriptions** tabs for transaction history and recurring subscription management.
-- Refine Approvals around payment/booking authorization examples while preserving approve/decline interactions and the shared 1:2 secondary/primary CTA layout.
-- Add a clear Alfred **Subscription** tier view (Free, Standard, Premium) where Standard unlocks Money and Premium unlocks My Office, without turning pricing into a primary app destination.
+### 4. Approvals and status-aware campaign detail
+- Refine brand-offer approval cards into compact, openable cards showing offer type, brand, title, concise meta, value, and **Open / Accept** actions.
+- Preserve suitable decision actions for contract-term and content-revision approvals instead of applying offer-only behavior to every item.
+- Refactor `/plan/$planId` into one generic, data-populated detail screen:
+  - Offers are clearly titled and labeled as offers, retain the rich brief/payment/deliverable/document overview, show a reminder bell, remove edit and wallet actions, and use a fixed **Decline / Accept** action bar.
+  - Accepted, active, completed, and payment-stage campaigns remain read-only records with a reminder bell and no editing language.
+  - Accepted campaigns expose **Start activation** or **Open activation** when eligible.
+- Keep Share where useful, but remove all creator editing of received campaign terms.
 
-### 5. Timeline and Home schedule
-- Replace the connected-line Timeline with a clean date-grouped chronological list, no line and no dots.
-- Add a compact calendar jump action near the schedule heading.
-- Refine Home’s upcoming schedule presentation using the existing Alfred cards, spacing, and orange/blue hierarchy while keeping Home the nerve center.
+### 5. Activations execution workspace
+- Add **Activations** to the drawer’s existing DESK grid without changing the drawer’s overall information architecture.
+- Add **New activation** beside Campaign in Create’s Business Items, described as the creator execution plan for an accepted campaign.
+- Build `/activations` as a data-driven list of activation cards tied only to accepted campaigns, showing campaign reference, platforms, content pieces, schedule, production status, and next steps.
+- Build one generic `/activation/$activationId` detail route for all activation records; do not create per-brand pages.
+- Add a compact bottom-sheet creation prototype with campaign selection, platforms, content, dates, and notes. Disable or omit offer-stage campaigns so unaccepted offers cannot create activations.
 
-### 6. Data, metadata, and validation
-- Extend static demo data only where needed for plans, events, transactions, subscriptions, approvals, and schedule examples.
-- Give every new content route unique Alfred-specific title, description, Open Graph metadata, `og:type`, and `twitter:card`; complete missing social metadata on touched routes.
-- Verify routing and interactions in the live app at mobile and desktop widths, including drawer rows, floating Create entry, tabs, approvals, wallet actions, and no content/nav overlap.
+### 6. Wallet terminology and metadata cleanup
+- Preserve Wallet’s separate three-item bottom navigation and avoid introducing global app navigation there.
+- Remove any obsolete `CD` pill/action only if it exists, and update stale Alfred wording in touched Wallet shell/routes and global metadata to INFLUENCER terminology without redesigning Wallet or Office.
+- Keep existing wallet actions and contained behavior otherwise unchanged.
+
+### 7. Validation
+- Check every added or touched content route for unique INFLUENCER title, description, Open Graph title/description/type, and Twitter card metadata.
+- Verify `/`, `/plans`, `/messages`, `/plan/c2`, `/activations`, `/activation/<id>`, `/create`, drawer navigation, and Wallet at mobile and desktop widths.
+- Confirm offer acceptance/decline propagation, activation eligibility, fixed action bars, brand/platform marks, no navigation overlap, no broken links, and no TypeScript, build, console, or runtime errors.
 
 ## Technical details
-- Reuse `AppShell`, `AButton`, `ActionPair`, `Card`, `IconBadge`, `Pill`, TanStack Router links, Lucide icons, and current semantic color tokens.
-- Add warm aurora card colors as global semantic tokens/utilities rather than hardcoded component colors.
-- Keep all bottom sheets bottom-anchored and preserve the existing 1:2 action-row layout.
-- Do not embed the supplied screenshots; use them only as component-level visual references.
+- Reuse `AppShell`, `ActionPair`, `Card`, `Pill`, `IconBadge`, existing sheets, semantic color tokens, and current spacing/radii.
+- Use TanStack Router `Link` with route params for dynamic campaign and activation navigation; create both activation route files in the same change so route generation stays valid.
+- Use the existing ActionPair 1:2 proportions for Open/Accept and Decline/Accept actions.
+- Prefer a small React context for prototype decisions over storage or server persistence; initial SSR and client state remain deterministic.
+- Keep brand/platform icons monochrome and token-colored so official shapes remain recognizable without disrupting the existing palette.
+
+## Assumptions
+- Accepting an offer moves it to `pending_approval`, matching the existing lifecycle and copy; declining moves it to `declined`.
+- Existing accepted campaign records may open pre-seeded activations; eligible records without one show Start activation.
+- “CD” will only be removed if found in the current Wallet implementation; no replacement control will be invented.
