@@ -1,16 +1,16 @@
 import { useRouterState } from "@tanstack/react-router";
 import { Link } from "@/components/alfred/ui";
-import { Bell, Home, CalendarClock, MessageSquare, Sparkles, Menu, Plus, Route as RouteIcon } from "lucide-react";
+import { Bell, LayoutGrid, CalendarClock, FileCheck2, Sparkles, Menu, Plus, Briefcase } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { AlfredDrawer } from "./AlfredDrawer";
-import { TieMark } from "./TieMark";
+import { InfluencerMark } from "./InfluencerMark";
 
 const tabs = [
-  { to: "/", label: "Home", icon: Home },
+  { to: "/", label: "Dashboard", icon: LayoutGrid },
   { to: "/timeline", label: "Timeline", icon: CalendarClock },
-  { to: "/plans", label: "Plans", icon: RouteIcon },
-  { to: "/messages", label: "Messages", icon: MessageSquare, dot: true },
+  { to: "/plans", label: "Campaigns", icon: Briefcase },
+  { to: "/messages", label: "Approvals", icon: FileCheck2, dot: true },
   { to: "/assistant", label: "Assistant", icon: Sparkles },
 ] as const;
 
@@ -28,9 +28,9 @@ export function AppShell({ title, children }: { title: string; children: ReactNo
         >
           <Menu className="h-5 w-5" strokeWidth={2.4} />
         </button>
-        <h1 className="flex min-w-0 items-center justify-center gap-1.5 text-base font-bold text-primary">
-          <TieMark className="h-[1.05rem] w-[1.05rem] shrink-0" />
-          <span className="truncate">Alfred</span>
+        <h1 className="flex min-w-0 items-center justify-center gap-1.5 text-base font-bold tracking-tight text-primary">
+          <span className="truncate">INFLUENCER</span>
+          <InfluencerMark className="h-[1.15rem] w-[1.15rem] shrink-0" />
           <span className="sr-only">— {title}</span>
         </h1>
         <button
