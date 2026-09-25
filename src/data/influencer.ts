@@ -270,7 +270,12 @@ export const upcomingDeliverables = [
   { id: "u3", when: "20 Oct", title: "TikTok — 5 lifts, 5 cues", brand: "Gymshark", tone: "violet" as const, tag: "TikTok" },
 ];
 
-export const transactions = [
+export type TimelineGroup = {
+  day: string;
+  items: { id: string; time: string; title: string; meta: string; tone: PillTone; tag: string; amount?: string }[];
+};
+
+export const transactions: TimelineGroup[] = [
   {
     day: "This week",
     items: [
@@ -289,7 +294,7 @@ export const transactions = [
   },
 ];
 
-export const campaignEvents: { day: string; items: { id: string; time: string; title: string; meta: string; tone: PillTone; tag: string }[] }[] = [
+export const campaignEvents: TimelineGroup[] = [
   {
     day: "This week",
     items: [

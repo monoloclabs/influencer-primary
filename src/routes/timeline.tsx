@@ -92,7 +92,7 @@ function TimelineScreen() {
                       <Pill tone={item.tone}>{item.tag}</Pill>
                     </span>
                   </span>
-                  {"amount" in item && (
+                  {item.amount && (
                     <span
                       className={cn(
                         "shrink-0 pt-0.5 text-sm font-extrabold tabular-nums",
