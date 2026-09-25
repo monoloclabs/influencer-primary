@@ -23,7 +23,7 @@ const platformIcons: Record<string, SimpleIcon | undefined> = {
   YouTube: siYoutube,
 };
 
-function SimpleMark({ icon, label, className }: { icon: SimpleIcon; label: string; className?: string }) {
+function SimpleMark({ icon, label, className }: { icon: SimpleIcon; label: string; className: string | undefined }) {
   return (
     <svg
       aria-label={label}
