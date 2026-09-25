@@ -6,27 +6,27 @@ import {
   CalendarDays,
   CheckCircle2,
   FileText,
-  MapPin,
   Pencil,
   Share2,
   Sparkles,
-  Users,
+  UserRound,
+  Wallet,
 } from "lucide-react";
 import { AButton, ActionPair, Card, IconBadge, Pill, SectionHeader } from "@/components/alfred/ui";
-import { getPlan } from "@/data/plans";
+import { getCampaign, statusMeta } from "@/data/influencer";
 
 export const Route = createFileRoute("/plan/$planId")({
   loader: ({ params }) => {
-    const plan = getPlan(params.planId);
-    if (!plan) throw notFound();
-    return { title: plan.title, when: plan.when };
+    const campaign = getCampaign(params.planId);
+    if (!campaign) throw notFound();
+    return { title: campaign.title, brand: campaign.brand, window: campaign.window };
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Plan unavailable — Alfred" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Campaign unavailable — INFLUENCER" }, { name: "robots", content: "noindex" }] };
     }
-    const title = `${loaderData.title} — Alfred plan`;
-    const description = `${loaderData.title}: ${loaderData.when}. Every date, booking, task and person in one plan.`;
+    const title = `${loaderData.brand} — ${loaderData.title}`;
+    const description = `${loaderData.brand}: ${loaderData.title}, ${loaderData.window}. Deliverables, deadlines, fee and payment terms in one brief.`;
     return {
       meta: [
         { title },
@@ -38,46 +38,47 @@ export const Route = createFileRoute("/plan/$planId")({
       ],
     };
   },
-  notFoundComponent: PlanNotFound,
-  component: PlanDetailScreen,
+  notFoundComponent: CampaignNotFound,
+  component: CampaignDetailScreen,
 });
 
-function PlanNotFound() {
+function CampaignNotFound() {
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[520px] flex-col items-center justify-center gap-4 px-6 text-center">
-      <h1 className="text-xl font-extrabold">That plan isn't here</h1>
-      <p className="text-sm text-muted-foreground">It may have been removed or renamed.</p>
+      <h1 className="text-xl font-extrabold">That campaign isn't here</h1>
+      <p className="text-sm text-muted-foreground">It may have been withdrawn or renamed.</p>
       <Link to="/plans">
-        <AButton size="lg">Back to plans</AButton>
+        <AButton size="lg">Back to campaigns</AButton>
       </Link>
     </div>
   );
 }
 
-function PlanDetailScreen() {
+function CampaignDetailScreen() {
   const { planId } = useParams({ from: "/plan/$planId" });
-  const plan = getPlan(planId)!;
+  const campaign = getCampaign(planId)!;
   const [editing, setEditing] = useState(false);
   const [shared, setShared] = useState(false);
-  const Icon = plan.icon;
+  const Icon = campaign.icon;
+  const status = statusMeta[campaign.status];
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[520px] flex-col bg-background">
       <header className="sticky top-0 z-30 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 bg-background/85 px-5 pt-4 pb-3 backdrop-blur-xl">
         <Link
           to="/plans"
-          aria-label="Back to plans"
+          aria-label="Back to campaigns"
           className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card shadow-card"
         >
           <ArrowLeft className="h-5 w-5" strokeWidth={2.4} />
         </Link>
         <h1 className="truncate text-center text-base font-bold">
-          {editing ? "Editing plan" : "Plan"}
+          {editing ? "Editing campaign" : "Campaign"}
         </h1>
         <div className="flex items-center gap-2">
           {!editing && (
             <button
-              aria-label="Share plan"
+              aria-label="Share campaign"
               onClick={() => setShared(true)}
               className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card shadow-card"
             >
@@ -85,7 +86,7 @@ function PlanDetailScreen() {
             </button>
           )}
           <button
-            aria-label="Edit plan"
+            aria-label="Edit campaign"
             onClick={() => setEditing(true)}
             className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-primary-soft"
           >
@@ -96,31 +97,28 @@ function PlanDetailScreen() {
 
       <main className="flex-1 px-5 pb-40">
         <div className="flex items-start gap-3.5">
-          <IconBadge tone={plan.tone} shape="squircle" size="lg">
+          <IconBadge tone={campaign.tone} shape="squircle" size="lg">
             <Icon className="h-6 w-6" strokeWidth={2.1} />
           </IconBadge>
           <div className="min-w-0 flex-1">
-            <h2 className="text-[1.75rem] leading-tight font-extrabold">{plan.title}</h2>
+            <p className="text-xs font-bold text-muted-foreground">{campaign.brand}</p>
+            <h2 className="text-[1.75rem] leading-tight font-extrabold">{campaign.title}</h2>
             <p className="mt-1 flex items-center gap-1.5 text-sm font-semibold text-muted-foreground">
               <CalendarDays className="h-4 w-4" strokeWidth={2.3} />
-              {plan.when}
+              {campaign.window}
             </p>
             <p className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
-              <MapPin className="h-4 w-4" strokeWidth={2.3} />
-              {plan.where}
-            </p>
-            <p className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
-              <Users className="h-4 w-4" strokeWidth={2.3} />
-              {plan.people}
+              <UserRound className="h-4 w-4" strokeWidth={2.3} />
+              {campaign.contact}
             </p>
           </div>
-          <Pill tone={plan.tone}>{plan.progress}</Pill>
+          <Pill tone={status.tone}>{status.label}</Pill>
         </div>
 
         {editing && (
           <div className="mt-5 rounded-3xl bg-tint-blue p-4">
             <p className="text-sm font-semibold text-tint-blue-foreground">
-              You're editing this plan. Change what you need, then save your changes below.
+              You're editing this campaign. Change what you need, then save your changes below.
             </p>
           </div>
         )}
@@ -128,44 +126,64 @@ function PlanDetailScreen() {
         {shared && !editing && (
           <div className="mt-5 rounded-3xl bg-primary-soft p-4">
             <p className="text-sm font-semibold text-primary">
-              Sharing is coming soon — this will open your phone's share sheet.
+              Sharing is coming soon — this will send a read-only campaign brief.
             </p>
           </div>
         )}
 
         <div className="mt-5 rounded-3xl bg-surface px-4 py-3.5">
-          <p className="text-sm leading-snug font-semibold">{plan.note}</p>
+          <p className="text-sm leading-snug font-semibold">{campaign.brief}</p>
         </div>
 
-        <SectionHeader className="mt-8 mb-3" title="Itinerary" />
+        <SectionHeader className="mt-8 mb-3" title="Payment" />
+        <Card className="p-0">
+          <div className="divide-y divide-border/70">
+            {[
+              { label: "Gross fee", value: campaign.fee },
+              { label: "Fees", value: campaign.fees },
+              { label: "Net to you", value: campaign.net },
+              { label: "Terms", value: campaign.terms },
+            ].map((row) => (
+              <div key={row.label} className="flex items-center justify-between gap-4 px-4 py-3.5">
+                <span className="text-sm font-semibold text-muted-foreground">{row.label}</span>
+                <span className="text-right text-[0.9375rem] font-extrabold">{row.value}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <SectionHeader className="mt-8 mb-3" title="Deliverables" />
         <Card className="divide-y divide-border/70 p-0">
-          {plan.itinerary.map((i) => (
-            <div key={i.id} className="flex items-start gap-4 px-4 py-4">
-              <span className="w-16 shrink-0 pt-0.5 text-sm font-extrabold tabular-nums">{i.time}</span>
+          {campaign.deliverables.map((d) => (
+            <div key={d.id} className="flex items-start gap-4 px-4 py-4">
+              <span className="w-14 shrink-0 pt-0.5 text-sm font-extrabold tabular-nums">{d.due}</span>
               <span className="min-w-0 flex-1">
-                <span className="block text-[0.9375rem] leading-snug font-bold">{i.title}</span>
-                <span className="mt-0.5 block text-xs text-muted-foreground">{i.meta}</span>
+                <span className="block text-[0.9375rem] leading-snug font-bold">{d.title}</span>
+                <span className="block text-xs text-muted-foreground">{d.platform}</span>
               </span>
+              <Pill tone={d.state === "Live" || d.state === "Approved" ? "green" : d.state === "Submitted" ? "amber" : d.state === "Drafted" ? "orange" : "neutral"}>
+                {d.state}
+              </Pill>
             </div>
           ))}
         </Card>
 
-        <SectionHeader className="mt-8 mb-3" title="Tasks in this plan" />
+        <SectionHeader className="mt-8 mb-3" title="Content requirements" />
         <Card className="divide-y divide-border/70 p-0">
-          {plan.tasks.map((t) => (
-            <div key={t.id} className="flex items-center gap-3.5 px-4 py-3.5">
+          {campaign.requirements.map((r) => (
+            <div key={r.id} className="flex items-center gap-3.5 px-4 py-3.5">
               <CheckCircle2 className="h-5 w-5 shrink-0 text-muted-foreground" strokeWidth={2.2} />
               <span className="min-w-0 flex-1">
-                <span className="block truncate text-[0.9375rem] font-semibold">{t.title}</span>
-                <span className="block truncate text-xs text-muted-foreground">{t.meta}</span>
+                <span className="block truncate text-[0.9375rem] font-semibold">{r.title}</span>
+                <span className="block truncate text-xs text-muted-foreground">{r.meta}</span>
               </span>
             </div>
           ))}
         </Card>
 
-        <SectionHeader className="mt-8 mb-3" title="Notes & files" />
+        <SectionHeader className="mt-8 mb-3" title="Brief & documents" />
         <Card className="space-y-2.5 p-4">
-          {plan.files.map((f) => (
+          {campaign.files.map((f) => (
             <div key={f} className="flex items-center gap-3 rounded-2xl bg-surface px-3.5 py-2.5">
               <FileText className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={2.2} />
               <span className="truncate text-[0.8125rem] font-semibold">{f}</span>
@@ -175,8 +193,17 @@ function PlanDetailScreen() {
 
         <div className="mt-8 flex items-center gap-2 rounded-3xl bg-primary-soft px-4 py-3.5">
           <Sparkles className="h-4 w-4 shrink-0 text-primary" strokeWidth={2.4} />
-          <span className="text-sm font-semibold">{plan.alfred}</span>
+          <span className="text-sm font-semibold">{campaign.nudge}</span>
         </div>
+
+        {!editing && (
+          <Link to="/wallet" className="mt-4 block">
+            <AButton variant="soft" size="lg" className="w-full">
+              <Wallet className="h-4 w-4" strokeWidth={2.4} />
+              See this in your wallet
+            </AButton>
+          </Link>
+        )}
       </main>
 
       {editing && (

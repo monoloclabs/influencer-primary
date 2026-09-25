@@ -3,74 +3,89 @@ import { useState } from "react";
 import { Link } from "@/components/alfred/ui";
 import {
   ArrowRight,
-  Bell,
-  CheckCircle2,
+  Briefcase,
   ChevronRight,
+  Clock4,
+  FileCheck2,
   ShieldCheck,
-  Wallet,
   Sparkles,
-  UtensilsCrossed,
-  MessageSquare,
+  Wallet,
 } from "lucide-react";
 import { AppShell } from "@/components/alfred/AppShell";
 import { AButton, ActionPair, Card, IconBadge, Pill, SectionHeader } from "@/components/alfred/ui";
-import { alfredActivity, approvals, events, messages, tasks, upNext, user } from "@/data/alfred";
+import {
+  approvalQueue,
+  campaignEvents,
+  creator,
+  dashboardStats,
+  heroCampaign,
+  statusMeta,
+  upcomingDeliverables,
+} from "@/data/influencer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Alfred — Your personal life OS" },
+      { title: "INFLUENCER — Your creator business, in one place" },
       {
         name: "description",
         content:
-          "Alfred keeps track of your tasks, reminders, money and people, and quietly handles the rest of everyday life.",
+          "Track brand campaigns, deliverables, approvals and earnings from one creator command centre.",
       },
-      { property: "og:title", content: "Alfred — Your personal life OS" },
+      { property: "og:title", content: "INFLUENCER — Your creator business, in one place" },
       {
         property: "og:description",
-        content: "A calm personal operating system for tasks, reminders, money and everyday life.",
+        content: "Brand deals, deliverables, decisions and payouts in one calm mobile dashboard.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
-  component: HomeScreen,
+  component: DashboardScreen,
 });
 
-const statIcons = { check: CheckCircle2, shield: ShieldCheck, bell: Bell, wallet: Wallet };
+const statIcons = { wallet: Wallet, briefcase: Briefcase, shield: ShieldCheck, clock: Clock4 };
 
-function HomeScreen() {
-  const [handled, setHandled] = useState<string[]>([]);
+function DashboardScreen() {
+  const [decided, setDecided] = useState<Record<string, "accepted" | "declined">>({});
+  const hero = heroCampaign;
+  const HeroIcon = hero.icon;
 
   return (
-    <AppShell title="Alfred">
-      <p className="eyebrow text-primary">Tuesday · 1 September</p>
-      <h2 className="mt-1.5 text-[2rem] leading-[1.1] font-extrabold">Good evening, {user.name}</h2>
+    <AppShell title="Dashboard">
+      <p className="eyebrow text-primary">Friday · 25 September</p>
+      <h2 className="mt-1.5 text-[2rem] leading-[1.1] font-extrabold">Good afternoon, {creator.name}</h2>
       <p className="mt-2 text-[0.9375rem] text-muted-foreground">
-        Dinner in just over an hour, three approvals waiting, and your wallet needs funding.
+        One draft due this week, three decisions waiting, and $13,500 on its way to you.
       </p>
 
-      {/* Up next */}
+      {/* Hero campaign */}
       <div className="mt-6 rounded-4xl bg-tint-blue p-5">
         <div className="flex items-start gap-3.5">
           <IconBadge tone="blue" shape="round" size="md" className="bg-background">
-            <UtensilsCrossed className="h-5 w-5" strokeWidth={2.2} />
+            <HeroIcon className="h-5 w-5" strokeWidth={2.2} />
           </IconBadge>
           <div className="min-w-0 flex-1">
-            <p className="eyebrow text-tint-blue-foreground">Up next · {upNext.time}</p>
-            <p className="mt-1 text-[1.0625rem] leading-snug font-bold">{upNext.title}</p>
-            <p className="mt-1 text-sm text-muted-foreground">{upNext.meta}</p>
+            <p className="eyebrow text-tint-blue-foreground">Up next · {hero.brand}</p>
+            <p className="mt-1 text-[1.0625rem] leading-snug font-bold">{hero.title}</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {hero.fee} · {hero.window}
+            </p>
           </div>
+          <Pill tone={statusMeta[hero.status].tone}>{statusMeta[hero.status].label}</Pill>
         </div>
+        <p className="mt-3 text-sm font-semibold">{hero.nudge}</p>
         <ActionPair
           className="mt-4"
           secondary={
             <AButton variant="neutral" size="lg" className="bg-background">
-              Snooze
+              Remind me
             </AButton>
           }
           primary={
-            <Link to="/plan/p2" className="block">
+            <Link to={`/plan/${hero.id}`} className="block">
               <AButton size="lg" className="w-full">
-                {upNext.cta}
+                View campaign
                 <ArrowRight className="h-4 w-4" strokeWidth={2.6} />
               </AButton>
             </Link>
@@ -78,17 +93,10 @@ function HomeScreen() {
         />
       </div>
 
-      {/* Stat cards */}
+      {/* Economic snapshot */}
       <div className="mt-4 grid grid-cols-2 gap-3">
-        {(
-          [
-            { label: "Tasks today", value: "5", sub: "2 overdue", tone: "orange", icon: "check", to: "/tasks" },
-            { label: "Approvals", value: "3", sub: "Alfred is waiting", tone: "blue", icon: "shield", to: "/approvals" },
-            { label: "Reminders", value: "4", sub: "Next at 20:00", tone: "violet", icon: "bell", to: "/a/reminders" },
-            { label: "Wallet", value: "₦248k", sub: "Fund on 30th", tone: "green", icon: "wallet", to: "/wallet" },
-          ] as const
-        ).map((s) => {
-          const Icon = statIcons[s.icon];
+        {dashboardStats.map((s) => {
+          const Icon = statIcons[s.icon as keyof typeof statIcons];
           return (
             <Link key={s.label} to={s.to} className="active:scale-[0.98]">
               <Card className="h-full p-4">
@@ -107,142 +115,113 @@ function HomeScreen() {
         })}
       </div>
 
-      {/* Approvals */}
+      {/* Waiting on you */}
       <SectionHeader
         className="mt-8 mb-3"
         title="Waiting on you"
         action={
-          <Link to="/approvals" className="text-sm font-bold text-tint-blue-foreground">
+          <Link to="/messages" className="text-sm font-bold text-tint-blue-foreground">
             All approvals
           </Link>
         }
       />
       <div className="space-y-2.5">
-        {approvals.map((a) => {
-          const decided = handled.includes(a.id);
+        {approvalQueue.slice(0, 2).map((a) => {
+          const state = decided[a.id];
           return (
             <Card key={a.id} className="p-4">
               <div className="flex items-center gap-3.5">
                 <IconBadge tone={a.tone} shape="round" size="md">
-                  <ShieldCheck className="h-5 w-5" strokeWidth={2.2} />
+                  <FileCheck2 className="h-5 w-5" strokeWidth={2.2} />
                 </IconBadge>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[0.9375rem] font-bold">{a.title}</p>
-                  <p className="truncate text-xs text-muted-foreground">{a.meta}</p>
+                  <p className="truncate text-xs text-muted-foreground">
+                    {a.brand} · {a.value}
+                  </p>
                 </div>
-                {decided && <Pill tone="green">Approved</Pill>}
+                {state && (
+                  <Pill tone={state === "accepted" ? "green" : "red"}>
+                    {state === "accepted" ? "Accepted" : "Declined"}
+                  </Pill>
+                )}
               </div>
-              {!decided && (
+              {!state && (
                 <ActionPair
                   className="mt-3.5"
                   secondary={
-                    <AButton size="md" variant="neutral" onClick={() => setHandled((h) => [...h, a.id])}>
+                    <AButton
+                      size="md"
+                      variant="neutral"
+                      onClick={() => setDecided((d) => ({ ...d, [a.id]: "declined" }))}
+                    >
                       Decline
                     </AButton>
                   }
                   primary={
-                    <AButton size="md" onClick={() => setHandled((h) => [...h, a.id])}>
-                      Approve
+                    <AButton
+                      size="md"
+                      onClick={() => setDecided((d) => ({ ...d, [a.id]: "accepted" }))}
+                    >
+                      Accept
                     </AButton>
                   }
                 />
+              )}
+              {state === "accepted" && (
+                <p className="mt-3 text-xs font-semibold text-muted-foreground">
+                  Moved to Pending approval — the brand is countersigning.
+                </p>
               )}
             </Card>
           );
         })}
       </div>
 
-      {/* Tasks */}
+      {/* Upcoming deliverables */}
       <SectionHeader
         className="mt-8 mb-3"
-        title="Today's tasks"
+        title="Upcoming deliverables"
         action={
-          <Link to="/tasks" className="text-sm font-bold text-tint-blue-foreground">
-            All tasks
+          <Link to="/plans" className="text-sm font-bold text-tint-blue-foreground">
+            Campaigns
           </Link>
         }
       />
       <Card className="divide-y divide-border/70 p-0">
-        {tasks.map((t) => (
-          <div key={t.id} className="flex items-center gap-3.5 px-4 py-3.5">
-            <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-border" />
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-[0.9375rem] font-semibold">{t.title}</p>
-              <p className="truncate text-xs text-muted-foreground">{t.meta}</p>
-            </div>
-            <Pill tone={t.tone}>{t.action}</Pill>
-          </div>
-        ))}
-      </Card>
-
-      {/* Today's schedule */}
-      <SectionHeader
-        className="mt-8 mb-3"
-        title="Today's schedule"
-        action={
-          <Link to="/timeline" className="text-sm font-bold text-tint-blue-foreground">
-            Timeline
-          </Link>
-        }
-      />
-      <Card className="divide-y divide-border/70 p-0">
-        {events.map((e) => (
-          <div key={e.id} className="flex items-start gap-4 px-4 py-4">
-            <span className="w-12 shrink-0 pt-0.5 text-sm font-extrabold tabular-nums">{e.time}</span>
+        {upcomingDeliverables.map((d) => (
+          <div key={d.id} className="flex items-start gap-4 px-4 py-4">
+            <span className="w-14 shrink-0 pt-0.5 text-sm font-extrabold tabular-nums">{d.when}</span>
             <span className="min-w-0 flex-1">
-              <span className="block truncate text-[0.9375rem] font-bold">{e.title}</span>
+              <span className="block truncate text-[0.9375rem] font-bold">{d.title}</span>
+              <span className="block truncate text-xs text-muted-foreground">{d.brand}</span>
               <span className="mt-1.5 block">
-                <Pill tone={e.tone}>{e.tag}</Pill>
+                <Pill tone={d.tone}>{d.tag}</Pill>
               </span>
             </span>
           </div>
         ))}
       </Card>
 
-      {/* Messages */}
-      <SectionHeader
-        className="mt-8 mb-3"
-        title="Needs a reply"
-        action={
-          <Link to="/messages" className="text-sm font-bold text-tint-blue-foreground">
-            Inbox
-          </Link>
-        }
-      />
-      <Card className="space-y-3.5 p-4">
-        {messages.slice(0, 2).map((m) => (
-          <div key={m.id} className="flex items-center gap-3.5">
-            <IconBadge tone="neutral" shape="round" size="sm">
-              <MessageSquare className="h-4 w-4" strokeWidth={2.2} />
-            </IconBadge>
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-bold">{m.from}</p>
-              <p className="truncate text-xs text-muted-foreground">{m.preview}</p>
-            </div>
-            <span className="text-xs font-semibold text-muted-foreground">{m.time}</span>
-          </div>
-        ))}
-      </Card>
-
-      {/* Alfred activity */}
+      {/* Recent commercial activity */}
       <div className="mt-8 rounded-4xl bg-primary-soft p-5">
         <div className="flex items-center gap-3">
           <IconBadge tone="orange" shape="round" size="sm" className="bg-background">
             <Sparkles className="h-4 w-4" strokeWidth={2.3} />
           </IconBadge>
-          <p className="eyebrow text-primary">Alfred has been busy</p>
+          <p className="eyebrow text-primary">Recent activity</p>
         </div>
         <ul className="mt-4 space-y-3.5">
-          {alfredActivity.map((a) => (
-            <li key={a.id} className="border-b border-primary/10 pb-3.5 last:border-0 last:pb-0">
-              <p className="text-[0.9375rem] leading-snug font-semibold">{a.title}</p>
-              <p className="mt-0.5 text-xs text-muted-foreground">{a.meta}</p>
+          {(campaignEvents[0]?.items ?? []).map((e) => (
+            <li key={e.id} className="border-b border-primary/10 pb-3.5 last:border-0 last:pb-0">
+              <p className="text-[0.9375rem] leading-snug font-semibold">{e.title}</p>
+              <p className="mt-0.5 text-xs text-muted-foreground">{e.meta}</p>
             </li>
           ))}
         </ul>
-        <Link to="/a/activity" className="mt-4 block">
+        <Link to="/timeline" className="mt-4 block">
           <AButton variant="soft" size="md" className="w-full bg-background">
-            See all activity
+            Open the timeline
           </AButton>
         </Link>
       </div>

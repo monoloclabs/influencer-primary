@@ -31,18 +31,18 @@ import {
 } from "lucide-react";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { IconBadge } from "./ui";
-import { user } from "@/data/alfred";
+import { InfluencerMark } from "./InfluencerMark";
 import { cn } from "@/lib/utils";
 
 type IconType = React.ComponentType<{ className?: string; strokeWidth?: number }>;
 type Item = { label: string; icon: IconType; to: string; meta?: string; blue?: boolean };
 
 const life: Item[] = [
-  { label: "Tasks", icon: CheckCircle2, to: "/tasks", meta: "4 due today", blue: true },
-  { label: "Reminders", icon: Bell, to: "/a/reminders", meta: "2 coming up", blue: true },
-  { label: "Events", icon: CalendarDays, to: "/events", meta: "3 this week", blue: true },
-  { label: "Calendar", icon: Calendar, to: "/a/calendar", meta: "Your schedule", blue: true },
-  { label: "Files", icon: Folder, to: "/a/files", meta: "12 recent", blue: true },
+  { label: "Tasks", icon: CheckCircle2, to: "/tasks", meta: "4 due this week", blue: true },
+  { label: "Reminders", icon: Bell, to: "/a/reminders", meta: "2 deadlines coming up", blue: true },
+  { label: "Events", icon: CalendarDays, to: "/events", meta: "3 shoots this week", blue: true },
+  { label: "Content calendar", icon: Calendar, to: "/a/calendar", meta: "Your posting schedule", blue: true },
+  { label: "Files", icon: Folder, to: "/a/files", meta: "Briefs, contracts, invoices", blue: true },
 ];
 
 const workspace: Item[] = [
@@ -53,21 +53,21 @@ const workspace: Item[] = [
 
 const alfred: Item[] = [
   { label: "Instructions", icon: ScrollText, to: "/instructions", meta: "6 rules running" },
-  { label: "Approvals", icon: ShieldCheck, to: "/approvals", meta: "3 waiting on you" },
+  { label: "Approvals", icon: ShieldCheck, to: "/messages", meta: "3 waiting on you" },
   { label: "Activity", icon: Activity, to: "/a/activity" },
 ];
 
 const money: Item[] = [
-  { label: "Wallet", icon: Wallet, to: "/wallet", meta: "₦248,400 available" },
-  { label: "Purchases", icon: ShoppingBag, to: "/a/purchases", meta: "24 purchases this month" },
-  { label: "Subscription", icon: Repeat, to: "/subscription", meta: "Standard · renews Oct 12" },
+  { label: "Wallet", icon: Wallet, to: "/wallet", meta: "Earnings and payouts" },
+  { label: "Purchases", icon: ShoppingBag, to: "/a/purchases", meta: "Gear and business spend" },
+  { label: "Subscription", icon: Repeat, to: "/subscription", meta: "Creator Pro · renews Oct 12" },
 ];
 
 const account: Item[] = [
-  { label: "Profile", icon: User, to: "/a/profile" },
-  { label: "Subscription", icon: BadgeCheck, to: "/subscription" },
+  { label: "Creator profile", icon: User, to: "/a/profile" },
+  { label: "Media kit", icon: BadgeCheck, to: "/a/media-kit" },
   { label: "What's new", icon: Sparkles, to: "/a/whats-new" },
-  { label: "Invite friend", icon: UserPlus, to: "/a/invite" },
+  { label: "Invite a creator", icon: UserPlus, to: "/a/invite" },
   { label: "Settings", icon: Settings, to: "/a/settings" },
   { label: "Support", icon: LifeBuoy, to: "/a/support" },
 ];
@@ -157,13 +157,8 @@ export function AlfredDrawer({
         className="w-[88vw] max-w-[380px] gap-0 overflow-y-auto border-0 bg-background p-0 no-scrollbar [&>button]:hidden"
       >
         <div className="sticky top-0 z-10 flex items-center gap-3 bg-background/95 px-5 pt-6 pb-4 backdrop-blur-xl">
-          <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-foreground text-sm font-bold text-background">
-            {user.initials}
-          </div>
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-lg font-bold">{user.fullName}</p>
-            <p className="truncate text-xs text-muted-foreground">Standard · Personal</p>
-          </div>
+          <InfluencerMark className="h-8 w-8 shrink-0 text-primary" />
+          <div className="min-w-0 flex-1" />
           <button
             aria-label="Close menu"
             onClick={close}
@@ -174,7 +169,7 @@ export function AlfredDrawer({
         </div>
 
         <div className="px-4 pb-12">
-          <Group label="Life">
+          <Group label="My Workspace">
             <div className="divide-y divide-border/70 rounded-3xl border border-border/70 bg-card px-1.5 shadow-card">
               {life.map((i) => (
                 <LifeRow key={i.label} item={i} onNavigate={close} />
@@ -182,7 +177,7 @@ export function AlfredDrawer({
             </div>
           </Group>
 
-          <Group label="Workspace">
+          <Group label="Desk">
             <div className="grid grid-cols-3 gap-2.5">
               {workspace.map((i) => {
                 const Icon = i.icon;
@@ -201,7 +196,7 @@ export function AlfredDrawer({
             </div>
           </Group>
 
-          <Group label="Alfred">
+          <Group label="Influencer">
             <div className="rounded-3xl bg-primary-soft p-1.5">
               {alfred.map((i) => (
                 <AlfredRow key={i.label} item={i} onNavigate={close} />
@@ -238,8 +233,8 @@ export function AlfredDrawer({
               className="rounded-3xl bg-tint-blue p-4 active:scale-[0.98]"
             >
               <Users className="h-5 w-5 text-tint-blue-foreground" strokeWidth={2.3} />
-              <p className="mt-3 text-sm font-bold">Clique</p>
-              <p className="text-xs text-muted-foreground">People who matter</p>
+              <p className="mt-3 text-sm font-bold">Network</p>
+              <p className="text-xs text-muted-foreground">Brands and collaborators</p>
             </Link>
             <Link
               to="/office"
@@ -248,7 +243,7 @@ export function AlfredDrawer({
             >
               <Briefcase className="h-5 w-5 text-tint-amber-foreground" strokeWidth={2.3} />
               <p className="mt-3 text-sm font-bold">My Office</p>
-              <p className="text-xs text-muted-foreground">Premium · work side of life</p>
+              <p className="text-xs text-muted-foreground">Premium · your team side</p>
             </Link>
           </div>
 
@@ -260,7 +255,7 @@ export function AlfredDrawer({
                 className="flex flex-1 items-center gap-2.5 rounded-full border border-primary/50 bg-primary-soft px-4 py-3 active:opacity-80"
               >
                 <Compass className="h-[1.1rem] w-[1.1rem] text-primary" strokeWidth={2.3} />
-                <span className="text-sm font-bold text-primary">Discover</span>
+                <span className="text-sm font-bold text-primary">Brands</span>
               </Link>
               <Link
                 to="/a/research"
@@ -268,7 +263,7 @@ export function AlfredDrawer({
                 className="flex flex-1 items-center gap-2.5 rounded-full border border-tint-blue-foreground/30 bg-tint-blue px-4 py-3 active:opacity-80"
               >
                 <Library className="h-[1.1rem] w-[1.1rem] text-tint-blue-foreground" strokeWidth={2.3} />
-                <span className="text-sm font-bold text-tint-blue-foreground">Research</span>
+                <span className="text-sm font-bold text-tint-blue-foreground">Rates</span>
               </Link>
             </div>
           </Group>

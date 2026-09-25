@@ -19,27 +19,29 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 export const Route = createFileRoute("/create")({
   head: () => ({
     meta: [
-      { title: "Create — Alfred" },
-      { name: "description", content: "Capture a note, task, reminder, instruction or event in seconds." },
-      { property: "og:title", content: "Create — Alfred" },
-      { property: "og:description", content: "Start anything in Alfred: notes, tasks, reminders, instructions." },
+      { title: "Create — INFLUENCER" },
+      { name: "description", content: "Log a brand deal, submit content, record a payout or add a content deadline." },
+      { property: "og:title", content: "Create — INFLUENCER" },
+      { property: "og:description", content: "Start anything: campaigns, deliverables, payouts and deadlines." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: CreateScreen,
 });
 
 const quick = [
-  { id: "c1", title: "Quick note", sub: "Capture it before it's gone", icon: FileText },
-  { id: "c2", title: "Task", sub: "Something you intend to do", icon: PenLine },
-  { id: "c3", title: "Reminder", sub: "Nudge me at the right time", icon: Bell },
+  { id: "c1", title: "Quick note", sub: "Capture a brand conversation", icon: FileText },
+  { id: "c2", title: "To-do", sub: "Something you owe a brand", icon: PenLine },
+  { id: "c3", title: "Deadline reminder", sub: "Nudge me before content is due", icon: Bell },
 ];
 
 const work = [
-  { id: "w0", eyebrow: "PLAN", title: "New plan", sub: "A trip, dinner, birthday — with everything inside it", icon: RouteIcon, tone: "orange" as const },
-  { id: "w1", eyebrow: "INSTRUCTION", title: "New instruction", sub: "A rule Alfred should always follow", icon: ScrollText, tone: "orange" as const },
-  { id: "w2", eyebrow: "EVENT", title: "Event or booking", sub: "Put it on your timeline", icon: CalendarPlus, tone: "blue" as const },
-  { id: "w3", eyebrow: "MONEY", title: "Log a purchase", sub: "Receipts, spend and subscriptions", icon: Receipt, tone: "green" as const },
-  { id: "w4", eyebrow: "WORKSPACE", title: "Project", sub: "Group work that runs for a while", icon: Layers, tone: "violet" as const },
+  { id: "w0", eyebrow: "CAMPAIGN", title: "New campaign", sub: "A brand deal with its brief, deliverables and fee", icon: RouteIcon, tone: "orange" as const },
+  { id: "w1", eyebrow: "DELIVERABLE", title: "Submit content", sub: "Send a draft for brand review", icon: ScrollText, tone: "orange" as const },
+  { id: "w2", eyebrow: "EVENT", title: "Shoot or posting date", sub: "Put it on your timeline", icon: CalendarPlus, tone: "blue" as const },
+  { id: "w3", eyebrow: "MONEY", title: "Record a payout", sub: "Invoices, payments and fees", icon: Receipt, tone: "green" as const },
+  { id: "w4", eyebrow: "WORKSPACE", title: "Project", sub: "Work that runs across campaigns", icon: Layers, tone: "violet" as const },
 ];
 
 function CreateScreen() {
@@ -54,16 +56,16 @@ function CreateScreen() {
             +
           </span>
         </div>
-        <h2 className="mt-4 text-[1.5rem] leading-tight font-extrabold">What's on your mind?</h2>
+        <h2 className="mt-4 text-[1.5rem] leading-tight font-extrabold">What are you adding?</h2>
         <p className="mx-auto mt-2 max-w-[19rem] text-sm text-muted-foreground">
-          Write it down, hand it to Alfred, or set a rule it should follow from now on.
+          Log a brand deal, submit content for review, or record money you're owed.
         </p>
         <AButton
           size="lg"
           className="mt-5 w-full"
-          onClick={() => setSheet({ title: "Quick note", sub: "Start writing from an empty page." })}
+          onClick={() => setSheet({ title: "New campaign", sub: "Start from a brand, a fee and a deadline." })}
         >
-          Start a note
+          Log a brand deal
         </AButton>
       </div>
 
@@ -86,7 +88,7 @@ function CreateScreen() {
         ))}
       </Card>
 
-      <p className="eyebrow mt-8 mb-3 px-1 text-primary">Life work items</p>
+      <p className="eyebrow mt-8 mb-3 px-1 text-primary">Business items</p>
       <div className="space-y-3">
         {work.map((w) => (
           <button

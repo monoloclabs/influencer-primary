@@ -1,22 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CalendarDays } from "lucide-react";
+import { useState } from "react";
+import { ArrowLeftRight, CalendarDays, Flag } from "lucide-react";
 import { AppShell } from "@/components/alfred/AppShell";
 import { Pill } from "@/components/alfred/ui";
-import { timeline } from "@/data/alfred";
+import { campaignEvents, transactions } from "@/data/influencer";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/timeline")({
   head: () => ({
     meta: [
-      { title: "Timeline — Alfred" },
+      { title: "Timeline — INFLUENCER" },
       {
         name: "description",
-        content: "Everything happening across your life, in order: tasks, bookings, deadlines and Alfred activity.",
+        content:
+          "Every payout, fee and campaign milestone in order: transactions on one side, campaign events on the other.",
       },
-      { property: "og:title", content: "Timeline — Alfred" },
+      { property: "og:title", content: "Timeline — INFLUENCER" },
       {
         property: "og:description",
-        content: "A chronological view of your tasks, events, deadlines and what Alfred has handled.",
+        content: "A chronological record of creator earnings and campaign milestones.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -25,16 +27,22 @@ export const Route = createFileRoute("/timeline")({
   component: TimelineScreen,
 });
 
-const filters = ["All", "Events", "Tasks", "Money", "Alfred"];
+const tabs = [
+  { id: "transactions" as const, label: "Transactions", icon: ArrowLeftRight },
+  { id: "events" as const, label: "Events", icon: Flag },
+];
 
 function TimelineScreen() {
+  const [tab, setTab] = useState<"transactions" | "events">("transactions");
+  const groups = tab === "transactions" ? transactions : campaignEvents;
+
   return (
     <AppShell title="Timeline">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h2 className="text-[1.75rem] leading-tight font-extrabold">Your life, in order</h2>
+          <h2 className="text-[1.75rem] leading-tight font-extrabold">Your record</h2>
           <p className="mt-1.5 text-[0.9375rem] text-muted-foreground">
-            Everything happening, already handled, or coming your way.
+            Money that moved, and everything your campaigns did.
           </p>
         </div>
         <button
@@ -45,38 +53,59 @@ function TimelineScreen() {
         </button>
       </div>
 
-      <div className="-mx-5 mt-5 flex gap-2 overflow-x-auto px-5 no-scrollbar">
-        {filters.map((f, i) => (
-          <button
-            key={f}
-            className={cn(
-              "shrink-0 rounded-full px-4 py-2 text-[0.8125rem] font-bold",
-              i === 0 ? "bg-foreground text-background" : "bg-surface text-muted-foreground",
-            )}
-          >
-            {f}
-          </button>
-        ))}
+      <div className="mt-6 flex gap-6 border-b border-border/70 px-1">
+        {tabs.map((t) => {
+          const active = tab === t.id;
+          const Icon = t.icon;
+          return (
+            <button
+              key={t.id}
+              onClick={() => setTab(t.id)}
+              className={cn(
+                "flex items-center gap-2 border-b-2 pb-3 text-[0.9375rem] font-bold transition-colors",
+                active ? "border-primary text-primary" : "border-transparent text-muted-foreground",
+              )}
+            >
+              <Icon className="h-[1.1rem] w-[1.1rem]" strokeWidth={2.3} />
+              {t.label}
+            </button>
+          );
+        })}
       </div>
 
       <div className="mt-7 space-y-8">
-        {timeline.map((day) => (
-          <section key={day.day}>
-            <p className="eyebrow mb-3 px-1 text-primary">{day.day}</p>
+        {groups.map((group) => (
+          <section key={group.day}>
+            <p className="eyebrow mb-3 px-1 text-primary">{group.day}</p>
             <div className="divide-y divide-border/70 overflow-hidden rounded-3xl border border-border/70 bg-card shadow-card">
-              {day.items.map((item) => (
-                <div key={item.title} className="flex items-start gap-4 px-4 py-4">
-                  <span className="w-12 shrink-0 pt-0.5 text-sm font-extrabold tabular-nums">
+              {group.items.map((item) => (
+                <div key={item.id} className="flex items-start gap-4 px-4 py-4">
+                  <span className="w-14 shrink-0 pt-0.5 text-sm font-extrabold tabular-nums">
                     {item.time}
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-[0.9375rem] leading-snug font-bold">
                       {item.title}
                     </span>
+                    <span className="block truncate text-xs text-muted-foreground">{item.meta}</span>
                     <span className="mt-1.5 block">
                       <Pill tone={item.tone}>{item.tag}</Pill>
                     </span>
                   </span>
+                  {item.amount && (
+                    <span
+                      className={cn(
+                        "shrink-0 pt-0.5 text-sm font-extrabold tabular-nums",
+                        item.amount.startsWith("+")
+                          ? "text-tint-green-foreground"
+                          : item.amount.startsWith("-")
+                            ? "text-foreground"
+                            : "text-muted-foreground",
+                      )}
+                    >
+                      {item.amount}
+                    </span>
+                  )}
                 </div>
               ))}
             </div>
