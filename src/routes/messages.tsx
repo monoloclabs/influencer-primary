@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
 import { Link } from "@/components/alfred/ui";
 import { FileCheck2, FileSignature, Handshake, ScissorsLineDashed, Sparkles } from "lucide-react";
 import { AppShell } from "@/components/alfred/AppShell";
 import { AButton, ActionPair, Card, IconBadge, Pill } from "@/components/alfred/ui";
 import { approvalQueue, type ApprovalKind } from "@/data/influencer";
+import { BrandMark } from "@/components/influencer/Marks";
+import { useCampaignState } from "@/components/influencer/CampaignState";
 
 export const Route = createFileRoute("/messages")({
   head: () => ({
@@ -34,8 +35,8 @@ const kindMeta: Record<ApprovalKind, { label: string; icon: typeof Handshake }> 
 };
 
 function ApprovalsScreen() {
-  const [decided, setDecided] = useState<Record<string, "accepted" | "declined">>({});
-  const pending = approvalQueue.filter((a) => !decided[a.id]);
+  const { statusFor, acceptOffer } = useCampaignState();
+  const pending = approvalQueue.filter((a) => a.kind !== "brand_offer" || (a.campaignId && statusFor(a.campaignId) === "offer"));
 
   return (
     <AppShell title="Approvals">
@@ -61,31 +62,21 @@ function ApprovalsScreen() {
         <p className="mt-3 text-[0.9375rem] leading-snug font-bold">
           The Spotify offer expires in 3 days and is 41% above your average December rate.
         </p>
-        <div className="mt-4 flex gap-2.5">
-          <Link to="/plan/c2" className="flex-1">
-            <AButton size="sm" className="w-full">
-              See the brief
-            </AButton>
-          </Link>
-          <Link to="/assistant">
-            <AButton size="sm" variant="neutral" className="bg-background">
-              Ask AI
-            </AButton>
-          </Link>
-        </div>
+        <Link to="/plan/c2" className="mt-4 block">
+          <AButton size="sm" className="w-full">See the offer</AButton>
+        </Link>
       </div>
 
       <p className="eyebrow mt-8 mb-3 px-1 text-muted-foreground">Everything awaiting a decision</p>
       <div className="space-y-2.5">
-        {approvalQueue.map((a) => {
-          const state = decided[a.id];
+        {pending.map((a) => {
           const meta = kindMeta[a.kind];
           const Icon = meta.icon;
           return (
             <Card key={a.id} className="p-4">
               <div className="flex items-start gap-3.5">
                 <IconBadge tone={a.tone} shape="round" size="md">
-                  <Icon className="h-5 w-5" strokeWidth={2.2} />
+                  {a.kind === "brand_offer" ? <BrandMark brand={a.brand} /> : <Icon className="h-5 w-5" strokeWidth={2.2} />}
                 </IconBadge>
                 <div className="min-w-0 flex-1">
                   <p className="text-[0.6875rem] font-bold text-muted-foreground uppercase">
@@ -94,48 +85,23 @@ function ApprovalsScreen() {
                   <p className="text-[0.9375rem] leading-snug font-bold">{a.title}</p>
                   <p className="mt-0.5 text-xs text-muted-foreground">{a.meta}</p>
                 </div>
-                <Pill tone={state === "declined" ? "red" : state === "accepted" ? "green" : "neutral"}>
-                  {state === "accepted" ? "Accepted" : state === "declined" ? "Declined" : a.value}
-                </Pill>
+                <Pill tone="neutral">{a.value}</Pill>
               </div>
 
-              {!state ? (
+              {a.kind === "brand_offer" && a.campaignId ? (
                 <ActionPair
                   className="mt-3.5"
                   secondary={
-                    <AButton
-                      size="md"
-                      variant="neutral"
-                      onClick={() => setDecided((d) => ({ ...d, [a.id]: "declined" }))}
-                    >
-                      Decline
-                    </AButton>
+                    <Link to={`/plan/${a.campaignId}`} className="block"><AButton size="md" variant="neutral" className="w-full">Open</AButton></Link>
                   }
                   primary={
-                    <AButton
-                      size="md"
-                      onClick={() => setDecided((d) => ({ ...d, [a.id]: "accepted" }))}
-                    >
+                    <AButton size="md" onClick={() => acceptOffer(a.campaignId ?? "")}>
                       Accept
                     </AButton>
                   }
                 />
               ) : (
-                <div className="mt-3.5 flex items-center justify-between gap-3 rounded-2xl bg-surface px-4 py-3">
-                  <span className="text-xs font-semibold text-muted-foreground">
-                    {state === "accepted"
-                      ? "Sent to the brand — this moves to Pending approval."
-                      : "Declined. The brand has been notified."}
-                  </span>
-                  {a.campaignId && (
-                    <Link
-                      to={`/plan/${a.campaignId}`}
-                      className="shrink-0 text-xs font-bold text-tint-blue-foreground"
-                    >
-                      View
-                    </Link>
-                  )}
-                </div>
+                <ActionPair className="mt-3.5" secondary={<AButton size="md" variant="neutral">Decline</AButton>} primary={a.campaignId ? <Link to={`/plan/${a.campaignId}`} className="block"><AButton size="md" className="w-full">Open</AButton></Link> : <AButton size="md">Accept</AButton>} />
               )}
             </Card>
           );

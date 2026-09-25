@@ -11,6 +11,7 @@ import {
   Layers,
   SquarePen,
   Route as RouteIcon,
+  Workflow,
 } from "lucide-react";
 import { AppShell } from "@/components/alfred/AppShell";
 import { AButton, ActionPair, Card, IconBadge } from "@/components/alfred/ui";
@@ -38,6 +39,7 @@ const quick = [
 
 const work = [
   { id: "w0", eyebrow: "CAMPAIGN", title: "New campaign", sub: "A brand deal with its brief, deliverables and fee", icon: RouteIcon, tone: "orange" as const },
+  { id: "w5", eyebrow: "ACTIVATION", title: "New activation", sub: "Your execution plan for an accepted brand campaign", icon: Workflow, tone: "blue" as const },
   { id: "w1", eyebrow: "DELIVERABLE", title: "Submit content", sub: "Send a draft for brand review", icon: ScrollText, tone: "orange" as const },
   { id: "w2", eyebrow: "EVENT", title: "Shoot or posting date", sub: "Put it on your timeline", icon: CalendarPlus, tone: "blue" as const },
   { id: "w3", eyebrow: "MONEY", title: "Record a payout", sub: "Invoices, payments and fees", icon: Receipt, tone: "green" as const },
@@ -93,7 +95,7 @@ function CreateScreen() {
         {work.map((w) => (
           <button
             key={w.id}
-            onClick={() => setSheet({ title: w.title, sub: w.sub })}
+          onClick={() => setSheet({ title: w.title, sub: w.sub })}
             className="flex w-full items-center gap-3.5 rounded-3xl bg-tint-blue px-4 py-4 text-left active:scale-[0.99]"
           >
             <span className="min-w-0 flex-1">
