@@ -1,39 +1,54 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Search, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { Link } from "@/components/alfred/ui";
+import { FileCheck2, FileSignature, Handshake, ScissorsLineDashed, Sparkles } from "lucide-react";
 import { AppShell } from "@/components/alfred/AppShell";
-import { AButton, Card, IconBadge, Pill } from "@/components/alfred/ui";
+import { AButton, ActionPair, Card, IconBadge, Pill } from "@/components/alfred/ui";
+import { approvalQueue, type ApprovalKind } from "@/data/influencer";
 
 export const Route = createFileRoute("/messages")({
   head: () => ({
     meta: [
-      { title: "Messages — Alfred" },
-      { name: "description", content: "Conversations that need you, plus everything Alfred is handling on your behalf." },
-      { property: "og:title", content: "Messages — Alfred" },
-      { property: "og:description", content: "Your inbox, with Alfred drafting and chasing in the background." },
+      { title: "Approvals — INFLUENCER" },
+      {
+        name: "description",
+        content:
+          "Every commercial decision waiting on you: new campaign offers, contract terms and content revision requests.",
+      },
+      { property: "og:title", content: "Approvals — INFLUENCER" },
+      {
+        property: "og:description",
+        content: "Accept or decline brand offers, contract changes and content revisions.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
-  component: MessagesScreen,
+  component: ApprovalsScreen,
 });
 
-const threads = [
-  { id: "1", who: "Ada", initials: "AD", preview: "Are we still on for Saturday?", time: "2m", unread: 2, tone: "blue" as const },
-  { id: "2", who: "Alfred", initials: "AL", preview: "I drafted your gym cancellation email — want me to send it?", time: "1h", unread: 1, tone: "orange" as const },
-  { id: "3", who: "Kola", initials: "KO", preview: "Sent the flat listing 🙌", time: "3h", unread: 0, tone: "green" as const },
-  { id: "4", who: "Mum", initials: "MU", preview: "Don't be late tonight o.", time: "5h", unread: 0, tone: "violet" as const },
-  { id: "5", who: "Sterling Bank", initials: "SB", preview: "Your statement for August is ready.", time: "Yest", unread: 0, tone: "neutral" as const },
-];
+const kindMeta: Record<ApprovalKind, { label: string; icon: typeof Handshake }> = {
+  brand_offer: { label: "Campaign offer", icon: Handshake },
+  contract_terms: { label: "Contract terms", icon: FileSignature },
+  content_revision: { label: "Content revision", icon: ScissorsLineDashed },
+};
 
-function MessagesScreen() {
+function ApprovalsScreen() {
+  const [decided, setDecided] = useState<Record<string, "accepted" | "declined">>({});
+  const pending = approvalQueue.filter((a) => !decided[a.id]);
+
   return (
-    <AppShell title="Messages">
-      <h2 className="text-[1.75rem] leading-tight font-extrabold">Inbox</h2>
+    <AppShell title="Approvals">
+      <h2 className="text-[1.75rem] leading-tight font-extrabold">Decisions</h2>
       <p className="mt-1.5 text-[0.9375rem] text-muted-foreground">
-        Three people are waiting. Alfred has drafted two replies already.
+        Brands don't message you here. They send decisions — you accept or decline.
       </p>
 
       <div className="mt-5 flex items-center gap-3 rounded-full bg-surface px-4 py-3.5">
-        <Search className="h-[1.1rem] w-[1.1rem] text-muted-foreground" strokeWidth={2.2} />
-        <span className="text-sm text-muted-foreground">Search people and messages</span>
+        <FileCheck2 className="h-[1.1rem] w-[1.1rem] text-muted-foreground" strokeWidth={2.2} />
+        <span className="text-sm font-semibold text-muted-foreground">
+          {pending.length} waiting on you
+        </span>
       </div>
 
       <div className="mt-4 rounded-4xl bg-primary-soft p-5">
@@ -41,39 +56,91 @@ function MessagesScreen() {
           <IconBadge tone="orange" shape="round" size="sm" className="bg-background">
             <Sparkles className="h-4 w-4" strokeWidth={2.3} />
           </IconBadge>
-          <p className="eyebrow text-primary">Alfred suggests</p>
+          <p className="eyebrow text-primary">Worth knowing</p>
         </div>
         <p className="mt-3 text-[0.9375rem] leading-snug font-bold">
-          Reply to Ada confirming Saturday at 2pm and add it to your timeline.
+          The Spotify offer expires in 3 days and is 41% above your average December rate.
         </p>
         <div className="mt-4 flex gap-2.5">
-          <AButton size="sm" className="flex-1">
-            Send it
-          </AButton>
-          <AButton size="sm" variant="neutral" className="bg-background">
-            Edit
-          </AButton>
+          <Link to="/plan/c2" className="flex-1">
+            <AButton size="sm" className="w-full">
+              See the brief
+            </AButton>
+          </Link>
+          <Link to="/assistant">
+            <AButton size="sm" variant="neutral" className="bg-background">
+              Ask AI
+            </AButton>
+          </Link>
         </div>
       </div>
 
-      <p className="eyebrow mt-8 mb-3 px-1 text-muted-foreground">All conversations</p>
-      <Card className="divide-y divide-border/70 p-0">
-        {threads.map((t) => (
-          <button key={t.id} className="flex w-full items-center gap-3.5 px-4 py-4 text-left active:bg-surface">
-            <IconBadge tone={t.tone} shape="round" size="md">
-              <span className="text-xs font-extrabold">{t.initials}</span>
-            </IconBadge>
-            <span className="min-w-0 flex-1">
-              <span className="block truncate text-[0.9375rem] font-bold">{t.who}</span>
-              <span className="block truncate text-xs text-muted-foreground">{t.preview}</span>
-            </span>
-            <span className="flex shrink-0 flex-col items-end gap-1.5">
-              <span className="text-[0.6875rem] font-semibold text-muted-foreground">{t.time}</span>
-              {t.unread > 0 && <Pill tone="orange">{t.unread} new</Pill>}
-            </span>
-          </button>
-        ))}
-      </Card>
+      <p className="eyebrow mt-8 mb-3 px-1 text-muted-foreground">Everything awaiting a decision</p>
+      <div className="space-y-2.5">
+        {approvalQueue.map((a) => {
+          const state = decided[a.id];
+          const meta = kindMeta[a.kind];
+          const Icon = meta.icon;
+          return (
+            <Card key={a.id} className="p-4">
+              <div className="flex items-start gap-3.5">
+                <IconBadge tone={a.tone} shape="round" size="md">
+                  <Icon className="h-5 w-5" strokeWidth={2.2} />
+                </IconBadge>
+                <div className="min-w-0 flex-1">
+                  <p className="text-[0.6875rem] font-bold text-muted-foreground uppercase">
+                    {meta.label} · {a.brand}
+                  </p>
+                  <p className="text-[0.9375rem] leading-snug font-bold">{a.title}</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">{a.meta}</p>
+                </div>
+                <Pill tone={state === "declined" ? "red" : state === "accepted" ? "green" : "neutral"}>
+                  {state === "accepted" ? "Accepted" : state === "declined" ? "Declined" : a.value}
+                </Pill>
+              </div>
+
+              {!state ? (
+                <ActionPair
+                  className="mt-3.5"
+                  secondary={
+                    <AButton
+                      size="md"
+                      variant="neutral"
+                      onClick={() => setDecided((d) => ({ ...d, [a.id]: "declined" }))}
+                    >
+                      Decline
+                    </AButton>
+                  }
+                  primary={
+                    <AButton
+                      size="md"
+                      onClick={() => setDecided((d) => ({ ...d, [a.id]: "accepted" }))}
+                    >
+                      Accept
+                    </AButton>
+                  }
+                />
+              ) : (
+                <div className="mt-3.5 flex items-center justify-between gap-3 rounded-2xl bg-surface px-4 py-3">
+                  <span className="text-xs font-semibold text-muted-foreground">
+                    {state === "accepted"
+                      ? "Sent to the brand — this moves to Pending approval."
+                      : "Declined. The brand has been notified."}
+                  </span>
+                  {a.campaignId && (
+                    <Link
+                      to={`/plan/${a.campaignId}`}
+                      className="shrink-0 text-xs font-bold text-tint-blue-foreground"
+                    >
+                      View
+                    </Link>
+                  )}
+                </div>
+              )}
+            </Card>
+          );
+        })}
+      </div>
     </AppShell>
   );
 }
