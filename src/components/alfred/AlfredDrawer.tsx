@@ -38,11 +38,11 @@ type IconType = React.ComponentType<{ className?: string; strokeWidth?: number }
 type Item = { label: string; icon: IconType; to: string; meta?: string; blue?: boolean };
 
 const life: Item[] = [
-  { label: "Tasks", icon: CheckCircle2, to: "/tasks", meta: "4 due today", blue: true },
-  { label: "Reminders", icon: Bell, to: "/a/reminders", meta: "2 coming up", blue: true },
-  { label: "Events", icon: CalendarDays, to: "/events", meta: "3 this week", blue: true },
-  { label: "Calendar", icon: Calendar, to: "/a/calendar", meta: "Your schedule", blue: true },
-  { label: "Files", icon: Folder, to: "/a/files", meta: "12 recent", blue: true },
+  { label: "Tasks", icon: CheckCircle2, to: "/tasks", meta: "4 due this week", blue: true },
+  { label: "Reminders", icon: Bell, to: "/a/reminders", meta: "2 deadlines coming up", blue: true },
+  { label: "Events", icon: CalendarDays, to: "/events", meta: "3 shoots this week", blue: true },
+  { label: "Content calendar", icon: Calendar, to: "/a/calendar", meta: "Your posting schedule", blue: true },
+  { label: "Files", icon: Folder, to: "/a/files", meta: "Briefs, contracts, invoices", blue: true },
 ];
 
 const workspace: Item[] = [
@@ -53,21 +53,21 @@ const workspace: Item[] = [
 
 const alfred: Item[] = [
   { label: "Instructions", icon: ScrollText, to: "/instructions", meta: "6 rules running" },
-  { label: "Approvals", icon: ShieldCheck, to: "/approvals", meta: "3 waiting on you" },
+  { label: "Approvals", icon: ShieldCheck, to: "/messages", meta: "3 waiting on you" },
   { label: "Activity", icon: Activity, to: "/a/activity" },
 ];
 
 const money: Item[] = [
-  { label: "Wallet", icon: Wallet, to: "/wallet", meta: "₦248,400 available" },
-  { label: "Purchases", icon: ShoppingBag, to: "/a/purchases", meta: "24 purchases this month" },
-  { label: "Subscription", icon: Repeat, to: "/subscription", meta: "Standard · renews Oct 12" },
+  { label: "Wallet", icon: Wallet, to: "/wallet", meta: "Earnings and payouts" },
+  { label: "Purchases", icon: ShoppingBag, to: "/a/purchases", meta: "Gear and business spend" },
+  { label: "Subscription", icon: Repeat, to: "/subscription", meta: "Creator Pro · renews Oct 12" },
 ];
 
 const account: Item[] = [
-  { label: "Profile", icon: User, to: "/a/profile" },
-  { label: "Subscription", icon: BadgeCheck, to: "/subscription" },
+  { label: "Creator profile", icon: User, to: "/a/profile" },
+  { label: "Media kit", icon: BadgeCheck, to: "/a/media-kit" },
   { label: "What's new", icon: Sparkles, to: "/a/whats-new" },
-  { label: "Invite friend", icon: UserPlus, to: "/a/invite" },
+  { label: "Invite a creator", icon: UserPlus, to: "/a/invite" },
   { label: "Settings", icon: Settings, to: "/a/settings" },
   { label: "Support", icon: LifeBuoy, to: "/a/support" },
 ];
