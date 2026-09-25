@@ -43,6 +43,19 @@ export type Deliverable = {
   state: "Not started" | "Drafted" | "Submitted" | "Approved" | "Live";
 };
 
+export type ActivationStatus = "planning" | "producing" | "scheduled" | "live" | "complete";
+
+export type Activation = {
+  id: string;
+  campaignId: string;
+  title: string;
+  status: ActivationStatus;
+  platforms: string[];
+  contentItems: { id: string; title: string; platform: string; date: string; state: string }[];
+  nextSteps: string[];
+  notes: string;
+};
+
 export type Campaign = {
   id: string;
   brand: string;
@@ -202,6 +215,40 @@ export const campaigns: Campaign[] = [
 
 export const getCampaign = (id: string) => campaigns.find((c) => c.id === id);
 
+export const activations: Activation[] = [
+  {
+    id: "act1",
+    campaignId: "c1",
+    title: "Autumn Athlete rollout",
+    status: "producing",
+    platforms: ["Instagram", "TikTok"],
+    contentItems: [
+      { id: "ac1", title: "Morning session hero Reel", platform: "Instagram", date: "14 Oct", state: "Editing" },
+      { id: "ac2", title: "Kit unboxing Stories", platform: "Instagram", date: "16 Oct", state: "Shot list" },
+      { id: "ac3", title: "Five lifts, five cues", platform: "TikTok", date: "20 Oct", state: "Planned" },
+    ],
+    nextSteps: ["Finish hero Reel edit", "Upload draft for brand review", "Confirm TikTok shoot location"],
+    notes: "Keep the training footage natural and show the product within the first three seconds.",
+  },
+  {
+    id: "act2",
+    campaignId: "c3",
+    title: "Creator Workspace publishing plan",
+    status: "complete",
+    platforms: ["YouTube", "Instagram"],
+    contentItems: [
+      { id: "ac4", title: "Workspace tour", platform: "YouTube", date: "12 Sep", state: "Live" },
+      { id: "ac5", title: "Template link Stories", platform: "Instagram", date: "14 Sep", state: "Live" },
+    ],
+    nextSteps: ["Archive performance screenshots", "Confirm payout release"],
+    notes: "All content is live and approved. Keep the affiliate link active through the reporting window.",
+  },
+];
+
+export const getActivation = (id: string) => activations.find((activation) => activation.id === id);
+export const getActivationForCampaign = (campaignId: string) =>
+  activations.find((activation) => activation.campaignId === campaignId);
+
 /** The campaign the dashboard leads with. */
 export const heroCampaign = campaigns[0]!;
 
@@ -214,10 +261,10 @@ export const creator = {
 };
 
 export const dashboardStats = [
-  { label: "Earnings", value: "$32,900", sub: "This quarter", tone: "green" as const, icon: "wallet", to: "/wallet" },
+  { label: "Earnings", value: "$32,900", sub: "+$5,760 last payout", tone: "green" as const, icon: "wallet", to: "/wallet", positive: true },
   { label: "Active campaigns", value: "3", sub: "1 needs content", tone: "orange" as const, icon: "briefcase", to: "/plans" },
   { label: "Pending approvals", value: "3", sub: "Decisions waiting", tone: "blue" as const, icon: "shield", to: "/messages" },
-  { label: "Pending payments", value: "$13,500", sub: "2 releases due", tone: "violet" as const, icon: "clock", to: "/timeline" },
+  { label: "Pending payments", value: "$13,500", sub: "2 releases due", tone: "violet" as const, icon: "clock", to: "/timeline", positive: true },
 ];
 
 export type ApprovalKind = "brand_offer" | "contract_terms" | "content_revision";

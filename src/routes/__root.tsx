@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { CampaignStateProvider } from "@/components/influencer/CampaignState";
 
 function NotFoundComponent() {
   return (
@@ -77,11 +78,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Alfred — Your personal life OS" },
-      { name: "description", content: "Alfred is a calm personal operating system for everyday life." },
-      { name: "author", content: "Alfred" },
-      { property: "og:title", content: "Alfred — Your personal life OS" },
-      { property: "og:description", content: "A calm personal operating system for everyday life." },
+      { title: "INFLUENCER — Your creator business OS" },
+      { name: "description", content: "A calm operating system for campaigns, content and creator earnings." },
+      { name: "author", content: "INFLUENCER" },
+      { property: "og:title", content: "INFLUENCER — Your creator business OS" },
+      { property: "og:description", content: "Campaigns, activations, approvals and earnings in one place." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       
@@ -125,8 +126,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <CampaignStateProvider>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </CampaignStateProvider>
     </QueryClientProvider>
   );
 }
