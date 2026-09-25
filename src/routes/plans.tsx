@@ -6,6 +6,8 @@ import { AppShell } from "@/components/alfred/AppShell";
 import { AButton, Card, IconBadge, Pill, SectionHeader } from "@/components/alfred/ui";
 import { campaigns, statusMeta, type CampaignStatus } from "@/data/influencer";
 import { cn } from "@/lib/utils";
+import { BrandMark, PlatformMark, platformFromText } from "@/components/influencer/Marks";
+import { useCampaignState } from "@/components/influencer/CampaignState";
 
 export const Route = createFileRoute("/plans")({
   head: () => ({
@@ -45,7 +47,8 @@ const groupOf = (s: CampaignStatus) => {
 
 function CampaignsScreen() {
   const [filter, setFilter] = useState<(typeof filters)[number]["id"]>("all");
-  const shown = campaigns.filter((c) => filter === "all" || groupOf(c.status) === filter);
+  const { statusFor } = useCampaignState();
+  const shown = campaigns.filter((c) => filter === "all" || groupOf(statusFor(c.id) ?? c.status) === filter);
 
   return (
     <AppShell title="Campaigns">
@@ -54,17 +57,11 @@ function CampaignsScreen() {
         A campaign holds the brief, deliverables, deadlines, fee and payment status in one place.
       </p>
 
-      <div className="mt-5 flex gap-3">
-        <Link to="/create" className="flex-1">
+      <div className="mt-5">
+        <Link to="/create" className="block">
           <AButton size="lg" className="w-full">
             <Plus className="h-4 w-4" strokeWidth={3} />
             New campaign
-          </AButton>
-        </Link>
-        <Link to="/assistant">
-          <AButton variant="secondary" size="lg">
-            <Sparkles className="h-4 w-4" strokeWidth={2.5} />
-            Ask AI
           </AButton>
         </Link>
       </div>
@@ -86,11 +83,13 @@ function CampaignsScreen() {
 
       <SectionHeader className="mt-7 mb-3" title={`${shown.length} campaigns`} />
       <div className="space-y-3.5">
-        {shown.map((c) => (
+        {shown.map((c) => {
+          const currentStatus = statusFor(c.id) ?? c.status;
+          return (
           <Card key={c.id} className="p-5">
             <div className="flex items-start gap-3.5">
               <IconBadge tone={c.tone} shape="squircle" size="lg">
-                <c.icon className="h-6 w-6" strokeWidth={2.1} />
+                <BrandMark brand={c.brand} className="h-6 w-6" />
               </IconBadge>
               <div className="min-w-0 flex-1">
                 <p className="text-xs font-bold text-muted-foreground">{c.brand}</p>
@@ -104,21 +103,23 @@ function CampaignsScreen() {
                   {c.contact}
                 </p>
               </div>
-              <Pill tone={statusMeta[c.status].tone}>{statusMeta[c.status].label}</Pill>
+              <Pill tone={statusMeta[currentStatus].tone}>{statusMeta[currentStatus].label}</Pill>
             </div>
 
             <div className="mt-4 flex items-center justify-between rounded-2xl bg-surface px-4 py-3">
               <span className="text-xs font-semibold text-muted-foreground">Gross fee</span>
-              <span className="text-[1.0625rem] font-extrabold tabular-nums">{c.fee}</span>
+              <span className="text-[1.0625rem] font-extrabold tabular-nums text-tint-green-foreground">{c.fee}</span>
             </div>
 
             <ul className="mt-3 space-y-2">
-              {c.summary.map((part) => (
+              {c.summary.map((part) => {
+                const platform = platformFromText(part);
+                return (
                 <li key={part} className="flex items-center gap-2.5 rounded-2xl bg-surface px-3.5 py-2.5">
-                  <CheckCircle2 className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={2.2} />
+                  {platform ? <PlatformMark platform={platform} className="h-4 w-4 text-muted-foreground" /> : <CheckCircle2 className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={2.2} />}
                   <span className="truncate text-[0.8125rem] font-semibold">{part}</span>
                 </li>
-              ))}
+              )})}
             </ul>
 
             <div className="mt-4 flex items-center gap-2 rounded-2xl bg-primary-soft px-3.5 py-3">
@@ -131,7 +132,7 @@ function CampaignsScreen() {
                 <FileText className="h-3.5 w-3.5" strokeWidth={2.4} />
                 Brief & contract
               </span>
-              <span>Net {c.net}</span>
+              <span className="text-tint-blue-foreground">Net {c.net}</span>
             </div>
 
             <Link to={`/plan/${c.id}`} className="mt-4 block">
@@ -140,7 +141,7 @@ function CampaignsScreen() {
               </AButton>
             </Link>
           </Card>
-        ))}
+        )})}
       </div>
 
       <div className="mt-8 rounded-4xl bg-tint-blue p-5">

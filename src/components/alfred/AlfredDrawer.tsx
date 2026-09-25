@@ -28,6 +28,7 @@ import {
   LifeBuoy,
   Settings,
   DoorOpen,
+  Workflow,
 } from "lucide-react";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { IconBadge } from "./ui";
@@ -49,6 +50,7 @@ const workspace: Item[] = [
   { label: "Projects", icon: Layers, to: "/a/projects" },
   { label: "Journal", icon: BookOpen, to: "/a/journal" },
   { label: "Ideas", icon: Lightbulb, to: "/a/ideas" },
+  { label: "Activations", icon: Workflow, to: "/activations" },
 ];
 
 const alfred: Item[] = [
@@ -178,7 +180,7 @@ export function AlfredDrawer({
           </Group>
 
           <Group label="Desk">
-            <div className="grid grid-cols-3 gap-2.5">
+            <div className="grid grid-cols-2 gap-2.5">
               {workspace.map((i) => {
                 const Icon = i.icon;
                 return (

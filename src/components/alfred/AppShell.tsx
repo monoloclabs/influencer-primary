@@ -1,6 +1,6 @@
 import { useRouterState } from "@tanstack/react-router";
 import { Link } from "@/components/alfred/ui";
-import { Bell, LayoutGrid, CalendarClock, FileCheck2, Sparkles, Menu, Plus, Briefcase } from "lucide-react";
+import { LayoutGrid, CalendarClock, FileCheck2, Sparkles, MessageCircleMore, Plus, Briefcase } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { AlfredDrawer } from "./AlfredDrawer";
@@ -24,9 +24,9 @@ export function AppShell({ title, children }: { title: string; children: ReactNo
         <button
           aria-label="Open menu"
           onClick={() => setOpen(true)}
-          className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card shadow-card"
+          className="h-11 shrink-0 rounded-full bg-card px-3 text-[0.6875rem] font-extrabold text-foreground shadow-card"
         >
-          <Menu className="h-5 w-5" strokeWidth={2.4} />
+          MENU
         </button>
         <h1 className="flex min-w-0 items-center justify-center gap-1.5 text-base font-bold tracking-tight text-primary">
           <span className="truncate">INFLUENCER</span>
@@ -37,7 +37,7 @@ export function AppShell({ title, children }: { title: string; children: ReactNo
           aria-label="Notifications"
           className="relative grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card shadow-card"
         >
-          <Bell className="h-5 w-5" strokeWidth={2.2} />
+          <MessageCircleMore className="h-5 w-5" strokeWidth={2.2} />
           <span className="absolute top-2.5 right-2.5 h-2 w-2 rounded-full bg-primary" />
         </button>
       </header>
