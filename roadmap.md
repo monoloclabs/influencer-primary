@@ -14,3 +14,10 @@
 - [x] Wallet Transactions (History | Subscriptions), Wallet Approvals
 - [x] Timeline + Home schedule (no line/dots), calendar jump
 - [x] Subscription tiers (Free/Standard/Premium)
+
+## INFLUENCER offer and activation refinement
+- [x] Global MENU/chat header and shared brand/platform marks
+- [x] Data-driven offer decisions across Dashboard, Approvals, Campaigns, and detail
+- [x] Read-only status-aware campaign detail with reminder and activation entry
+- [x] Activations data, list/detail routes, drawer entry, and Create sheet
+- [x] Wallet terminology review and affected-route validation

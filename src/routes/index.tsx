@@ -1,12 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
 import { Link } from "@/components/alfred/ui";
 import {
   ArrowRight,
   Briefcase,
   ChevronRight,
   Clock4,
-  FileCheck2,
   ShieldCheck,
   Sparkles,
   Wallet,
@@ -22,6 +20,9 @@ import {
   statusMeta,
   upcomingDeliverables,
 } from "@/data/influencer";
+import { BrandMark } from "@/components/influencer/Marks";
+import { useCampaignState } from "@/components/influencer/CampaignState";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -47,7 +48,7 @@ export const Route = createFileRoute("/")({
 const statIcons = { wallet: Wallet, briefcase: Briefcase, shield: ShieldCheck, clock: Clock4 };
 
 function DashboardScreen() {
-  const [decided, setDecided] = useState<Record<string, "accepted" | "declined">>({});
+  const { statusFor, acceptOffer } = useCampaignState();
   const hero = heroCampaign;
   const HeroIcon = hero.icon;
 
@@ -106,9 +107,9 @@ function DashboardScreen() {
                   </IconBadge>
                   <ChevronRight className="h-4 w-4 text-muted-foreground/50" strokeWidth={2.4} />
                 </div>
-                <p className="mt-3 text-2xl font-extrabold">{s.value}</p>
+                <p className={cn("mt-3 text-2xl font-extrabold", s.positive && "text-tint-green-foreground")}>{s.value}</p>
                 <p className="text-sm font-semibold">{s.label}</p>
-                <p className="text-xs text-muted-foreground">{s.sub}</p>
+                <p className={cn("text-xs", s.positive ? "font-semibold text-tint-green-foreground" : "text-muted-foreground")}>{s.sub}</p>
               </Card>
             </Link>
           );
@@ -126,13 +127,14 @@ function DashboardScreen() {
         }
       />
       <div className="space-y-2.5">
-        {approvalQueue.slice(0, 2).map((a) => {
-          const state = decided[a.id];
+        {approvalQueue.filter((item) => item.kind === "brand_offer").map((a) => {
+          const state = a.campaignId ? statusFor(a.campaignId) : undefined;
+          if (a.kind === "brand_offer" && state !== "offer") return null;
           return (
             <Card key={a.id} className="p-4">
               <div className="flex items-center gap-3.5">
                 <IconBadge tone={a.tone} shape="round" size="md">
-                  <FileCheck2 className="h-5 w-5" strokeWidth={2.2} />
+                  <BrandMark brand={a.brand} />
                 </IconBadge>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[0.9375rem] font-bold">{a.title}</p>
@@ -140,38 +142,19 @@ function DashboardScreen() {
                     {a.brand} · {a.value}
                   </p>
                 </div>
-                {state && (
-                  <Pill tone={state === "accepted" ? "green" : "red"}>
-                    {state === "accepted" ? "Accepted" : "Declined"}
-                  </Pill>
-                )}
               </div>
-              {!state && (
+              {a.kind === "brand_offer" && a.campaignId && (
                 <ActionPair
                   className="mt-3.5"
                   secondary={
-                    <AButton
-                      size="md"
-                      variant="neutral"
-                      onClick={() => setDecided((d) => ({ ...d, [a.id]: "declined" }))}
-                    >
-                      Decline
-                    </AButton>
+                    <Link to={`/plan/${a.campaignId}`} className="block"><AButton size="md" variant="neutral" className="w-full">Open</AButton></Link>
                   }
                   primary={
-                    <AButton
-                      size="md"
-                      onClick={() => setDecided((d) => ({ ...d, [a.id]: "accepted" }))}
-                    >
+                    <AButton size="md" onClick={() => acceptOffer(a.campaignId ?? "")}>
                       Accept
                     </AButton>
                   }
                 />
-              )}
-              {state === "accepted" && (
-                <p className="mt-3 text-xs font-semibold text-muted-foreground">
-                  Moved to Pending approval — the brand is countersigning.
-                </p>
               )}
             </Card>
           );

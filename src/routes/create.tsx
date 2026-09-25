@@ -11,10 +11,13 @@ import {
   Layers,
   SquarePen,
   Route as RouteIcon,
+  Workflow,
 } from "lucide-react";
 import { AppShell } from "@/components/alfred/AppShell";
 import { AButton, ActionPair, Card, IconBadge } from "@/components/alfred/ui";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { campaigns } from "@/data/influencer";
+import { useCampaignState } from "@/components/influencer/CampaignState";
 
 export const Route = createFileRoute("/create")({
   head: () => ({
@@ -38,6 +41,7 @@ const quick = [
 
 const work = [
   { id: "w0", eyebrow: "CAMPAIGN", title: "New campaign", sub: "A brand deal with its brief, deliverables and fee", icon: RouteIcon, tone: "orange" as const },
+  { id: "w5", eyebrow: "ACTIVATION", title: "New activation", sub: "Your execution plan for an accepted brand campaign", icon: Workflow, tone: "blue" as const },
   { id: "w1", eyebrow: "DELIVERABLE", title: "Submit content", sub: "Send a draft for brand review", icon: ScrollText, tone: "orange" as const },
   { id: "w2", eyebrow: "EVENT", title: "Shoot or posting date", sub: "Put it on your timeline", icon: CalendarPlus, tone: "blue" as const },
   { id: "w3", eyebrow: "MONEY", title: "Record a payout", sub: "Invoices, payments and fees", icon: Receipt, tone: "green" as const },
@@ -46,6 +50,13 @@ const work = [
 
 function CreateScreen() {
   const [sheet, setSheet] = useState<null | { title: string; sub: string }>(null);
+  const [selectedCampaign, setSelectedCampaign] = useState("");
+  const { statusFor } = useCampaignState();
+  const isActivation = sheet?.title === "New activation";
+  const eligibleCampaigns = campaigns.filter((campaign) => {
+    const status = statusFor(campaign.id) ?? campaign.status;
+    return status !== "offer" && status !== "declined" && status !== "cancelled";
+  });
 
   return (
     <AppShell title="Create">
@@ -93,7 +104,7 @@ function CreateScreen() {
         {work.map((w) => (
           <button
             key={w.id}
-            onClick={() => setSheet({ title: w.title, sub: w.sub })}
+          onClick={() => setSheet({ title: w.title, sub: w.sub })}
             className="flex w-full items-center gap-3.5 rounded-3xl bg-tint-blue px-4 py-4 text-left active:scale-[0.99]"
           >
             <span className="min-w-0 flex-1">
@@ -121,6 +132,20 @@ function CreateScreen() {
           <p className="mx-auto mt-2 max-w-[20rem] text-center text-sm text-muted-foreground">
             {sheet?.sub} This is where the flow will open — nothing is created yet in this preview.
           </p>
+          {isActivation && (
+            <div className="mt-6 space-y-3 text-left">
+              <label className="block text-xs font-bold text-muted-foreground" htmlFor="activation-campaign">Accepted campaign</label>
+              <select id="activation-campaign" value={selectedCampaign} onChange={(event) => setSelectedCampaign(event.target.value)} className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm font-semibold">
+                <option value="">Select campaign</option>
+                {eligibleCampaigns.map((campaign) => <option key={campaign.id} value={campaign.id}>{campaign.brand} — {campaign.title}</option>)}
+              </select>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-2xl bg-surface px-4 py-3"><p className="text-xs font-bold">Platforms</p><p className="mt-1 text-xs text-muted-foreground">Choose channels</p></div>
+                <div className="rounded-2xl bg-surface px-4 py-3"><p className="text-xs font-bold">Schedule</p><p className="mt-1 text-xs text-muted-foreground">Add post dates</p></div>
+              </div>
+              <div className="rounded-2xl bg-surface px-4 py-3"><p className="text-xs font-bold">Content and notes</p><p className="mt-1 text-xs text-muted-foreground">Outline posts, production and publishing steps</p></div>
+            </div>
+          )}
           <ActionPair
             className="mt-7"
             secondary={
@@ -129,7 +154,7 @@ function CreateScreen() {
               </AButton>
             }
             primary={
-              <AButton size="lg" onClick={() => setSheet(null)}>
+              <AButton size="lg" disabled={isActivation && !selectedCampaign} onClick={() => setSheet(null)}>
                 Continue
               </AButton>
             }

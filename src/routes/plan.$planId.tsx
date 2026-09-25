@@ -6,14 +6,15 @@ import {
   CalendarDays,
   CheckCircle2,
   FileText,
-  Pencil,
+  Bell,
   Share2,
   Sparkles,
   UserRound,
-  Wallet,
 } from "lucide-react";
 import { AButton, ActionPair, Card, IconBadge, Pill, SectionHeader } from "@/components/alfred/ui";
-import { getCampaign, statusMeta } from "@/data/influencer";
+import { getActivationForCampaign, getCampaign, statusMeta } from "@/data/influencer";
+import { BrandMark, PlatformMark } from "@/components/influencer/Marks";
+import { useCampaignState } from "@/components/influencer/CampaignState";
 
 export const Route = createFileRoute("/plan/$planId")({
   loader: ({ params }) => {
@@ -56,11 +57,15 @@ function CampaignNotFound() {
 
 function CampaignDetailScreen() {
   const { planId } = useParams({ from: "/plan/$planId" });
-  const campaign = getCampaign(planId)!;
-  const [editing, setEditing] = useState(false);
+  const campaign = getCampaign(planId);
   const [shared, setShared] = useState(false);
-  const Icon = campaign.icon;
-  const status = statusMeta[campaign.status];
+  const [reminded, setReminded] = useState(false);
+  const { statusFor, acceptOffer, declineOffer } = useCampaignState();
+  if (!campaign) return null;
+  const currentStatus = statusFor(campaign.id) ?? campaign.status;
+  const status = statusMeta[currentStatus];
+  const isOffer = currentStatus === "offer";
+  const activation = getActivationForCampaign(campaign.id);
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[520px] flex-col bg-background">
@@ -73,24 +78,16 @@ function CampaignDetailScreen() {
           <ArrowLeft className="h-5 w-5" strokeWidth={2.4} />
         </Link>
         <h1 className="truncate text-center text-base font-bold">
-          {editing ? "Editing campaign" : "Campaign"}
+          {isOffer ? "Campaign offer" : "Campaign"}
         </h1>
         <div className="flex items-center gap-2">
-          {!editing && (
-            <button
-              aria-label="Share campaign"
-              onClick={() => setShared(true)}
-              className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card shadow-card"
-            >
-              <Share2 className="h-5 w-5" strokeWidth={2.2} />
-            </button>
-          )}
+          <button aria-label="Share campaign" onClick={() => setShared(true)} className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card shadow-card"><Share2 className="h-5 w-5" strokeWidth={2.2} /></button>
           <button
-            aria-label="Edit campaign"
-            onClick={() => setEditing(true)}
+            aria-label="Remind me about this campaign"
+            onClick={() => setReminded(true)}
             className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-primary-soft"
           >
-            <Pencil className="h-[1.1rem] w-[1.1rem] text-primary" strokeWidth={2.3} />
+            <Bell className="h-[1.1rem] w-[1.1rem] text-primary" strokeWidth={2.3} />
           </button>
         </div>
       </header>
@@ -98,7 +95,7 @@ function CampaignDetailScreen() {
       <main className="flex-1 px-5 pb-40">
         <div className="flex items-start gap-3.5">
           <IconBadge tone={campaign.tone} shape="squircle" size="lg">
-            <Icon className="h-6 w-6" strokeWidth={2.1} />
+            <BrandMark brand={campaign.brand} className="h-6 w-6" />
           </IconBadge>
           <div className="min-w-0 flex-1">
             <p className="text-xs font-bold text-muted-foreground">{campaign.brand}</p>
@@ -115,18 +112,10 @@ function CampaignDetailScreen() {
           <Pill tone={status.tone}>{status.label}</Pill>
         </div>
 
-        {editing && (
-          <div className="mt-5 rounded-3xl bg-tint-blue p-4">
-            <p className="text-sm font-semibold text-tint-blue-foreground">
-              You're editing this campaign. Change what you need, then save your changes below.
-            </p>
-          </div>
-        )}
-
-        {shared && !editing && (
+        {(shared || reminded) && (
           <div className="mt-5 rounded-3xl bg-primary-soft p-4">
             <p className="text-sm font-semibold text-primary">
-              Sharing is coming soon — this will send a read-only campaign brief.
+              {reminded ? "Reminder set for the next deadline on this campaign." : "Sharing is coming soon — this will send a read-only campaign brief."}
             </p>
           </div>
         )}
@@ -146,7 +135,7 @@ function CampaignDetailScreen() {
             ].map((row) => (
               <div key={row.label} className="flex items-center justify-between gap-4 px-4 py-3.5">
                 <span className="text-sm font-semibold text-muted-foreground">{row.label}</span>
-                <span className="text-right text-[0.9375rem] font-extrabold">{row.value}</span>
+                <span className={row.label === "Gross fee" || row.label === "Net to you" ? "text-right text-[0.9375rem] font-extrabold text-tint-green-foreground" : "text-right text-[0.9375rem] font-extrabold"}>{row.value}</span>
               </div>
             ))}
           </div>
@@ -159,7 +148,7 @@ function CampaignDetailScreen() {
               <span className="w-14 shrink-0 pt-0.5 text-sm font-extrabold tabular-nums">{d.due}</span>
               <span className="min-w-0 flex-1">
                 <span className="block text-[0.9375rem] leading-snug font-bold">{d.title}</span>
-                <span className="block text-xs text-muted-foreground">{d.platform}</span>
+                <span className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground"><PlatformMark platform={d.platform} className="h-3.5 w-3.5" />{d.platform}</span>
               </span>
               <Pill tone={d.state === "Live" || d.state === "Approved" ? "green" : d.state === "Submitted" ? "amber" : d.state === "Drafted" ? "orange" : "neutral"}>
                 {d.state}
@@ -196,28 +185,21 @@ function CampaignDetailScreen() {
           <span className="text-sm font-semibold">{campaign.nudge}</span>
         </div>
 
-        {!editing && (
-          <Link to="/wallet" className="mt-4 block">
-            <AButton variant="soft" size="lg" className="w-full">
-              <Wallet className="h-4 w-4" strokeWidth={2.4} />
-              See this in your wallet
-            </AButton>
+        {!isOffer && currentStatus !== "declined" && (
+          <Link to={activation ? `/activation/${activation.id}` : "/activations"} className="mt-4 block">
+            <AButton variant="soft" size="lg" className="w-full">{activation ? "Open activation" : "Start activation"}</AButton>
           </Link>
         )}
       </main>
 
-      {editing && (
+      {isOffer && (
         <div className="fixed bottom-0 z-30 w-full max-w-[520px] border-t border-border/70 bg-background/95 px-5 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] backdrop-blur-xl">
           <ActionPair
             secondary={
-              <AButton variant="secondary" size="lg" onClick={() => setEditing(false)}>
-                Cancel
-              </AButton>
+              <AButton variant="neutral" size="lg" onClick={() => declineOffer(campaign.id)}>Decline</AButton>
             }
             primary={
-              <AButton size="lg" onClick={() => setEditing(false)}>
-                Save changes
-              </AButton>
+              <AButton size="lg" onClick={() => acceptOffer(campaign.id)}>Accept</AButton>
             }
           />
         </div>

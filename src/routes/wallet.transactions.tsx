@@ -8,9 +8,9 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/wallet/transactions")({
   head: () => ({
     meta: [
-      { title: "Transactions — Alfred Wallet" },
-      { name: "description", content: "Every payment, deposit, withdrawal and recurring subscription in your Alfred wallet." },
-      { property: "og:title", content: "Transactions — Alfred Wallet" },
+      { title: "Transactions — INFLUENCER Wallet" },
+      { name: "description", content: "Every payment, deposit, withdrawal and recurring subscription in your creator wallet." },
+      { property: "og:title", content: "Transactions — INFLUENCER Wallet" },
       { property: "og:description", content: "Wallet history and active subscriptions, side by side." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/wallet/transactions")({
 const history = [
   { id: "h1", title: "Salary — Northline", meta: "Deposit · Yesterday", amount: "+₦620,000", icon: ArrowDownLeft, tone: "green" as const },
   { id: "h2", title: "Yellow Chilli", meta: "Purchase · Today 13:20", amount: "-₦18,400", icon: ShoppingBag, tone: "neutral" as const },
-  { id: "h3", title: "Electricity", meta: "Payment · Alfred instruction", amount: "-₦15,000", icon: Zap, tone: "orange" as const },
+  { id: "h3", title: "Electricity", meta: "Payment · standing instruction", amount: "-₦15,000", icon: Zap, tone: "orange" as const },
   { id: "h4", title: "Withdrawal to Sterling", meta: "Withdrawal · 29 Aug", amount: "-₦80,000", icon: ArrowUpRight, tone: "amber" as const },
 ];
 
