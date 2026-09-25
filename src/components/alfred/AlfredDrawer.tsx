@@ -233,8 +233,8 @@ export function AlfredDrawer({
               className="rounded-3xl bg-tint-blue p-4 active:scale-[0.98]"
             >
               <Users className="h-5 w-5 text-tint-blue-foreground" strokeWidth={2.3} />
-              <p className="mt-3 text-sm font-bold">Clique</p>
-              <p className="text-xs text-muted-foreground">People who matter</p>
+              <p className="mt-3 text-sm font-bold">Network</p>
+              <p className="text-xs text-muted-foreground">Brands and collaborators</p>
             </Link>
             <Link
               to="/office"
@@ -243,7 +243,7 @@ export function AlfredDrawer({
             >
               <Briefcase className="h-5 w-5 text-tint-amber-foreground" strokeWidth={2.3} />
               <p className="mt-3 text-sm font-bold">My Office</p>
-              <p className="text-xs text-muted-foreground">Premium · work side of life</p>
+              <p className="text-xs text-muted-foreground">Premium · your team side</p>
             </Link>
           </div>
 
@@ -255,7 +255,7 @@ export function AlfredDrawer({
                 className="flex flex-1 items-center gap-2.5 rounded-full border border-primary/50 bg-primary-soft px-4 py-3 active:opacity-80"
               >
                 <Compass className="h-[1.1rem] w-[1.1rem] text-primary" strokeWidth={2.3} />
-                <span className="text-sm font-bold text-primary">Discover</span>
+                <span className="text-sm font-bold text-primary">Brands</span>
               </Link>
               <Link
                 to="/a/research"
@@ -263,7 +263,7 @@ export function AlfredDrawer({
                 className="flex flex-1 items-center gap-2.5 rounded-full border border-tint-blue-foreground/30 bg-tint-blue px-4 py-3 active:opacity-80"
               >
                 <Library className="h-[1.1rem] w-[1.1rem] text-tint-blue-foreground" strokeWidth={2.3} />
-                <span className="text-sm font-bold text-tint-blue-foreground">Research</span>
+                <span className="text-sm font-bold text-tint-blue-foreground">Rates</span>
               </Link>
             </div>
           </Group>
