@@ -203,7 +203,7 @@ export const campaigns: Campaign[] = [
 export const getCampaign = (id: string) => campaigns.find((c) => c.id === id);
 
 /** The campaign the dashboard leads with. */
-export const heroCampaign = campaigns[0];
+export const heroCampaign = campaigns[0]!;
 
 export const creator = {
   name: "Tola",
@@ -289,7 +289,7 @@ export const transactions = [
   },
 ];
 
-export const campaignEvents = [
+export const campaignEvents: { day: string; items: { id: string; time: string; title: string; meta: string; tone: PillTone; tag: string }[] }[] = [
   {
     day: "This week",
     items: [

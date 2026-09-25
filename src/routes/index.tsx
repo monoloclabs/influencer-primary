@@ -212,7 +212,7 @@ function DashboardScreen() {
           <p className="eyebrow text-primary">Recent activity</p>
         </div>
         <ul className="mt-4 space-y-3.5">
-          {campaignEvents[0].items.map((e) => (
+          {(campaignEvents[0]?.items ?? []).map((e) => (
             <li key={e.id} className="border-b border-primary/10 pb-3.5 last:border-0 last:pb-0">
               <p className="text-[0.9375rem] leading-snug font-semibold">{e.title}</p>
               <p className="mt-0.5 text-xs text-muted-foreground">{e.meta}</p>
