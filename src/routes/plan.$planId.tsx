@@ -135,7 +135,7 @@ function CampaignDetailScreen() {
             ].map((row) => (
               <div key={row.label} className="flex items-center justify-between gap-4 px-4 py-3.5">
                 <span className="text-sm font-semibold text-muted-foreground">{row.label}</span>
-                <span className="text-right text-[0.9375rem] font-extrabold">{row.value}</span>
+                <span className={row.label === "Gross fee" || row.label === "Net to you" ? "text-right text-[0.9375rem] font-extrabold text-tint-green-foreground" : "text-right text-[0.9375rem] font-extrabold"}>{row.value}</span>
               </div>
             ))}
           </div>

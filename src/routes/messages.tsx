@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { Link } from "@/components/alfred/ui";
 import { FileCheck2, FileSignature, Handshake, ScissorsLineDashed, Sparkles } from "lucide-react";
 import { AppShell } from "@/components/alfred/AppShell";
@@ -36,6 +37,7 @@ const kindMeta: Record<ApprovalKind, { label: string; icon: typeof Handshake }> 
 
 function ApprovalsScreen() {
   const { statusFor, acceptOffer } = useCampaignState();
+  const [otherDecisions, setOtherDecisions] = useState<Record<string, "accepted" | "declined">>({});
   const pending = approvalQueue.filter((a) => a.kind !== "brand_offer" || (a.campaignId && statusFor(a.campaignId) === "offer"));
 
   return (
@@ -70,6 +72,7 @@ function ApprovalsScreen() {
       <p className="eyebrow mt-8 mb-3 px-1 text-muted-foreground">Everything awaiting a decision</p>
       <div className="space-y-2.5">
         {pending.map((a) => {
+          const decision = otherDecisions[a.id];
           const meta = kindMeta[a.kind];
           const Icon = meta.icon;
           return (
@@ -100,8 +103,16 @@ function ApprovalsScreen() {
                     </AButton>
                   }
                 />
+              ) : decision ? (
+                <div className="mt-3.5 rounded-2xl bg-surface px-4 py-3 text-xs font-semibold text-muted-foreground">
+                  {decision === "accepted" ? "Accepted and sent to the brand." : "Declined and removed from your queue."}
+                </div>
               ) : (
-                <ActionPair className="mt-3.5" secondary={<AButton size="md" variant="neutral">Decline</AButton>} primary={a.campaignId ? <Link to={`/plan/${a.campaignId}`} className="block"><AButton size="md" className="w-full">Open</AButton></Link> : <AButton size="md">Accept</AButton>} />
+                <ActionPair
+                  className="mt-3.5"
+                  secondary={<AButton size="md" variant="neutral" onClick={() => setOtherDecisions((current) => ({ ...current, [a.id]: "declined" }))}>Decline</AButton>}
+                  primary={<AButton size="md" onClick={() => setOtherDecisions((current) => ({ ...current, [a.id]: "accepted" }))}>Accept</AButton>}
+                />
               )}
             </Card>
           );

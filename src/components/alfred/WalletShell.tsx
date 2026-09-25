@@ -18,7 +18,7 @@ export function WalletShell({ title, children }: { title: string; children: Reac
       <header className="sticky top-0 z-30 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 bg-background/85 px-5 pt-4 pb-3 backdrop-blur-xl">
         <RouterLink
           to="/"
-          aria-label="Back to Alfred"
+          aria-label="Back to INFLUENCER"
           className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card shadow-card"
         >
           <ArrowLeft className="h-5 w-5" strokeWidth={2.4} />

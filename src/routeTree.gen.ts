@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ActivationsRouteImport } from './routes/activations'
 import { Route as ApprovalsRouteImport } from './routes/approvals'
 import { Route as AssistantRouteImport } from './routes/assistant'
 import { Route as CreateRouteImport } from './routes/create'
@@ -23,6 +24,7 @@ import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as WalletRouteImport } from './routes/wallet'
 import { Route as ASlugRouteImport } from './routes/a.$slug'
+import { Route as ActivationActivationIdRouteImport } from './routes/activation.$activationId'
 import { Route as OfficeIndexRouteImport } from './routes/office.index'
 import { Route as OfficeSalariesRouteImport } from './routes/office.salaries'
 import { Route as OfficeStaffRouteImport } from './routes/office.staff'
@@ -35,6 +37,11 @@ import { Route as WalletTransactionsRouteImport } from './routes/wallet.transact
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActivationsRoute = ActivationsRouteImport.update({
+  id: '/activations',
+  path: '/activations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApprovalsRoute = ApprovalsRouteImport.update({
@@ -102,6 +109,11 @@ const ASlugRoute = ASlugRouteImport.update({
   path: '/a/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActivationActivationIdRoute = ActivationActivationIdRouteImport.update({
+  id: '/activation/$activationId',
+  path: '/activation/$activationId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OfficeIndexRoute = OfficeIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -145,6 +157,7 @@ const WalletTransactionsRoute = WalletTransactionsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/activations': typeof ActivationsRoute
   '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
@@ -158,6 +171,7 @@ export interface FileRoutesByFullPath {
   '/timeline': typeof TimelineRoute
   '/wallet': typeof WalletRouteWithChildren
   '/a/$slug': typeof ASlugRoute
+  '/activation/$activationId': typeof ActivationActivationIdRoute
   '/office/salaries': typeof OfficeSalariesRoute
   '/office/staff': typeof OfficeStaffRoute
   '/office/work': typeof OfficeWorkRoute
@@ -169,6 +183,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/activations': typeof ActivationsRoute
   '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
@@ -180,6 +195,7 @@ export interface FileRoutesByTo {
   '/tasks': typeof TasksRoute
   '/timeline': typeof TimelineRoute
   '/a/$slug': typeof ASlugRoute
+  '/activation/$activationId': typeof ActivationActivationIdRoute
   '/office/salaries': typeof OfficeSalariesRoute
   '/office/staff': typeof OfficeStaffRoute
   '/office/work': typeof OfficeWorkRoute
@@ -192,6 +208,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/activations': typeof ActivationsRoute
   '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
@@ -205,6 +222,7 @@ export interface FileRoutesById {
   '/timeline': typeof TimelineRoute
   '/wallet': typeof WalletRouteWithChildren
   '/a/$slug': typeof ASlugRoute
+  '/activation/$activationId': typeof ActivationActivationIdRoute
   '/office/salaries': typeof OfficeSalariesRoute
   '/office/staff': typeof OfficeStaffRoute
   '/office/work': typeof OfficeWorkRoute
@@ -218,6 +236,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/activations'
     | '/approvals'
     | '/assistant'
     | '/create'
@@ -231,6 +250,7 @@ export interface FileRouteTypes {
     | '/timeline'
     | '/wallet'
     | '/a/$slug'
+    | '/activation/$activationId'
     | '/office/salaries'
     | '/office/staff'
     | '/office/work'
@@ -242,6 +262,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/activations'
     | '/approvals'
     | '/assistant'
     | '/create'
@@ -253,6 +274,7 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/timeline'
     | '/a/$slug'
+    | '/activation/$activationId'
     | '/office/salaries'
     | '/office/staff'
     | '/office/work'
@@ -264,6 +286,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/activations'
     | '/approvals'
     | '/assistant'
     | '/create'
@@ -277,6 +300,7 @@ export interface FileRouteTypes {
     | '/timeline'
     | '/wallet'
     | '/a/$slug'
+    | '/activation/$activationId'
     | '/office/salaries'
     | '/office/staff'
     | '/office/work'
@@ -289,6 +313,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ActivationsRoute: typeof ActivationsRoute
   ApprovalsRoute: typeof ApprovalsRoute
   AssistantRoute: typeof AssistantRoute
   CreateRoute: typeof CreateRoute
@@ -302,6 +327,7 @@ export interface RootRouteChildren {
   TimelineRoute: typeof TimelineRoute
   WalletRoute: typeof WalletRouteWithChildren
   ASlugRoute: typeof ASlugRoute
+  ActivationActivationIdRoute: typeof ActivationActivationIdRoute
   PlanPlanIdRoute: typeof PlanPlanIdRoute
 }
 
@@ -312,6 +338,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/activations': {
+      id: '/activations'
+      path: '/activations'
+      fullPath: '/activations'
+      preLoaderRoute: typeof ActivationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/approvals': {
@@ -403,6 +436,13 @@ declare module '@tanstack/react-router' {
       path: '/a/$slug'
       fullPath: '/a/$slug'
       preLoaderRoute: typeof ASlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/activation/$activationId': {
+      id: '/activation/$activationId'
+      path: '/activation/$activationId'
+      fullPath: '/activation/$activationId'
+      preLoaderRoute: typeof ActivationActivationIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/office/': {
@@ -498,6 +538,7 @@ const WalletRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ActivationsRoute: ActivationsRoute,
   ApprovalsRoute: ApprovalsRoute,
   AssistantRoute: AssistantRoute,
   CreateRoute: CreateRoute,
@@ -511,6 +552,7 @@ const rootRouteChildren: RootRouteChildren = {
   TimelineRoute: TimelineRoute,
   WalletRoute: WalletRouteWithChildren,
   ASlugRoute: ASlugRoute,
+  ActivationActivationIdRoute: ActivationActivationIdRoute,
   PlanPlanIdRoute: PlanPlanIdRoute,
 }
 export const routeTree = rootRouteImport

@@ -2,15 +2,15 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowDownToLine, Plus, SlidersHorizontal, Repeat, ShoppingBag, Zap, ArrowDownLeft } from "lucide-react";
 import { WalletShell } from "@/components/alfred/WalletShell";
 import { Card, IconBadge, Pill } from "@/components/alfred/ui";
-import { TieMark } from "@/components/alfred/TieMark";
+import { InfluencerMark } from "@/components/alfred/InfluencerMark";
 
 export const Route = createFileRoute("/wallet/")({
   head: () => ({
     meta: [
-      { title: "Wallet — Alfred" },
-      { name: "description", content: "Your Alfred wallet balance, card and everyday money actions in one calm place." },
-      { property: "og:title", content: "Wallet — Alfred" },
-      { property: "og:description", content: "Balance, card, top ups and controls inside Alfred's wallet." },
+      { title: "Wallet — INFLUENCER" },
+      { name: "description", content: "Your creator wallet balance, card and money actions in one calm place." },
+      { property: "og:title", content: "Wallet — INFLUENCER" },
+      { property: "og:description", content: "Balance, card, top ups and controls inside your creator wallet." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -36,8 +36,8 @@ function WalletHome() {
     <WalletShell title="Wallet">
       <div className="aurora-card relative aspect-[1.62/1] w-full overflow-hidden rounded-[1.75rem] p-6 text-foreground">
         <div className="flex items-center gap-1.5 font-extrabold">
-          <TieMark className="h-[1.05rem] w-[1.05rem]" />
-          <span className="text-[0.9375rem] tracking-tight">Alfred</span>
+          <InfluencerMark className="h-[1.05rem] w-[1.05rem]" />
+          <span className="text-[0.9375rem] tracking-tight">INFLUENCER</span>
         </div>
 
         <p className="mt-6 text-xs font-semibold opacity-70">Balance</p>
@@ -62,7 +62,7 @@ function WalletHome() {
       </div>
 
       <div className="mt-6 rounded-3xl bg-tint-green p-5">
-        <Pill tone="green">Alfred found something</Pill>
+        <Pill tone="green">Worth knowing</Pill>
         <p className="mt-3 text-[0.9375rem] leading-snug font-bold">
           Two subscriptions haven't been used in 60 days. Cancelling saves ₦14,500 a month.
         </p>

@@ -7,9 +7,9 @@ import { AButton, ActionPair, Card, IconBadge, Pill } from "@/components/alfred/
 export const Route = createFileRoute("/wallet/approvals")({
   head: () => ({
     meta: [
-      { title: "Approvals — Alfred Wallet" },
-      { name: "description", content: "Payment authorizations waiting for your yes before Alfred spends a naira." },
-      { property: "og:title", content: "Approvals — Alfred Wallet" },
+      { title: "Approvals — INFLUENCER Wallet" },
+      { name: "description", content: "Payment authorizations waiting for your approval before funds leave your wallet." },
+      { property: "og:title", content: "Approvals — INFLUENCER Wallet" },
       { property: "og:description", content: "Review, approve or decline pending wallet authorizations." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -54,7 +54,7 @@ function WalletApprovals() {
               {state ? (
                 <div className="mt-4 flex items-center gap-2 rounded-full bg-surface px-4 py-3 text-sm font-bold">
                   <Check className="h-4 w-4 text-primary" strokeWidth={3} />
-                  {state === "approved" ? "Approved — Alfred is on it" : "Declined"}
+                  {state === "approved" ? "Approved — payment authorized" : "Declined"}
                 </div>
               ) : (
                 <ActionPair

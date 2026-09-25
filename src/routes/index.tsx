@@ -1,12 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
 import { Link } from "@/components/alfred/ui";
 import {
   ArrowRight,
   Briefcase,
   ChevronRight,
   Clock4,
-  FileCheck2,
   ShieldCheck,
   Sparkles,
   Wallet,
@@ -129,7 +127,7 @@ function DashboardScreen() {
         }
       />
       <div className="space-y-2.5">
-        {approvalQueue.slice(0, 2).map((a) => {
+        {approvalQueue.filter((item) => item.kind === "brand_offer").map((a) => {
           const state = a.campaignId ? statusFor(a.campaignId) : undefined;
           if (a.kind === "brand_offer" && state !== "offer") return null;
           return (
