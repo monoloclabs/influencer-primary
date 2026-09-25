@@ -46,7 +46,7 @@ const titles: Record<string, { title: string; blurb: string }> = {
 
 function PlaceholderScreen() {
   const { slug } = useParams({ from: "/a/$slug" });
-  const meta = titles[slug] ?? { title: "Alfred", blurb: "This area is on the way." };
+  const meta = titles[slug] ?? { title: "INFLUENCER", blurb: "This area is on the way." };
 
   return (
     <AppShell title={meta.title}>
@@ -64,7 +64,7 @@ function PlaceholderScreen() {
         </IconBadge>
         <p className="mt-4 text-[1.0625rem] font-bold">Being built next</p>
         <p className="mx-auto mt-2 max-w-[19rem] text-sm text-muted-foreground">
-          {meta.title} is part of Alfred's architecture. The screen is designed — it just isn't
+          {meta.title} is part of the INFLUENCER architecture. The screen is designed — it just isn't
           wired up in this preview yet.
         </p>
         <ActionPair
@@ -72,13 +72,13 @@ function PlaceholderScreen() {
           secondary={
             <Link to="/">
               <AButton variant="neutral" size="lg">
-                Home
+                Dashboard
               </AButton>
             </Link>
           }
           primary={
             <Link to="/assistant">
-              <AButton size="lg">Ask Alfred instead</AButton>
+              <AButton size="lg">Ask the assistant</AButton>
             </Link>
           }
         />
