@@ -31,7 +31,7 @@ import {
 } from "lucide-react";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { IconBadge } from "./ui";
-import { user } from "@/data/alfred";
+import { InfluencerMark } from "./InfluencerMark";
 import { cn } from "@/lib/utils";
 
 type IconType = React.ComponentType<{ className?: string; strokeWidth?: number }>;
@@ -157,13 +157,8 @@ export function AlfredDrawer({
         className="w-[88vw] max-w-[380px] gap-0 overflow-y-auto border-0 bg-background p-0 no-scrollbar [&>button]:hidden"
       >
         <div className="sticky top-0 z-10 flex items-center gap-3 bg-background/95 px-5 pt-6 pb-4 backdrop-blur-xl">
-          <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-foreground text-sm font-bold text-background">
-            {user.initials}
-          </div>
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-lg font-bold">{user.fullName}</p>
-            <p className="truncate text-xs text-muted-foreground">Standard · Personal</p>
-          </div>
+          <InfluencerMark className="h-8 w-8 shrink-0 text-primary" />
+          <div className="min-w-0 flex-1" />
           <button
             aria-label="Close menu"
             onClick={close}
@@ -174,7 +169,7 @@ export function AlfredDrawer({
         </div>
 
         <div className="px-4 pb-12">
-          <Group label="Life">
+          <Group label="My Workspace">
             <div className="divide-y divide-border/70 rounded-3xl border border-border/70 bg-card px-1.5 shadow-card">
               {life.map((i) => (
                 <LifeRow key={i.label} item={i} onNavigate={close} />
@@ -182,7 +177,7 @@ export function AlfredDrawer({
             </div>
           </Group>
 
-          <Group label="Workspace">
+          <Group label="Desk">
             <div className="grid grid-cols-3 gap-2.5">
               {workspace.map((i) => {
                 const Icon = i.icon;
@@ -201,7 +196,7 @@ export function AlfredDrawer({
             </div>
           </Group>
 
-          <Group label="Alfred">
+          <Group label="Influencer">
             <div className="rounded-3xl bg-primary-soft p-1.5">
               {alfred.map((i) => (
                 <AlfredRow key={i.label} item={i} onNavigate={close} />
