@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+Use the shared CampaignState provider for offer decisions and activation creation, and reuse one activation setup sheet across entry points; this keeps campaign lifecycle actions consistent without a backend.
