@@ -152,7 +152,7 @@ function CreateScreen() {
               </AButton>
             }
             primary={
-              <AButton size="lg" disabled={isActivation && !selectedCampaign} onClick={() => setSheet(null)}>
+              <AButton size="lg" disabled={isActivation && !selectedCampaign} onClick={() => { if (isActivation && selectedCampaign) { startActivation(selectedCampaign); setSelectedCampaign(""); } setSheet(null); }}>
                 Continue
               </AButton>
             }
