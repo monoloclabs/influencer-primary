@@ -33,11 +33,8 @@ const activationStatus = {
 function ActivationsScreen() {
   const [creating, setCreating] = useState(false);
   const [selectedCampaign, setSelectedCampaign] = useState("");
-  const { statusFor } = useCampaignState();
-  const eligible = campaigns.filter((campaign) => {
-    const status = statusFor(campaign.id) ?? campaign.status;
-    return status !== "offer" && status !== "declined" && status !== "cancelled";
-  });
+  const { allActivations, campaignsReadyForActivation, startActivation } = useCampaignState();
+  const eligible = campaignsReadyForActivation;
 
   return (
     <AppShell title="Activations">
@@ -54,7 +51,7 @@ function ActivationsScreen() {
       </div>
 
       <div className="mt-6 space-y-3.5">
-        {activations.map((activation) => {
+        {allActivations.map((activation) => {
           const campaign = getCampaign(activation.campaignId);
           if (!campaign) return null;
           const meta = activationStatus[activation.status];
