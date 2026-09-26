@@ -18,6 +18,8 @@ type CampaignStateValue = {
   activationForCampaign: (campaignId: string) => Activation | undefined;
   campaignsReadyForActivation: Campaign[];
   pendingOfferCount: number;
+  decisionFor: (approvalId: string) => "accepted" | "declined" | undefined;
+  decideApproval: (approvalId: string, decision: "accepted" | "declined") => void;
 };
 
 const CampaignStateContext = createContext<CampaignStateValue | undefined>(undefined);
@@ -46,6 +48,7 @@ function buildActivation(campaign: Campaign, templateId?: string): Activation {
 export function CampaignStateProvider({ children }: { children: ReactNode }) {
   const [overrides, setOverrides] = useState<Record<string, CampaignStatus>>({});
   const [created, setCreated] = useState<Activation[]>([]);
+  const [approvalDecisions, setApprovalDecisions] = useState<Record<string, "accepted" | "declined">>({});
 
   const value = useMemo<CampaignStateValue>(() => {
     const statusFor = (campaignId: string) =>
@@ -78,8 +81,10 @@ export function CampaignStateProvider({ children }: { children: ReactNode }) {
         (campaign) => statusFor(campaign.id) === "accepted" && !activationForCampaign(campaign.id),
       ),
       pendingOfferCount: campaigns.filter((campaign) => statusFor(campaign.id) === "offer").length,
+      decisionFor: (approvalId) => approvalDecisions[approvalId],
+      decideApproval: (approvalId, decision) => setApprovalDecisions((current) => ({ ...current, [approvalId]: decision })),
     };
-  }, [overrides, created]);
+  }, [overrides, created, approvalDecisions]);
 
   return <CampaignStateContext.Provider value={value}>{children}</CampaignStateContext.Provider>;
 }

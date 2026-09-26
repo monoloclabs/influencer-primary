@@ -9,7 +9,6 @@ import {
   CalendarPlus,
   Receipt,
   Layers,
-  SquarePen,
   LayoutTemplate,
   Workflow,
 } from "lucide-react";
@@ -23,9 +22,9 @@ export const Route = createFileRoute("/create")({
   head: () => ({
     meta: [
       { title: "Create — INFLUENCER" },
-      { name: "description", content: "Log a brand deal, submit content, record a payout or add a content deadline." },
+      { name: "description", content: "Activate an accepted campaign, use execution templates, or organise creator work." },
       { property: "og:title", content: "Create — INFLUENCER" },
-      { property: "og:description", content: "Start anything: campaigns, deliverables, payouts and deadlines." },
+      { property: "og:description", content: "Start campaign execution with reusable content and scheduling structures." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -77,10 +76,10 @@ function CreateScreen() {
 
       <Card className="mt-4 divide-y divide-border/70 p-0">
         {quick.map((q) => (
-          <button
+          <AButton variant="ghost"
             key={q.id}
             onClick={() => setSheet({ title: q.title, sub: q.sub })}
-            className="flex w-full items-center gap-3.5 px-4 py-4 text-left active:bg-surface"
+            className="h-auto w-full justify-start rounded-none px-4 py-4 text-left whitespace-normal active:bg-surface"
           >
             <IconBadge tone="neutral" shape="round" size="md">
               <q.icon className="h-5 w-5" strokeWidth={2} />
@@ -90,17 +89,17 @@ function CreateScreen() {
               <span className="block truncate text-xs text-muted-foreground">{q.sub}</span>
             </span>
             <ChevronRight className="h-4 w-4 text-muted-foreground/60" strokeWidth={2.3} />
-          </button>
+          </AButton>
         ))}
       </Card>
 
       <p className="eyebrow mt-8 mb-3 px-1 text-primary">Business items</p>
       <div className="space-y-3">
         {work.map((w) => (
-          <button
+          <AButton variant="ghost"
             key={w.id}
           onClick={() => setSheet({ title: w.title, sub: w.sub })}
-            className="flex w-full items-center gap-3.5 rounded-3xl bg-tint-blue px-4 py-4 text-left active:scale-[0.99]"
+            className="h-auto w-full justify-start gap-3.5 rounded-3xl bg-tint-blue px-4 py-4 text-left whitespace-normal active:scale-[0.99]"
           >
             <span className="min-w-0 flex-1">
               <span className="eyebrow block text-tint-blue-foreground">{w.eyebrow}</span>
@@ -110,7 +109,7 @@ function CreateScreen() {
             <IconBadge tone={w.tone} shape="round" size="md" className="bg-background">
               <w.icon className="h-5 w-5" strokeWidth={2.1} />
             </IconBadge>
-          </button>
+          </AButton>
         ))}
       </div>
 
@@ -134,8 +133,8 @@ function CreateScreen() {
               </AButton>
             }
             primary={
-              <AButton size="lg" disabled={!isTemplate || !templateId} onClick={() => { setSheet(null); setCreating(true); }}>
-                Use template
+              <AButton size="lg" disabled={isTemplate && !templateId} onClick={() => { setSheet(null); if (isTemplate) setCreating(true); }}>
+                {isTemplate ? "Use template" : "Continue"}
               </AButton>
             }
           />

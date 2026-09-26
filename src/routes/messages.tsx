@@ -37,12 +37,11 @@ const kindMeta: Record<ApprovalKind, { label: string; icon: typeof Handshake }> 
 };
 
 function ApprovalsScreen() {
-  const { statusFor, acceptOffer } = useCampaignState();
-  const [otherDecisions, setOtherDecisions] = useState<Record<string, "accepted" | "declined">>({});
+  const { statusFor, acceptOffer, decisionFor, decideApproval } = useCampaignState();
   const [inspecting, setInspecting] = useState<string | null>(null);
-  const pending = approvalQueue.filter((a) => (a.kind !== "brand_offer" || (a.campaignId && statusFor(a.campaignId) === "offer")) && !otherDecisions[a.id]);
+  const pending = approvalQueue.filter((a) => (a.kind !== "brand_offer" || (a.campaignId && statusFor(a.campaignId) === "offer")) && !decisionFor(a.id));
   const selected = approvalQueue.find((item) => item.id === inspecting);
-  const decide = (id: string, decision: "accepted" | "declined") => { setOtherDecisions((current) => ({ ...current, [id]: decision })); setInspecting(null); };
+  const decide = (id: string, decision: "accepted" | "declined") => { decideApproval(id, decision); setInspecting(null); };
 
   return (
     <AppShell title="Approvals">
