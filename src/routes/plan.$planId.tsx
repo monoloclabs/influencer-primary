@@ -1,4 +1,4 @@
-import { createFileRoute, notFound, useParams } from "@tanstack/react-router";
+import { createFileRoute, notFound, useNavigate, useParams } from "@tanstack/react-router";
 import { useState } from "react";
 import { Link } from "@/components/alfred/ui";
 import {
@@ -12,7 +12,7 @@ import {
   UserRound,
 } from "lucide-react";
 import { AButton, ActionPair, Card, IconBadge, Pill, SectionHeader } from "@/components/alfred/ui";
-import { getActivationForCampaign, getCampaign, statusMeta } from "@/data/influencer";
+import { getCampaign, statusMeta } from "@/data/influencer";
 import { BrandMark, PlatformMark } from "@/components/influencer/Marks";
 import { useCampaignState } from "@/components/influencer/CampaignState";
 
@@ -57,15 +57,16 @@ function CampaignNotFound() {
 
 function CampaignDetailScreen() {
   const { planId } = useParams({ from: "/plan/$planId" });
+  const navigate = useNavigate();
   const campaign = getCampaign(planId);
   const [shared, setShared] = useState(false);
   const [reminded, setReminded] = useState(false);
-  const { statusFor, acceptOffer, declineOffer } = useCampaignState();
+  const { statusFor, acceptOffer, declineOffer, startActivation, activationForCampaign } = useCampaignState();
   if (!campaign) return null;
   const currentStatus = statusFor(campaign.id) ?? campaign.status;
   const status = statusMeta[currentStatus];
   const isOffer = currentStatus === "offer";
-  const activation = getActivationForCampaign(campaign.id);
+  const activation = activationForCampaign(campaign.id);
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[520px] flex-col bg-background">

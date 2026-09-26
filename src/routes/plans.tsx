@@ -6,7 +6,7 @@ import { AppShell } from "@/components/alfred/AppShell";
 import { AButton, Card, IconBadge, Pill, SectionHeader } from "@/components/alfred/ui";
 import { campaigns, statusMeta, type CampaignStatus } from "@/data/influencer";
 import { cn } from "@/lib/utils";
-import { BrandMark, PlatformMark, platformFromText } from "@/components/influencer/Marks";
+import { BrandMark, PlatformMark, isDurationText, platformFromText } from "@/components/influencer/Marks";
 import { useCampaignState } from "@/components/influencer/CampaignState";
 
 export const Route = createFileRoute("/plans")({
@@ -40,14 +40,14 @@ const filters = [
 
 const groupOf = (s: CampaignStatus) => {
   if (s === "offer" || s === "pending_approval") return "offers";
-  if (s === "active" || s === "awaiting_content" || s === "awaiting_brand_approval") return "active";
+  if (s === "accepted" || s === "active" || s === "awaiting_content" || s === "awaiting_brand_approval") return "active";
   if (s === "payment_pending") return "payment";
   return "completed";
 };
 
 function CampaignsScreen() {
   const [filter, setFilter] = useState<(typeof filters)[number]["id"]>("all");
-  const { statusFor } = useCampaignState();
+  const { statusFor, activationForCampaign } = useCampaignState();
   const shown = campaigns.filter((c) => filter === "all" || groupOf(statusFor(c.id) ?? c.status) === filter);
 
   return (
