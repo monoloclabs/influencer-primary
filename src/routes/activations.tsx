@@ -6,7 +6,7 @@ import { AButton, ActionPair, Card, IconBadge, Link, Pill } from "@/components/a
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { BrandMark, PlatformMark } from "@/components/influencer/Marks";
 import { useCampaignState } from "@/components/influencer/CampaignState";
-import { activations, campaigns, getCampaign } from "@/data/influencer";
+import { getCampaign } from "@/data/influencer";
 
 export const Route = createFileRoute("/activations")({
   head: () => ({
@@ -99,9 +99,10 @@ function ActivationsScreen() {
           <p className="mt-2 text-center text-sm text-muted-foreground">Choose an accepted campaign, then outline its production and publishing plan.</p>
           <label className="mt-6 block text-xs font-bold text-muted-foreground">Accepted campaign</label>
           <select value={selectedCampaign} onChange={(event) => setSelectedCampaign(event.target.value)} className="mt-2 h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm font-semibold">
-            <option value="">Select campaign</option>
+            <option value="">{eligible.length ? "Select campaign" : "No accepted campaigns yet"}</option>
             {eligible.map((campaign) => <option key={campaign.id} value={campaign.id}>{campaign.brand} — {campaign.title}</option>)}
           </select>
+          <p className="mt-2 text-xs text-muted-foreground">Only accepted campaigns can be activated. Accept an offer first.</p>
           <div className="mt-4 grid grid-cols-2 gap-3">
             <div className="rounded-2xl bg-surface px-4 py-3"><p className="text-xs font-bold">Platforms</p><p className="mt-1 text-xs text-muted-foreground">Instagram · TikTok</p></div>
             <div className="rounded-2xl bg-surface px-4 py-3"><p className="text-xs font-bold">First post</p><p className="mt-1 text-xs text-muted-foreground">Choose date</p></div>
