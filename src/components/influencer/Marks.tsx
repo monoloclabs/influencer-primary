@@ -68,7 +68,12 @@ export function PlatformMark({ platform, className }: { platform: string; classN
   );
 }
 
+export function isDurationText(text: string) {
+  return /usage|rights|exclusiv|perpetual|\b\d+\s*-?\s*(day|days|month|months|week|weeks|year|years)\b/i.test(text);
+}
+
 export function platformFromText(text: string) {
+  if (isDurationText(text)) return undefined;
   const platforms = ["Instagram", "TikTok", "YouTube", "Facebook"];
   if (/reel|stor(y|ies)/i.test(text)) return "Instagram";
   return platforms.find((platform) => text.toLowerCase().includes(platform.toLowerCase()));
