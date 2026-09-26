@@ -51,12 +51,9 @@ const work = [
 function CreateScreen() {
   const [sheet, setSheet] = useState<null | { title: string; sub: string }>(null);
   const [selectedCampaign, setSelectedCampaign] = useState("");
-  const { statusFor } = useCampaignState();
-  const isActivation = sheet?.title === "New activation";
-  const eligibleCampaigns = campaigns.filter((campaign) => {
-    const status = statusFor(campaign.id) ?? campaign.status;
-    return status !== "offer" && status !== "declined" && status !== "cancelled";
-  });
+  const { campaignsReadyForActivation, startActivation } = useCampaignState();
+  const isActivation = sheet?.title === "Activate campaign";
+  const eligibleCampaigns = campaignsReadyForActivation;
 
   return (
     <AppShell title="Create">
