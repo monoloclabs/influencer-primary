@@ -185,25 +185,46 @@ function CampaignDetailScreen() {
           <span className="text-sm font-semibold">{campaign.nudge}</span>
         </div>
 
-        {!isOffer && currentStatus !== "declined" && (
-          <Link to={activation ? `/activation/${activation.id}` : "/activations"} className="mt-4 block">
-            <AButton variant="soft" size="lg" className="w-full">{activation ? "Open activation" : "Start activation"}</AButton>
-          </Link>
-        )}
       </main>
 
-      {isOffer && (
-        <div className="fixed bottom-0 z-30 w-full max-w-[520px] border-t border-border/70 bg-background/95 px-5 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] backdrop-blur-xl">
+      <div className="fixed bottom-0 z-30 w-full max-w-[520px] border-t border-border/70 bg-background/95 px-5 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] backdrop-blur-xl">
+        {isOffer ? (
           <ActionPair
             secondary={
               <AButton variant="neutral" size="lg" onClick={() => declineOffer(campaign.id)}>Decline</AButton>
             }
-            primary={
-              <AButton size="lg" onClick={() => acceptOffer(campaign.id)}>Accept</AButton>
-            }
+            primary={<AButton size="lg" onClick={() => acceptOffer(campaign.id)}>Accept</AButton>}
           />
-        </div>
-      )}
+        ) : currentStatus === "declined" ? (
+          <p className="rounded-2xl bg-surface px-4 py-3 text-center text-sm font-semibold text-muted-foreground">
+            You declined this offer.
+          </p>
+        ) : activation ? (
+          <AButton
+            size="lg"
+            className="w-full"
+            onClick={() => navigate({ to: "/activation/$activationId", params: { activationId: activation.id } })}
+          >
+            Open activation
+          </AButton>
+        ) : currentStatus === "accepted" ? (
+          <AButton
+            size="lg"
+            className="w-full"
+            onClick={() => {
+              const id = startActivation(campaign.id);
+              if (id) navigate({ to: "/activation/$activationId", params: { activationId: id } });
+            }}
+          >
+            Start activation
+          </AButton>
+        ) : (
+          <Link to="/activations" className="block">
+            <AButton variant="soft" size="lg" className="w-full">Open your activations</AButton>
+          </Link>
+        )}
+      </div>
     </div>
   );
 }
+

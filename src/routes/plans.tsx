@@ -116,7 +116,7 @@ function CampaignsScreen() {
                 const platform = platformFromText(part);
                 return (
                 <li key={part} className="flex items-center gap-2.5 rounded-2xl bg-surface px-3.5 py-2.5">
-                  {platform ? <PlatformMark platform={platform} className="h-4 w-4 text-muted-foreground" /> : <CheckCircle2 className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={2.2} />}
+                  {platform ? <PlatformMark platform={platform} className="h-4 w-4 text-muted-foreground" /> : isDurationText(part) ? <CalendarDays className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={2.2} /> : <CheckCircle2 className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={2.2} />}
                   <span className="truncate text-[0.8125rem] font-semibold">{part}</span>
                 </li>
               )})}
@@ -135,11 +135,28 @@ function CampaignsScreen() {
               <span className="text-tint-blue-foreground">Net {c.net}</span>
             </div>
 
-            <Link to={`/plan/${c.id}`} className="mt-4 block">
-              <AButton variant="soft" size="md" className="w-full">
-                Open the campaign
-              </AButton>
-            </Link>
+            {(() => {
+              const activation = activationForCampaign(c.id);
+              if (activation) {
+                return (
+                  <Link to={`/activation/${activation.id}`} className="mt-4 block">
+                    <AButton variant="soft" size="md" className="w-full">Open activation</AButton>
+                  </Link>
+                );
+              }
+              const label =
+                currentStatus === "offer"
+                  ? "Open offer"
+                  : currentStatus === "accepted"
+                    ? "Start activation"
+                    : "Open the campaign";
+              return (
+                <Link to={`/plan/${c.id}`} className="mt-4 block">
+                  <AButton variant="soft" size="md" className="w-full">{label}</AButton>
+                </Link>
+              );
+            })()}
+
           </Card>
         )})}
       </div>
