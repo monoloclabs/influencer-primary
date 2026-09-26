@@ -6,7 +6,7 @@ import { AButton, ActionPair, Card, IconBadge, Link, Pill } from "@/components/a
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { BrandMark, PlatformMark } from "@/components/influencer/Marks";
 import { useCampaignState } from "@/components/influencer/CampaignState";
-import { activations, campaigns, getCampaign } from "@/data/influencer";
+import { getCampaign } from "@/data/influencer";
 
 export const Route = createFileRoute("/activations")({
   head: () => ({
@@ -33,11 +33,8 @@ const activationStatus = {
 function ActivationsScreen() {
   const [creating, setCreating] = useState(false);
   const [selectedCampaign, setSelectedCampaign] = useState("");
-  const { statusFor } = useCampaignState();
-  const eligible = campaigns.filter((campaign) => {
-    const status = statusFor(campaign.id) ?? campaign.status;
-    return status !== "offer" && status !== "declined" && status !== "cancelled";
-  });
+  const { allActivations, campaignsReadyForActivation, startActivation } = useCampaignState();
+  const eligible = campaignsReadyForActivation;
 
   return (
     <AppShell title="Activations">
@@ -54,7 +51,7 @@ function ActivationsScreen() {
       </div>
 
       <div className="mt-6 space-y-3.5">
-        {activations.map((activation) => {
+        {allActivations.map((activation) => {
           const campaign = getCampaign(activation.campaignId);
           if (!campaign) return null;
           const meta = activationStatus[activation.status];
@@ -102,15 +99,16 @@ function ActivationsScreen() {
           <p className="mt-2 text-center text-sm text-muted-foreground">Choose an accepted campaign, then outline its production and publishing plan.</p>
           <label className="mt-6 block text-xs font-bold text-muted-foreground">Accepted campaign</label>
           <select value={selectedCampaign} onChange={(event) => setSelectedCampaign(event.target.value)} className="mt-2 h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm font-semibold">
-            <option value="">Select campaign</option>
+            <option value="">{eligible.length ? "Select campaign" : "No accepted campaigns yet"}</option>
             {eligible.map((campaign) => <option key={campaign.id} value={campaign.id}>{campaign.brand} — {campaign.title}</option>)}
           </select>
+          <p className="mt-2 text-xs text-muted-foreground">Only accepted campaigns can be activated. Accept an offer first.</p>
           <div className="mt-4 grid grid-cols-2 gap-3">
             <div className="rounded-2xl bg-surface px-4 py-3"><p className="text-xs font-bold">Platforms</p><p className="mt-1 text-xs text-muted-foreground">Instagram · TikTok</p></div>
             <div className="rounded-2xl bg-surface px-4 py-3"><p className="text-xs font-bold">First post</p><p className="mt-1 text-xs text-muted-foreground">Choose date</p></div>
           </div>
           <div className="mt-3 rounded-2xl bg-surface px-4 py-3"><p className="text-xs font-bold">Content and notes</p><p className="mt-1 text-xs text-muted-foreground">Reels, Stories, drafts and production details</p></div>
-          <ActionPair className="mt-6" secondary={<AButton variant="neutral" size="lg" onClick={() => setCreating(false)}>Cancel</AButton>} primary={<AButton size="lg" disabled={!selectedCampaign} onClick={() => setCreating(false)}>Create activation</AButton>} />
+          <ActionPair className="mt-6" secondary={<AButton variant="neutral" size="lg" onClick={() => setCreating(false)}>Cancel</AButton>} primary={<AButton size="lg" disabled={!selectedCampaign} onClick={() => { startActivation(selectedCampaign); setSelectedCampaign(""); setCreating(false); }}>Create activation</AButton>} />
         </SheetContent>
       </Sheet>
     </AppShell>

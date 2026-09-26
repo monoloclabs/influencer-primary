@@ -1,4 +1,4 @@
-import { createFileRoute, notFound, useParams } from "@tanstack/react-router";
+import { createFileRoute, notFound, useNavigate, useParams } from "@tanstack/react-router";
 import { useState } from "react";
 import { Link } from "@/components/alfred/ui";
 import {
@@ -12,7 +12,7 @@ import {
   UserRound,
 } from "lucide-react";
 import { AButton, ActionPair, Card, IconBadge, Pill, SectionHeader } from "@/components/alfred/ui";
-import { getActivationForCampaign, getCampaign, statusMeta } from "@/data/influencer";
+import { getCampaign, statusMeta } from "@/data/influencer";
 import { BrandMark, PlatformMark } from "@/components/influencer/Marks";
 import { useCampaignState } from "@/components/influencer/CampaignState";
 
@@ -57,15 +57,16 @@ function CampaignNotFound() {
 
 function CampaignDetailScreen() {
   const { planId } = useParams({ from: "/plan/$planId" });
+  const navigate = useNavigate();
   const campaign = getCampaign(planId);
   const [shared, setShared] = useState(false);
   const [reminded, setReminded] = useState(false);
-  const { statusFor, acceptOffer, declineOffer } = useCampaignState();
+  const { statusFor, acceptOffer, declineOffer, startActivation, activationForCampaign } = useCampaignState();
   if (!campaign) return null;
   const currentStatus = statusFor(campaign.id) ?? campaign.status;
   const status = statusMeta[currentStatus];
   const isOffer = currentStatus === "offer";
-  const activation = getActivationForCampaign(campaign.id);
+  const activation = activationForCampaign(campaign.id);
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[520px] flex-col bg-background">
@@ -185,25 +186,46 @@ function CampaignDetailScreen() {
           <span className="text-sm font-semibold">{campaign.nudge}</span>
         </div>
 
-        {!isOffer && currentStatus !== "declined" && (
-          <Link to={activation ? `/activation/${activation.id}` : "/activations"} className="mt-4 block">
-            <AButton variant="soft" size="lg" className="w-full">{activation ? "Open activation" : "Start activation"}</AButton>
-          </Link>
-        )}
       </main>
 
-      {isOffer && (
-        <div className="fixed bottom-0 z-30 w-full max-w-[520px] border-t border-border/70 bg-background/95 px-5 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] backdrop-blur-xl">
+      <div className="fixed bottom-0 z-30 w-full max-w-[520px] border-t border-border/70 bg-background/95 px-5 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] backdrop-blur-xl">
+        {isOffer ? (
           <ActionPair
             secondary={
               <AButton variant="neutral" size="lg" onClick={() => declineOffer(campaign.id)}>Decline</AButton>
             }
-            primary={
-              <AButton size="lg" onClick={() => acceptOffer(campaign.id)}>Accept</AButton>
-            }
+            primary={<AButton size="lg" onClick={() => acceptOffer(campaign.id)}>Accept</AButton>}
           />
-        </div>
-      )}
+        ) : currentStatus === "declined" ? (
+          <p className="rounded-2xl bg-surface px-4 py-3 text-center text-sm font-semibold text-muted-foreground">
+            You declined this offer.
+          </p>
+        ) : activation ? (
+          <AButton
+            size="lg"
+            className="w-full"
+            onClick={() => navigate({ to: "/activation/$activationId", params: { activationId: activation.id } })}
+          >
+            Open activation
+          </AButton>
+        ) : currentStatus === "accepted" ? (
+          <AButton
+            size="lg"
+            className="w-full"
+            onClick={() => {
+              const id = startActivation(campaign.id);
+              if (id) navigate({ to: "/activation/$activationId", params: { activationId: id } });
+            }}
+          >
+            Start activation
+          </AButton>
+        ) : (
+          <Link to="/activations" className="block">
+            <AButton variant="soft" size="lg" className="w-full">Open your activations</AButton>
+          </Link>
+        )}
+      </div>
     </div>
   );
 }
+

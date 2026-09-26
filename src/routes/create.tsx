@@ -41,7 +41,7 @@ const quick = [
 
 const work = [
   { id: "w0", eyebrow: "CAMPAIGN", title: "New campaign", sub: "A brand deal with its brief, deliverables and fee", icon: RouteIcon, tone: "orange" as const },
-  { id: "w5", eyebrow: "ACTIVATION", title: "New activation", sub: "Your execution plan for an accepted brand campaign", icon: Workflow, tone: "blue" as const },
+  { id: "w5", eyebrow: "ACTIVATION", title: "Activate campaign", sub: "Your execution plan for an accepted brand campaign", icon: Workflow, tone: "blue" as const },
   { id: "w1", eyebrow: "DELIVERABLE", title: "Submit content", sub: "Send a draft for brand review", icon: ScrollText, tone: "orange" as const },
   { id: "w2", eyebrow: "EVENT", title: "Shoot or posting date", sub: "Put it on your timeline", icon: CalendarPlus, tone: "blue" as const },
   { id: "w3", eyebrow: "MONEY", title: "Record a payout", sub: "Invoices, payments and fees", icon: Receipt, tone: "green" as const },
@@ -51,12 +51,9 @@ const work = [
 function CreateScreen() {
   const [sheet, setSheet] = useState<null | { title: string; sub: string }>(null);
   const [selectedCampaign, setSelectedCampaign] = useState("");
-  const { statusFor } = useCampaignState();
-  const isActivation = sheet?.title === "New activation";
-  const eligibleCampaigns = campaigns.filter((campaign) => {
-    const status = statusFor(campaign.id) ?? campaign.status;
-    return status !== "offer" && status !== "declined" && status !== "cancelled";
-  });
+  const { campaignsReadyForActivation, startActivation } = useCampaignState();
+  const isActivation = sheet?.title === "Activate campaign";
+  const eligibleCampaigns = campaignsReadyForActivation;
 
   return (
     <AppShell title="Create">
@@ -136,9 +133,10 @@ function CreateScreen() {
             <div className="mt-6 space-y-3 text-left">
               <label className="block text-xs font-bold text-muted-foreground" htmlFor="activation-campaign">Accepted campaign</label>
               <select id="activation-campaign" value={selectedCampaign} onChange={(event) => setSelectedCampaign(event.target.value)} className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm font-semibold">
-                <option value="">Select campaign</option>
+                <option value="">{eligibleCampaigns.length ? "Select campaign" : "No accepted campaigns yet"}</option>
                 {eligibleCampaigns.map((campaign) => <option key={campaign.id} value={campaign.id}>{campaign.brand} — {campaign.title}</option>)}
               </select>
+              <p className="text-xs text-muted-foreground">Only accepted campaigns can be activated — accept an offer first.</p>
               <div className="grid grid-cols-2 gap-3">
                 <div className="rounded-2xl bg-surface px-4 py-3"><p className="text-xs font-bold">Platforms</p><p className="mt-1 text-xs text-muted-foreground">Choose channels</p></div>
                 <div className="rounded-2xl bg-surface px-4 py-3"><p className="text-xs font-bold">Schedule</p><p className="mt-1 text-xs text-muted-foreground">Add post dates</p></div>
@@ -154,7 +152,7 @@ function CreateScreen() {
               </AButton>
             }
             primary={
-              <AButton size="lg" disabled={isActivation && !selectedCampaign} onClick={() => setSheet(null)}>
+              <AButton size="lg" disabled={isActivation && !selectedCampaign} onClick={() => { if (isActivation && selectedCampaign) { startActivation(selectedCampaign); setSelectedCampaign(""); } setSheet(null); }}>
                 Continue
               </AButton>
             }

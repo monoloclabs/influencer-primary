@@ -10,6 +10,7 @@ import {
 /** The commercial lifecycle of a brand deal. */
 export type CampaignStatus =
   | "offer"
+  | "accepted"
   | "pending_approval"
   | "active"
   | "awaiting_content"
@@ -24,6 +25,7 @@ export type PillTone = "neutral" | "blue" | "orange" | "green" | "red" | "amber"
 
 export const statusMeta: Record<CampaignStatus, { label: string; tone: PillTone }> = {
   offer: { label: "Offer", tone: "violet" },
+  accepted: { label: "Accepted", tone: "blue" },
   pending_approval: { label: "Pending approval", tone: "amber" },
   active: { label: "Active", tone: "blue" },
   awaiting_content: { label: "Awaiting content", tone: "orange" },
@@ -34,6 +36,7 @@ export const statusMeta: Record<CampaignStatus, { label: string; tone: PillTone 
   declined: { label: "Declined", tone: "red" },
   cancelled: { label: "Cancelled", tone: "neutral" },
 };
+
 
 export type Deliverable = {
   id: string;

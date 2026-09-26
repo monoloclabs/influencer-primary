@@ -6,7 +6,7 @@ import { AppShell } from "@/components/alfred/AppShell";
 import { AButton, Card, IconBadge, Pill, SectionHeader } from "@/components/alfred/ui";
 import { campaigns, statusMeta, type CampaignStatus } from "@/data/influencer";
 import { cn } from "@/lib/utils";
-import { BrandMark, PlatformMark, platformFromText } from "@/components/influencer/Marks";
+import { BrandMark, PlatformMark, isDurationText, platformFromText } from "@/components/influencer/Marks";
 import { useCampaignState } from "@/components/influencer/CampaignState";
 
 export const Route = createFileRoute("/plans")({
@@ -40,14 +40,14 @@ const filters = [
 
 const groupOf = (s: CampaignStatus) => {
   if (s === "offer" || s === "pending_approval") return "offers";
-  if (s === "active" || s === "awaiting_content" || s === "awaiting_brand_approval") return "active";
+  if (s === "accepted" || s === "active" || s === "awaiting_content" || s === "awaiting_brand_approval") return "active";
   if (s === "payment_pending") return "payment";
   return "completed";
 };
 
 function CampaignsScreen() {
   const [filter, setFilter] = useState<(typeof filters)[number]["id"]>("all");
-  const { statusFor } = useCampaignState();
+  const { statusFor, activationForCampaign } = useCampaignState();
   const shown = campaigns.filter((c) => filter === "all" || groupOf(statusFor(c.id) ?? c.status) === filter);
 
   return (
@@ -116,7 +116,7 @@ function CampaignsScreen() {
                 const platform = platformFromText(part);
                 return (
                 <li key={part} className="flex items-center gap-2.5 rounded-2xl bg-surface px-3.5 py-2.5">
-                  {platform ? <PlatformMark platform={platform} className="h-4 w-4 text-muted-foreground" /> : <CheckCircle2 className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={2.2} />}
+                  {platform ? <PlatformMark platform={platform} className="h-4 w-4 text-muted-foreground" /> : isDurationText(part) ? <CalendarDays className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={2.2} /> : <CheckCircle2 className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={2.2} />}
                   <span className="truncate text-[0.8125rem] font-semibold">{part}</span>
                 </li>
               )})}
@@ -135,11 +135,28 @@ function CampaignsScreen() {
               <span className="text-tint-blue-foreground">Net {c.net}</span>
             </div>
 
-            <Link to={`/plan/${c.id}`} className="mt-4 block">
-              <AButton variant="soft" size="md" className="w-full">
-                Open the campaign
-              </AButton>
-            </Link>
+            {(() => {
+              const activation = activationForCampaign(c.id);
+              if (activation) {
+                return (
+                  <Link to={`/activation/${activation.id}`} className="mt-4 block">
+                    <AButton variant="soft" size="md" className="w-full">Open activation</AButton>
+                  </Link>
+                );
+              }
+              const label =
+                currentStatus === "offer"
+                  ? "Open offer"
+                  : currentStatus === "accepted"
+                    ? "Start activation"
+                    : "Open the campaign";
+              return (
+                <Link to={`/plan/${c.id}`} className="mt-4 block">
+                  <AButton variant="soft" size="md" className="w-full">{label}</AButton>
+                </Link>
+              );
+            })()}
+
           </Card>
         )})}
       </div>

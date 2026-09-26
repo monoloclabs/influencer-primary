@@ -1,34 +1,39 @@
-import { createFileRoute, notFound, useParams } from "@tanstack/react-router";
+import { createFileRoute, useParams } from "@tanstack/react-router";
 import { ArrowLeft, Bell, CalendarDays, CheckCircle2 } from "lucide-react";
 import { AButton, Card, IconBadge, Link, Pill, SectionHeader } from "@/components/alfred/ui";
 import { BrandMark, PlatformMark } from "@/components/influencer/Marks";
+import { useCampaignState } from "@/components/influencer/CampaignState";
 import { getActivation, getCampaign } from "@/data/influencer";
 
 export const Route = createFileRoute("/activation/$activationId")({
   loader: ({ params }) => {
     const activation = getActivation(params.activationId);
-    if (!activation) throw notFound();
+    if (!activation) return { title: "Activation", brand: "Campaign" };
     const campaign = getCampaign(activation.campaignId);
     return { title: activation.title, brand: campaign?.brand ?? "Campaign" };
   },
   head: ({ loaderData }) => {
-    const title = loaderData ? `${loaderData.title} — INFLUENCER` : "Activation unavailable — INFLUENCER";
-    const description = loaderData ? `${loaderData.brand} activation schedule, content and production steps.` : "This activation could not be found.";
+    const title = loaderData ? `${loaderData.title} — INFLUENCER` : "Activation — INFLUENCER";
+    const description = loaderData ? `${loaderData.brand} activation schedule, content and production steps.` : "Activation schedule, content and production steps.";
     return { meta: [{ title }, { name: "description", content: description }, { property: "og:title", content: title }, { property: "og:description", content: description }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] };
   },
-  notFoundComponent: ActivationNotFound,
   component: ActivationDetail,
 });
 
-function ActivationNotFound() {
-  return <div className="mx-auto flex min-h-screen max-w-[520px] flex-col items-center justify-center gap-4 px-6 text-center"><h1 className="text-xl font-extrabold">That activation isn't here</h1><Link to="/activations"><AButton>Back to activations</AButton></Link></div>;
-}
-
 function ActivationDetail() {
   const { activationId } = useParams({ from: "/activation/$activationId" });
-  const activation = getActivation(activationId);
+  const { activationById } = useCampaignState();
+  const activation = activationById(activationId);
   const campaign = activation ? getCampaign(activation.campaignId) : undefined;
-  if (!activation || !campaign) return null;
+  if (!activation || !campaign) {
+    return (
+      <div className="mx-auto flex min-h-screen max-w-[520px] flex-col items-center justify-center gap-4 px-6 text-center">
+        <h1 className="text-xl font-extrabold">That activation isn't here</h1>
+        <Link to="/activations"><AButton>Back to activations</AButton></Link>
+      </div>
+    );
+  }
+
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[520px] flex-col bg-background">
