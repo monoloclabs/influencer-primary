@@ -108,7 +108,7 @@ function ActivationsScreen() {
             <div className="rounded-2xl bg-surface px-4 py-3"><p className="text-xs font-bold">First post</p><p className="mt-1 text-xs text-muted-foreground">Choose date</p></div>
           </div>
           <div className="mt-3 rounded-2xl bg-surface px-4 py-3"><p className="text-xs font-bold">Content and notes</p><p className="mt-1 text-xs text-muted-foreground">Reels, Stories, drafts and production details</p></div>
-          <ActionPair className="mt-6" secondary={<AButton variant="neutral" size="lg" onClick={() => setCreating(false)}>Cancel</AButton>} primary={<AButton size="lg" disabled={!selectedCampaign} onClick={() => setCreating(false)}>Create activation</AButton>} />
+          <ActionPair className="mt-6" secondary={<AButton variant="neutral" size="lg" onClick={() => setCreating(false)}>Cancel</AButton>} primary={<AButton size="lg" disabled={!selectedCampaign} onClick={() => { startActivation(selectedCampaign); setSelectedCampaign(""); setCreating(false); }}>Create activation</AButton>} />
         </SheetContent>
       </Sheet>
     </AppShell>
