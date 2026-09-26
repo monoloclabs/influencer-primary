@@ -47,7 +47,7 @@ const groupOf = (s: CampaignStatus) => {
 
 function CampaignsScreen() {
   const [filter, setFilter] = useState<(typeof filters)[number]["id"]>("all");
-  const { statusFor, activationForCampaign } = useCampaignState();
+  const { statusFor } = useCampaignState();
   const shown = campaigns.filter((c) => filter === "all" || groupOf(statusFor(c.id) ?? c.status) === filter);
 
   return (
@@ -58,10 +58,10 @@ function CampaignsScreen() {
       </p>
 
       <div className="mt-5">
-        <Link to="/create" className="block">
+        <Link to="/activations" className="block">
           <AButton size="lg" className="w-full">
             <Plus className="h-4 w-4" strokeWidth={3} />
-            New campaign
+            Activations
           </AButton>
         </Link>
       </div>
@@ -135,27 +135,9 @@ function CampaignsScreen() {
               <span className="text-tint-blue-foreground">Net {c.net}</span>
             </div>
 
-            {(() => {
-              const activation = activationForCampaign(c.id);
-              if (activation) {
-                return (
-                  <Link to={`/activation/${activation.id}`} className="mt-4 block">
-                    <AButton variant="soft" size="md" className="w-full">Open activation</AButton>
-                  </Link>
-                );
-              }
-              const label =
-                currentStatus === "offer"
-                  ? "Open offer"
-                  : currentStatus === "accepted"
-                    ? "Start activation"
-                    : "Open the campaign";
-              return (
-                <Link to={`/plan/${c.id}`} className="mt-4 block">
-                  <AButton variant="soft" size="md" className="w-full">{label}</AButton>
-                </Link>
-              );
-            })()}
+            <Link to={`/plan/${c.id}`} className="mt-4 block">
+              <AButton variant="soft" size="md" className="w-full">{currentStatus === "offer" ? "Review offer" : "Open campaign"}</AButton>
+            </Link>
 
           </Card>
         )})}

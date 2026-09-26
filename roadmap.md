@@ -21,3 +21,10 @@
 - [x] Read-only status-aware campaign detail with reminder and activation entry
 - [x] Activations data, list/detail routes, drawer entry, and Create sheet
 - [x] Wallet terminology review and affected-route validation
+
+## Campaign hierarchy and creation clarity
+- [ ] Campaign cards always open their campaign detail, not an activation
+- [ ] Every pending decision can be inspected before accepting or declining
+- [ ] Create starts activations from accepted campaigns; templates are reusable execution structures
+- [ ] Activations uses a compact New control and shared creation flow
+- [ ] Verify navigation and lifecycle states

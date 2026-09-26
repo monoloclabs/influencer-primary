@@ -15,6 +15,7 @@ import { AButton, ActionPair, Card, IconBadge, Pill, SectionHeader } from "@/com
 import { getCampaign, statusMeta } from "@/data/influencer";
 import { BrandMark, PlatformMark } from "@/components/influencer/Marks";
 import { useCampaignState } from "@/components/influencer/CampaignState";
+import { ActivationSetup } from "@/components/influencer/ActivationSetup";
 
 export const Route = createFileRoute("/plan/$planId")({
   loader: ({ params }) => {
@@ -61,7 +62,8 @@ function CampaignDetailScreen() {
   const campaign = getCampaign(planId);
   const [shared, setShared] = useState(false);
   const [reminded, setReminded] = useState(false);
-  const { statusFor, acceptOffer, declineOffer, startActivation, activationForCampaign } = useCampaignState();
+  const [creating, setCreating] = useState(false);
+  const { statusFor, acceptOffer, declineOffer, activationForCampaign } = useCampaignState();
   if (!campaign) return null;
   const currentStatus = statusFor(campaign.id) ?? campaign.status;
   const status = statusMeta[currentStatus];
@@ -212,10 +214,7 @@ function CampaignDetailScreen() {
           <AButton
             size="lg"
             className="w-full"
-            onClick={() => {
-              const id = startActivation(campaign.id);
-              if (id) navigate({ to: "/activation/$activationId", params: { activationId: id } });
-            }}
+            onClick={() => setCreating(true)}
           >
             Start activation
           </AButton>
@@ -225,6 +224,7 @@ function CampaignDetailScreen() {
           </Link>
         )}
       </div>
+      <ActivationSetup open={creating} onOpenChange={setCreating} initialCampaignId={campaign.id} />
     </div>
   );
 }

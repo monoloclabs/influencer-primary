@@ -48,6 +48,12 @@ export type Deliverable = {
 
 export type ActivationStatus = "planning" | "producing" | "scheduled" | "live" | "complete";
 
+export const activationTemplates = [
+  { id: "content-calendar", name: "Content calendar", description: "Plan production, drafts, review and publishing around the campaign dates.", steps: ["Set production dates", "Prepare drafts for brand review", "Schedule approved posts"] },
+  { id: "video-rollout", name: "Video rollout", description: "A video-first workflow from shoot through edit, approval and posting.", steps: ["Plan and shoot footage", "Edit and submit video drafts", "Publish approved videos"] },
+  { id: "social-series", name: "Social series", description: "Coordinate multiple posts across the campaign's channels.", steps: ["Outline the post series", "Prepare platform-specific assets", "Schedule and publish the series"] },
+] as const;
+
 export type Activation = {
   id: string;
   campaignId: string;
@@ -281,6 +287,7 @@ export const approvalQueue: {
   value: string;
   tone: "orange" | "blue" | "violet";
   campaignId?: string;
+  details?: string;
 }[] = [
   {
     id: "ap1",
@@ -301,6 +308,7 @@ export const approvalQueue: {
     value: "+$1,750",
     tone: "orange",
     campaignId: "c1",
+    details: "The brand proposes extending paid usage of your Autumn Athlete Series content by 30 days for an additional $1,750. Review the existing campaign's usage terms before accepting the change.",
   },
   {
     id: "ap3",
@@ -311,6 +319,7 @@ export const approvalQueue: {
     value: "No fee change",
     tone: "blue",
     campaignId: "c3",
+    details: "The brand requests a shorter introduction on the Creator Workspace Tour so the hook appears within the first five seconds. This does not change the agreed fee.",
   },
 ];
 

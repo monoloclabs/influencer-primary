@@ -7,6 +7,7 @@ import { AButton, ActionPair, Card, IconBadge, Pill } from "@/components/alfred/
 import { approvalQueue, type ApprovalKind } from "@/data/influencer";
 import { BrandMark } from "@/components/influencer/Marks";
 import { useCampaignState } from "@/components/influencer/CampaignState";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 
 export const Route = createFileRoute("/messages")({
   head: () => ({
@@ -36,9 +37,11 @@ const kindMeta: Record<ApprovalKind, { label: string; icon: typeof Handshake }> 
 };
 
 function ApprovalsScreen() {
-  const { statusFor, acceptOffer } = useCampaignState();
-  const [otherDecisions, setOtherDecisions] = useState<Record<string, "accepted" | "declined">>({});
-  const pending = approvalQueue.filter((a) => a.kind !== "brand_offer" || (a.campaignId && statusFor(a.campaignId) === "offer"));
+  const { statusFor, acceptOffer, decisionFor, decideApproval } = useCampaignState();
+  const [inspecting, setInspecting] = useState<string | null>(null);
+  const pending = approvalQueue.filter((a) => (a.kind !== "brand_offer" || (a.campaignId && statusFor(a.campaignId) === "offer")) && !decisionFor(a.id));
+  const selected = approvalQueue.find((item) => item.id === inspecting);
+  const decide = (id: string, decision: "accepted" | "declined") => { decideApproval(id, decision); setInspecting(null); };
 
   return (
     <AppShell title="Approvals">
@@ -62,17 +65,14 @@ function ApprovalsScreen() {
           <p className="eyebrow text-primary">Worth knowing</p>
         </div>
         <p className="mt-3 text-[0.9375rem] leading-snug font-bold">
-          The Spotify offer expires in 3 days and is 41% above your average December rate.
+          {statusFor("c2") === "offer" ? "The Spotify offer expires in 3 days and is 41% above your average December rate." : "Review campaign terms and content requests before making a decision."}
         </p>
-        <Link to="/plan/c2" className="mt-4 block">
-          <AButton size="sm" className="w-full">See the offer</AButton>
-        </Link>
+        {statusFor("c2") === "offer" && <Link to="/plan/c2" className="mt-4 block"><AButton size="sm" className="w-full">See the offer</AButton></Link>}
       </div>
 
       <p className="eyebrow mt-8 mb-3 px-1 text-muted-foreground">Everything awaiting a decision</p>
       <div className="space-y-2.5">
         {pending.map((a) => {
-          const decision = otherDecisions[a.id];
           const meta = kindMeta[a.kind];
           const Icon = meta.icon;
           return (
@@ -103,21 +103,30 @@ function ApprovalsScreen() {
                     </AButton>
                   }
                 />
-              ) : decision ? (
-                <div className="mt-3.5 rounded-2xl bg-surface px-4 py-3 text-xs font-semibold text-muted-foreground">
-                  {decision === "accepted" ? "Accepted and sent to the brand." : "Declined and removed from your queue."}
-                </div>
               ) : (
-                <ActionPair
-                  className="mt-3.5"
-                  secondary={<AButton size="md" variant="neutral" onClick={() => setOtherDecisions((current) => ({ ...current, [a.id]: "declined" }))}>Decline</AButton>}
-                  primary={<AButton size="md" onClick={() => setOtherDecisions((current) => ({ ...current, [a.id]: "accepted" }))}>Accept</AButton>}
-                />
+                <div className="mt-3.5 grid grid-cols-3 gap-2">
+                  <AButton size="sm" variant="neutral" onClick={() => setInspecting(a.id)}>Inspect</AButton>
+                  <AButton size="sm" variant="neutral" onClick={() => decide(a.id, "declined")}>Decline</AButton>
+                  <AButton size="sm" onClick={() => decide(a.id, "accepted")}>Accept</AButton>
+                </div>
               )}
             </Card>
           );
         })}
       </div>
+      <Sheet open={!!selected} onOpenChange={(open) => { if (!open) setInspecting(null); }}>
+        <SheetContent side="bottom" className="mx-auto max-w-[520px] rounded-t-4xl border-0 px-6 pt-6 pb-8">
+          {selected && <>
+            <p className="eyebrow text-primary">{kindMeta[selected.kind].label} · {selected.brand}</p>
+            <h3 className="mt-3 pr-8 text-xl font-extrabold">{selected.title}</h3>
+            <p className="mt-3 text-sm text-muted-foreground">{selected.meta}</p>
+            <p className="mt-4 rounded-2xl bg-surface p-4 text-sm font-semibold">{selected.details}</p>
+            <p className="mt-4 text-sm font-bold">{selected.value}</p>
+            {selected.campaignId && <Link to={`/plan/${selected.campaignId}`} className="mt-4 block text-sm font-bold text-tint-blue-foreground">View related campaign</Link>}
+            <ActionPair className="mt-6" secondary={<AButton size="lg" variant="neutral" onClick={() => decide(selected.id, "declined")}>Decline</AButton>} primary={<AButton size="lg" onClick={() => decide(selected.id, "accepted")}>Accept</AButton>} />
+          </>}
+        </SheetContent>
+      </Sheet>
     </AppShell>
   );
 }
