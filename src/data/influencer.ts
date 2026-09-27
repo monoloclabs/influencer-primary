@@ -324,9 +324,9 @@ export const approvalQueue: {
 ];
 
 export const upcomingDeliverables = [
-  { id: "u1", when: "14 Oct", title: "Hero Reel — morning session", brand: "Gymshark", tone: "orange" as const, tag: "Instagram" },
-  { id: "u2", when: "16 Oct", title: "Story set — kit unboxing", brand: "Gymshark", tone: "blue" as const, tag: "Instagram" },
-  { id: "u3", when: "20 Oct", title: "TikTok — 5 lifts, 5 cues", brand: "Gymshark", tone: "violet" as const, tag: "TikTok" },
+  { id: "u1", when: "14 Oct", title: "Hero Reel — morning session", brand: "Gymshark", tone: "orange" as const, tag: "Instagram", platforms: ["Instagram", "Threads"] },
+  { id: "u2", when: "16 Oct", title: "Story set — kit unboxing", brand: "Gymshark", tone: "blue" as const, tag: "Instagram", platforms: ["Instagram"] },
+  { id: "u3", when: "20 Oct", title: "TikTok — 5 lifts, 5 cues", brand: "Gymshark", tone: "violet" as const, tag: "TikTok", platforms: ["TikTok", "Instagram", "X"] },
 ];
 
 export type TimelineGroup = {
