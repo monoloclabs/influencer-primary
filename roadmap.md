@@ -23,8 +23,8 @@
 - [x] Wallet terminology review and affected-route validation
 
 ## Campaign hierarchy and creation clarity
-- [ ] Campaign cards always open their campaign detail, not an activation
-- [ ] Every pending decision can be inspected before accepting or declining
-- [ ] Create starts activations from accepted campaigns; templates are reusable execution structures
-- [ ] Activations uses a compact New control and shared creation flow
-- [ ] Verify navigation and lifecycle states
+- [x] Campaign cards always open their campaign detail, not an activation
+- [x] Every pending decision can be inspected before accepting or declining
+- [x] Create starts activations from accepted campaigns; templates are reusable execution structures
+- [x] Activations uses a compact New control and shared creation flow
+- [x] Verify navigation and lifecycle states
