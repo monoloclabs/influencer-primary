@@ -78,11 +78,22 @@ function TimelineScreen() {
           <section key={group.day}>
             <p className="eyebrow mb-3 px-1 text-primary">{group.day}</p>
             <div className="divide-y divide-border/70 overflow-hidden rounded-3xl border border-border/70 bg-card shadow-card">
-              {group.items.map((item) => (
+              {group.items.map((item) => {
+                const brand = brandFromText(item.title);
+                return (
                 <div key={item.id} className="flex items-start gap-4 px-4 py-4">
                   <span className="w-14 shrink-0 pt-0.5 text-sm font-extrabold tabular-nums">
                     {item.time}
                   </span>
+                  {brand ? (
+                    <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-surface">
+                      <BrandMark brand={brand} className="h-[1.05rem] w-[1.05rem] text-foreground" />
+                    </span>
+                  ) : (
+                    <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-surface">
+                      <Landmark className="h-[1.05rem] w-[1.05rem] text-muted-foreground" strokeWidth={2.2} />
+                    </span>
+                  )}
                   <span className="min-w-0 flex-1">
                     <span className="block text-[0.9375rem] leading-snug font-bold">
                       {item.title}
