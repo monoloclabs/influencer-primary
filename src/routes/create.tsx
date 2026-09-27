@@ -134,7 +134,7 @@ function CreateScreen() {
             }
             primary={
               <AButton size="lg" disabled={isTemplate && !templateId} onClick={() => { setSheet(null); if (isTemplate) setCreating(true); }}>
-                {isTemplate ? "Use template" : "Continue"}
+                {isTemplate ? "Use template" : "Close"}
               </AButton>
             }
           />

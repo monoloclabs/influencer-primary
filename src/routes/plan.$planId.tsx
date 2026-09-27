@@ -185,7 +185,7 @@ function CampaignDetailScreen() {
 
         <div className="mt-8 flex items-center gap-2 rounded-3xl bg-primary-soft px-4 py-3.5">
           <Sparkles className="h-4 w-4 shrink-0 text-primary" strokeWidth={2.4} />
-          <span className="text-sm font-semibold">{campaign.nudge}</span>
+          <span className="text-sm font-semibold">{isOffer ? campaign.nudge : activation ? "Your activation is ready to open." : currentStatus === "accepted" ? "Your offer is accepted. Start planning its execution." : currentStatus === "declined" ? "You declined this campaign offer." : "Review the campaign details and its current execution status."}</span>
         </div>
 
       </main>
