@@ -20,7 +20,7 @@ import {
   statusMeta,
   upcomingDeliverables,
 } from "@/data/influencer";
-import { BrandMark } from "@/components/influencer/Marks";
+import { BrandMark, BrandPlatformRow } from "@/components/influencer/Marks";
 import { useCampaignState } from "@/components/influencer/CampaignState";
 import { cn } from "@/lib/utils";
 
@@ -50,7 +50,6 @@ const statIcons = { wallet: Wallet, briefcase: Briefcase, shield: ShieldCheck, c
 function DashboardScreen() {
   const { statusFor, acceptOffer } = useCampaignState();
   const hero = heroCampaign;
-  const HeroIcon = hero.icon;
 
   return (
     <AppShell title="Dashboard">
