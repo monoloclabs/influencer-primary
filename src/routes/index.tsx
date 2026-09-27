@@ -20,7 +20,7 @@ import {
   statusMeta,
   upcomingDeliverables,
 } from "@/data/influencer";
-import { BrandMark } from "@/components/influencer/Marks";
+import { BrandMark, BrandPlatformRow } from "@/components/influencer/Marks";
 import { useCampaignState } from "@/components/influencer/CampaignState";
 import { cn } from "@/lib/utils";
 
@@ -50,7 +50,6 @@ const statIcons = { wallet: Wallet, briefcase: Briefcase, shield: ShieldCheck, c
 function DashboardScreen() {
   const { statusFor, acceptOffer } = useCampaignState();
   const hero = heroCampaign;
-  const HeroIcon = hero.icon;
 
   return (
     <AppShell title="Dashboard">
@@ -64,7 +63,7 @@ function DashboardScreen() {
       <div className="mt-6 rounded-4xl bg-tint-blue p-5">
         <div className="flex items-start gap-3.5">
           <IconBadge tone="blue" shape="round" size="md" className="bg-background">
-            <HeroIcon className="h-5 w-5" strokeWidth={2.2} />
+            <BrandMark brand={hero.brand} className="h-5 w-5 text-foreground" />
           </IconBadge>
           <div className="min-w-0 flex-1">
             <p className="eyebrow text-tint-blue-foreground">Up next · {hero.brand}</p>
@@ -177,10 +176,7 @@ function DashboardScreen() {
             <span className="w-14 shrink-0 pt-0.5 text-sm font-extrabold tabular-nums">{d.when}</span>
             <span className="min-w-0 flex-1">
               <span className="block truncate text-[0.9375rem] font-bold">{d.title}</span>
-              <span className="block truncate text-xs text-muted-foreground">{d.brand}</span>
-              <span className="mt-1.5 block">
-                <Pill tone={d.tone}>{d.tag}</Pill>
-              </span>
+              <BrandPlatformRow brand={d.brand} platforms={d.platforms} className="mt-1.5" />
             </span>
           </div>
         ))}
