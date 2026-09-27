@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeftRight, CalendarDays, Flag } from "lucide-react";
+import { ArrowLeftRight, CalendarDays, Flag, Landmark } from "lucide-react";
 import { AppShell } from "@/components/alfred/AppShell";
 import { Pill } from "@/components/alfred/ui";
+import { BrandMark, brandFromText } from "@/components/influencer/Marks";
 import { campaignEvents, transactions } from "@/data/influencer";
 import { cn } from "@/lib/utils";
 
@@ -118,7 +119,7 @@ function TimelineScreen() {
                     </span>
                   )}
                 </div>
-              ))}
+              )})}
             </div>
           </section>
         ))}
