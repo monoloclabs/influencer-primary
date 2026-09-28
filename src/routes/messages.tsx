@@ -78,8 +78,11 @@ function ApprovalsScreen() {
           return (
             <Card key={a.id} className="p-4">
               <div className="flex items-start gap-3.5">
-                <IconBadge tone={a.tone} shape="round" size="md">
-                  {a.kind === "brand_offer" ? <BrandMark brand={a.brand} /> : <Icon className="h-5 w-5" strokeWidth={2.2} />}
+                <IconBadge tone={a.tone} shape="round" size="md" className="relative">
+                  <BrandMark brand={a.brand} />
+                  <span className="absolute -right-1 -bottom-1 grid h-[1.15rem] w-[1.15rem] place-items-center rounded-full bg-card shadow-card">
+                    <Icon className="h-3 w-3 text-muted-foreground" strokeWidth={2.4} />
+                  </span>
                 </IconBadge>
                 <div className="min-w-0 flex-1">
                   <p className="text-[0.6875rem] font-bold text-muted-foreground uppercase">
@@ -115,10 +118,13 @@ function ApprovalsScreen() {
         })}
       </div>
       <Sheet open={!!selected} onOpenChange={(open) => { if (!open) setInspecting(null); }}>
-        <SheetContent side="bottom" className="mx-auto max-w-[520px] rounded-t-4xl border-0 px-6 pt-6 pb-8">
+        <SheetContent hideClose side="bottom" className="mx-auto max-w-[520px] rounded-t-4xl border-0 px-6 pt-6 pb-8">
           {selected && <>
-            <p className="eyebrow text-primary">{kindMeta[selected.kind].label} · {selected.brand}</p>
-            <h3 className="mt-3 pr-8 text-xl font-extrabold">{selected.title}</h3>
+            <p className="flex items-center gap-2 eyebrow text-primary">
+              <BrandMark brand={selected.brand} className="h-4 w-4" />
+              {kindMeta[selected.kind].label} · {selected.brand}
+            </p>
+            <h3 className="mt-3 text-xl font-extrabold">{selected.title}</h3>
             <p className="mt-3 text-sm text-muted-foreground">{selected.meta}</p>
             <p className="mt-4 rounded-2xl bg-surface p-4 text-sm font-semibold">{selected.details}</p>
             <p className="mt-4 text-sm font-bold">{selected.value}</p>
