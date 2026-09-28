@@ -115,7 +115,7 @@ function ApprovalsScreen() {
         })}
       </div>
       <Sheet open={!!selected} onOpenChange={(open) => { if (!open) setInspecting(null); }}>
-        <SheetContent side="bottom" className="mx-auto max-w-[520px] rounded-t-4xl border-0 px-6 pt-6 pb-8">
+        <SheetContent hideClose side="bottom" className="mx-auto max-w-[520px] rounded-t-4xl border-0 px-6 pt-6 pb-8">
           {selected && <>
             <p className="eyebrow text-primary">{kindMeta[selected.kind].label} · {selected.brand}</p>
             <h3 className="mt-3 pr-8 text-xl font-extrabold">{selected.title}</h3>
