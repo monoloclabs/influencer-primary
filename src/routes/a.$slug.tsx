@@ -28,6 +28,10 @@ const titles: Record<string, { title: string; blurb: string }> = {
   activity: { title: "Activity", blurb: "Everything that moved across your campaigns." },
   transactions: { title: "Transactions", blurb: "Every payout, fee and withdrawal." },
   subscriptions: { title: "Subscriptions", blurb: "What renews, and when." },
+  "tool-subscriptions": {
+    title: "Tool subscriptions",
+    blurb: "Editing suites, scheduling apps and the software your work runs on.",
+  },
   purchases: { title: "Purchases", blurb: "Gear, software and business spend." },
   clique: { title: "Network", blurb: "Brand contacts, managers and collaborators." },
   discover: { title: "Discover brands", blurb: "Partnerships worth your audience." },
