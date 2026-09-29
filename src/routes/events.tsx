@@ -1,16 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@/components/alfred/ui";
-import { CalendarDays, Plane, Stethoscope, UtensilsCrossed, Dumbbell, Users } from "lucide-react";
+import { CalendarDays, Camera, Video, Mic, Users, Plane } from "lucide-react";
 import { AppShell } from "@/components/alfred/AppShell";
 import { AButton, Card, IconBadge, Pill } from "@/components/alfred/ui";
 
 export const Route = createFileRoute("/events")({
   head: () => ({
     meta: [
-      { title: "Events — Alfred" },
-      { name: "description", content: "Every scheduled happening in your life: dinners, appointments, flights and meetings." },
-      { property: "og:title", content: "Events — Alfred" },
-      { property: "og:description", content: "Individual scheduled happenings, some belonging to a bigger plan." },
+      { title: "Shoots and events — INFLUENCER" },
+      { name: "description", content: "Shoots, brand meetings, launches and collaborations on your schedule." },
+      { property: "og:title", content: "Shoots and events — INFLUENCER" },
+      { property: "og:description", content: "Upcoming shoots and brand dates, some belonging to a campaign." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -22,27 +22,28 @@ const groups = [
   {
     label: "This week",
     items: [
-      { id: "e1", title: "Dinner with Mum", when: "Sunday · 8:00 PM", where: "Yellow Chilli, Lekki", icon: UtensilsCrossed, tone: "orange" as const, plan: "Dinner with Mum" },
-      { id: "e2", title: "Dentist", when: "Tuesday · 10:30 AM", where: "Smile Studio", icon: Stethoscope, tone: "green" as const },
-      { id: "e3", title: "Flight to Lagos", when: "Friday · 6:45 PM", where: "AA 314 · Terminal 2", icon: Plane, tone: "blue" as const, plan: "Paris vacation" },
+      { id: "e1", title: "Gymshark Reel shoot", when: "Sunday · 8:00 AM", where: "Ikoyi Fitness studio", icon: Camera, tone: "orange" as const, plan: "Gymshark" },
+      { id: "e2", title: "Notion walkthrough recording", when: "Tuesday · 10:30 AM", where: "Home desk setup", icon: Video, tone: "green" as const, plan: "Notion" },
+      { id: "e3", title: "Spotify brand call", when: "Friday · 6:45 PM", where: "Video call · 30 min", icon: Mic, tone: "blue" as const, plan: "Spotify" },
     ],
   },
   {
     label: "Next week",
     items: [
-      { id: "e4", title: "Gym — leg day", when: "Monday · 7:00 AM", where: "Ikoyi Fitness", icon: Dumbbell, tone: "violet" as const },
-      { id: "e5", title: "Design team lunch", when: "Wednesday · 12:30 PM", where: "The Yard", icon: Users, tone: "amber" as const },
+      { id: "e4", title: "Apple Music launch event", when: "Monday · 7:00 PM", where: "Victoria Island", icon: Users, tone: "violet" as const, plan: "Apple Music" },
+      { id: "e5", title: "Travel for the Sephora campaign", when: "Wednesday · 12:30 PM", where: "Flight to Abuja", icon: Plane, tone: "amber" as const },
     ],
   },
 ];
 
 function EventsScreen() {
   return (
-    <AppShell title="Events">
-      <h2 className="text-[1.75rem] leading-tight font-extrabold">Events</h2>
+    <AppShell title="Shoots and events">
+      <h2 className="text-[1.75rem] leading-tight font-extrabold">Shoots and events</h2>
       <p className="mt-1.5 text-[0.9375rem] text-muted-foreground">
-        Individual things happening, with times and places.
+        What is coming up, with times and places.
       </p>
+
 
       <div className="mt-7 space-y-8">
         {groups.map((g) => (
@@ -71,14 +72,15 @@ function EventsScreen() {
       <div className="mt-8 rounded-4xl bg-surface p-5">
         <p className="flex items-center gap-2 text-[0.9375rem] font-semibold">
           <CalendarDays className="h-4 w-4 text-primary" strokeWidth={2.4} />
-          Events can sit inside a plan.
+          Most dates belong to a campaign.
         </p>
         <Link to="/plans" className="mt-4 block">
           <AButton variant="secondary" size="md" className="w-full">
-            Open Plans
+            Open Campaigns
           </AButton>
         </Link>
       </div>
+
     </AppShell>
   );
 }

@@ -3,21 +3,13 @@ import {
   X,
   ChevronRight,
   CheckCircle2,
-  Bell,
   CalendarDays,
   Calendar,
   Folder,
-  Layers,
-  BookOpen,
-  Lightbulb,
   ScrollText,
-  ShieldCheck,
-  Activity,
   Wallet,
   Repeat,
-  ShoppingBag,
   Users,
-  Compass,
   Library,
   Briefcase,
   Plug,
@@ -38,41 +30,40 @@ import { cn } from "@/lib/utils";
 type IconType = React.ComponentType<{ className?: string; strokeWidth?: number }>;
 type Item = { label: string; icon: IconType; to: string; meta?: string; blue?: boolean };
 
-const life: Item[] = [
-  { label: "Tasks", icon: CheckCircle2, to: "/tasks", meta: "4 due this week", blue: true },
-  { label: "Reminders", icon: Bell, to: "/a/reminders", meta: "2 deadlines coming up", blue: true },
-  { label: "Events", icon: CalendarDays, to: "/events", meta: "3 shoots this week", blue: true },
-  { label: "Content calendar", icon: Calendar, to: "/a/calendar", meta: "Your posting schedule", blue: true },
-  { label: "Files", icon: Folder, to: "/a/files", meta: "Briefs, contracts, invoices", blue: true },
-];
-
+/** Workspace — where creator work and campaign execution happen. */
 const workspace: Item[] = [
-  { label: "Projects", icon: Layers, to: "/a/projects" },
-  { label: "Journal", icon: BookOpen, to: "/a/journal" },
-  { label: "Ideas", icon: Lightbulb, to: "/a/ideas" },
-  { label: "Activations", icon: Workflow, to: "/activations" },
+  { label: "Activations", icon: Workflow, to: "/activations", meta: "Campaign execution in progress", blue: true },
+  { label: "Production tasks", icon: CheckCircle2, to: "/tasks", meta: "4 due this week", blue: true },
+  { label: "Shoots and events", icon: CalendarDays, to: "/events", meta: "3 shoots this week", blue: true },
+  { label: "Content calendar", icon: Calendar, to: "/a/calendar", meta: "Your posting schedule", blue: true },
 ];
 
-const alfred: Item[] = [
+/** Library — creator business and reference material. */
+const library: Item[] = [
+  { label: "Contracts and briefs", icon: Folder, to: "/a/files", meta: "Deal terms and usage rights" },
+  { label: "Media kit and rates", icon: BadgeCheck, to: "/a/media-kit", meta: "Audience, results, pricing" },
+  { label: "Brand network", icon: Users, to: "/a/clique", meta: "Brand contacts and managers" },
+  { label: "Rate research", icon: Library, to: "/a/research", meta: "What other creators charge" },
+];
+
+/** Rules — the standing operating instructions Alfred follows. */
+const rules: Item[] = [
   { label: "Instructions", icon: ScrollText, to: "/instructions", meta: "6 rules running" },
-  { label: "Approvals", icon: ShieldCheck, to: "/messages", meta: "3 waiting on you" },
-  { label: "Activity", icon: Activity, to: "/a/activity" },
 ];
 
 const money: Item[] = [
   { label: "Wallet", icon: Wallet, to: "/wallet", meta: "Earnings and payouts" },
-  { label: "Purchases", icon: ShoppingBag, to: "/a/purchases", meta: "Gear and business spend" },
-  { label: "Subscription", icon: Repeat, to: "/subscription", meta: "Creator Pro · renews Oct 12" },
+  { label: "Subscriptions", icon: Repeat, to: "/wallet/transactions", meta: "What renews, and when" },
 ];
 
 const account: Item[] = [
   { label: "Creator profile", icon: User, to: "/a/profile" },
-  { label: "Media kit", icon: BadgeCheck, to: "/a/media-kit" },
   { label: "What's new", icon: Sparkles, to: "/a/whats-new" },
   { label: "Invite a creator", icon: UserPlus, to: "/a/invite" },
   { label: "Settings", icon: Settings, to: "/a/settings" },
   { label: "Support", icon: LifeBuoy, to: "/a/support" },
 ];
+
 
 function Group({
   label,
@@ -171,36 +162,41 @@ export function AlfredDrawer({
         </div>
 
         <div className="px-4 pb-12">
-          <Group label="My Workspace">
+          <Group label="Workspace">
             <div className="divide-y divide-border/70 rounded-3xl border border-border/70 bg-card px-1.5 shadow-card">
-              {life.map((i) => (
+              {workspace.map((i) => (
                 <LifeRow key={i.label} item={i} onNavigate={close} />
               ))}
             </div>
           </Group>
 
-          <Group label="Desk">
+          <Group label="Library">
             <div className="grid grid-cols-2 gap-2.5">
-              {workspace.map((i) => {
+              {library.map((i) => {
                 const Icon = i.icon;
                 return (
                   <Link
                     key={i.label}
                     to={i.to}
                     onClick={close}
-                    className="rounded-2xl border border-border/70 bg-card p-3 text-center shadow-card active:scale-[0.98]"
+                    className="rounded-2xl border border-border/70 bg-card p-3.5 shadow-card active:scale-[0.98]"
                   >
-                    <Icon className="mx-auto h-5 w-5 text-tint-violet-foreground" strokeWidth={2.2} />
-                    <span className="mt-2 block text-xs font-semibold">{i.label}</span>
+                    <Icon className="h-5 w-5 text-tint-violet-foreground" strokeWidth={2.2} />
+                    <span className="mt-2.5 block text-xs font-semibold leading-snug">{i.label}</span>
+                    {i.meta && (
+                      <span className="mt-0.5 block text-[0.6875rem] leading-snug text-muted-foreground">
+                        {i.meta}
+                      </span>
+                    )}
                   </Link>
                 );
               })}
             </div>
           </Group>
 
-          <Group label="Influencer">
+          <Group label="Rules">
             <div className="rounded-3xl bg-primary-soft p-1.5">
-              {alfred.map((i) => (
+              {rules.map((i) => (
                 <AlfredRow key={i.label} item={i} onNavigate={close} />
               ))}
             </div>
@@ -228,20 +224,11 @@ export function AlfredDrawer({
             </div>
           </Group>
 
-          <div className="mt-7 grid grid-cols-2 gap-2.5">
-            <Link
-              to="/a/clique"
-              onClick={close}
-              className="rounded-3xl bg-tint-blue p-4 active:scale-[0.98]"
-            >
-              <Users className="h-5 w-5 text-tint-blue-foreground" strokeWidth={2.3} />
-              <p className="mt-3 text-sm font-bold">Network</p>
-              <p className="text-xs text-muted-foreground">Brands and collaborators</p>
-            </Link>
+          <div className="mt-7">
             <Link
               to="/office"
               onClick={close}
-              className="rounded-3xl bg-tint-amber p-4 active:scale-[0.98]"
+              className="block rounded-3xl bg-tint-amber p-4 active:scale-[0.98]"
             >
               <Briefcase className="h-5 w-5 text-tint-amber-foreground" strokeWidth={2.3} />
               <p className="mt-3 text-sm font-bold">My Office</p>
@@ -249,26 +236,6 @@ export function AlfredDrawer({
             </Link>
           </div>
 
-          <Group label="Discover">
-            <div className="flex gap-2.5">
-              <Link
-                to="/a/discover"
-                onClick={close}
-                className="flex flex-1 items-center gap-2.5 rounded-full border border-primary/50 bg-primary-soft px-4 py-3 active:opacity-80"
-              >
-                <Compass className="h-[1.1rem] w-[1.1rem] text-primary" strokeWidth={2.3} />
-                <span className="text-sm font-bold text-primary">Brands</span>
-              </Link>
-              <Link
-                to="/a/research"
-                onClick={close}
-                className="flex flex-1 items-center gap-2.5 rounded-full border border-tint-blue-foreground/30 bg-tint-blue px-4 py-3 active:opacity-80"
-              >
-                <Library className="h-[1.1rem] w-[1.1rem] text-tint-blue-foreground" strokeWidth={2.3} />
-                <span className="text-sm font-bold text-tint-blue-foreground">Rates</span>
-              </Link>
-            </div>
-          </Group>
 
           <Group label="Connections">
             <Link

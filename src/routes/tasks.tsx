@@ -8,10 +8,10 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/tasks")({
   head: () => ({
     meta: [
-      { title: "Tasks — Alfred" },
-      { name: "description", content: "Everything you intend to get done, grouped by when it matters." },
-      { property: "og:title", content: "Tasks — Alfred" },
-      { property: "og:description", content: "Your tasks, grouped by when they matter." },
+      { title: "Production tasks — INFLUENCER" },
+      { name: "description", content: "Scripts, shoots, edits and revisions across your live campaigns, grouped by when they matter." },
+      { property: "og:title", content: "Production tasks — INFLUENCER" },
+      { property: "og:description", content: "Your campaign production work, grouped by when it matters." },
     ],
   }),
   component: TasksScreen,
@@ -21,23 +21,23 @@ const groups = [
   {
     label: "Overdue",
     items: [
-      { id: "1", title: "Renew driver's licence", meta: "2 days late · FRSC portal", tag: "Late", tone: "red" as const },
-      { id: "2", title: "Return the borrowed charger to Kola", meta: "Yesterday", tag: "Late", tone: "red" as const },
+      { id: "1", title: "Send Gymshark the revised caption", meta: "2 days late · brand feedback", tag: "Late", tone: "red" as const },
+      { id: "2", title: "Upload raw footage for the Notion edit", meta: "Yesterday", tag: "Late", tone: "red" as const },
     ],
   },
   {
     label: "Today",
     items: [
-      { id: "3", title: "Send Ada the apartment photos", meta: "19:00", tag: "Personal", tone: "blue" as const },
-      { id: "4", title: "Book dentist for Thursday", meta: "Anytime", tag: "Health", tone: "green" as const },
-      { id: "5", title: "Approve the DSTV payment", meta: "From Alfred", tag: "Money", tone: "orange" as const },
+      { id: "3", title: "Film the Gymshark Reel B-roll", meta: "19:00 · home studio", tag: "Shoot", tone: "blue" as const },
+      { id: "4", title: "Approve the Notion thumbnail", meta: "Anytime", tag: "Review", tone: "green" as const },
+      { id: "5", title: "Confirm the Apple Music payout details", meta: "From Wallet", tag: "Money", tone: "orange" as const },
     ],
   },
   {
     label: "This week",
     items: [
-      { id: "6", title: "Draft the Abuja trip itinerary", meta: "Before Wednesday", tag: "Travel", tone: "violet" as const },
-      { id: "7", title: "Call the landlord about the leak", meta: "Thursday", tag: "Home", tone: "amber" as const },
+      { id: "6", title: "Draft the Spotify pitch deliverables", meta: "Before Wednesday", tag: "Pitch", tone: "violet" as const },
+      { id: "7", title: "Schedule the Threads carousel posts", meta: "Thursday", tag: "Schedule", tone: "amber" as const },
     ],
   },
 ];
@@ -51,11 +51,12 @@ function TasksScreen() {
   };
 
   return (
-    <AppShell title="Tasks">
-      <h2 className="text-[1.75rem] leading-tight font-extrabold">Tasks</h2>
+    <AppShell title="Production tasks">
+      <h2 className="text-[1.75rem] leading-tight font-extrabold">Production tasks</h2>
       <p className="mt-1.5 text-[0.9375rem] text-muted-foreground">
         Seven open · {done.length} ticked. {saved ? "Everything is saved." : "Tap Save to keep your changes."}
       </p>
+
 
       <div className="mt-5 grid grid-cols-3 gap-3">
         <AButton size="lg" className="col-span-2 w-full">
