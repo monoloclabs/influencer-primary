@@ -3,21 +3,13 @@ import {
   X,
   ChevronRight,
   CheckCircle2,
-  Bell,
   CalendarDays,
   Calendar,
   Folder,
-  Layers,
-  BookOpen,
-  Lightbulb,
   ScrollText,
-  ShieldCheck,
-  Activity,
   Wallet,
   Repeat,
-  ShoppingBag,
   Users,
-  Compass,
   Library,
   Briefcase,
   Plug,
@@ -38,41 +30,40 @@ import { cn } from "@/lib/utils";
 type IconType = React.ComponentType<{ className?: string; strokeWidth?: number }>;
 type Item = { label: string; icon: IconType; to: string; meta?: string; blue?: boolean };
 
-const life: Item[] = [
-  { label: "Tasks", icon: CheckCircle2, to: "/tasks", meta: "4 due this week", blue: true },
-  { label: "Reminders", icon: Bell, to: "/a/reminders", meta: "2 deadlines coming up", blue: true },
-  { label: "Events", icon: CalendarDays, to: "/events", meta: "3 shoots this week", blue: true },
-  { label: "Content calendar", icon: Calendar, to: "/a/calendar", meta: "Your posting schedule", blue: true },
-  { label: "Files", icon: Folder, to: "/a/files", meta: "Briefs, contracts, invoices", blue: true },
-];
-
+/** Workspace — where creator work and campaign execution happen. */
 const workspace: Item[] = [
-  { label: "Projects", icon: Layers, to: "/a/projects" },
-  { label: "Journal", icon: BookOpen, to: "/a/journal" },
-  { label: "Ideas", icon: Lightbulb, to: "/a/ideas" },
-  { label: "Activations", icon: Workflow, to: "/activations" },
+  { label: "Activations", icon: Workflow, to: "/activations", meta: "Campaign execution in progress", blue: true },
+  { label: "Production tasks", icon: CheckCircle2, to: "/tasks", meta: "4 due this week", blue: true },
+  { label: "Shoots and events", icon: CalendarDays, to: "/events", meta: "3 shoots this week", blue: true },
+  { label: "Content calendar", icon: Calendar, to: "/a/calendar", meta: "Your posting schedule", blue: true },
 ];
 
-const alfred: Item[] = [
+/** Library — creator business and reference material. */
+const library: Item[] = [
+  { label: "Contracts and briefs", icon: Folder, to: "/a/files", meta: "Deal terms and usage rights" },
+  { label: "Media kit and rates", icon: BadgeCheck, to: "/a/media-kit", meta: "Audience, results, pricing" },
+  { label: "Brand network", icon: Users, to: "/a/clique", meta: "Brand contacts and managers" },
+  { label: "Rate research", icon: Library, to: "/a/research", meta: "What other creators charge" },
+];
+
+/** Rules — the standing operating instructions Alfred follows. */
+const rules: Item[] = [
   { label: "Instructions", icon: ScrollText, to: "/instructions", meta: "6 rules running" },
-  { label: "Approvals", icon: ShieldCheck, to: "/messages", meta: "3 waiting on you" },
-  { label: "Activity", icon: Activity, to: "/a/activity" },
 ];
 
 const money: Item[] = [
   { label: "Wallet", icon: Wallet, to: "/wallet", meta: "Earnings and payouts" },
-  { label: "Purchases", icon: ShoppingBag, to: "/a/purchases", meta: "Gear and business spend" },
-  { label: "Subscription", icon: Repeat, to: "/subscription", meta: "Creator Pro · renews Oct 12" },
+  { label: "Subscriptions", icon: Repeat, to: "/wallet/transactions", meta: "What renews, and when" },
 ];
 
 const account: Item[] = [
   { label: "Creator profile", icon: User, to: "/a/profile" },
-  { label: "Media kit", icon: BadgeCheck, to: "/a/media-kit" },
   { label: "What's new", icon: Sparkles, to: "/a/whats-new" },
   { label: "Invite a creator", icon: UserPlus, to: "/a/invite" },
   { label: "Settings", icon: Settings, to: "/a/settings" },
   { label: "Support", icon: LifeBuoy, to: "/a/support" },
 ];
+
 
 function Group({
   label,
