@@ -72,14 +72,15 @@ function EventsScreen() {
       <div className="mt-8 rounded-4xl bg-surface p-5">
         <p className="flex items-center gap-2 text-[0.9375rem] font-semibold">
           <CalendarDays className="h-4 w-4 text-primary" strokeWidth={2.4} />
-          Events can sit inside a plan.
+          Most dates belong to a campaign.
         </p>
         <Link to="/plans" className="mt-4 block">
           <AButton variant="secondary" size="md" className="w-full">
-            Open Plans
+            Open Campaigns
           </AButton>
         </Link>
       </div>
+
     </AppShell>
   );
 }
