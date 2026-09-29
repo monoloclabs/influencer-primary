@@ -53,7 +53,7 @@ const rules: Item[] = [
 
 const money: Item[] = [
   { label: "Wallet", icon: Wallet, to: "/wallet", meta: "Earnings and payouts" },
-  { label: "Subscriptions", icon: Repeat, to: "/wallet/transactions", meta: "What renews, and when" },
+  { label: "Tool subscriptions", icon: Repeat, to: "/a/tool-subscriptions", meta: "Creative tools and software" },
 ];
 
 const account: Item[] = [
