@@ -24,7 +24,9 @@ import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as WalletRouteImport } from './routes/wallet'
 import { Route as ASlugRouteImport } from './routes/a.$slug'
+import { Route as ACalendarRouteImport } from './routes/a.calendar'
 import { Route as ACliqueRouteImport } from './routes/a.clique'
+import { Route as AFilesRouteImport } from './routes/a.files'
 import { Route as ActivationActivationIdRouteImport } from './routes/activation.$activationId'
 import { Route as OfficeIndexRouteImport } from './routes/office.index'
 import { Route as OfficeSalariesRouteImport } from './routes/office.salaries'
@@ -110,9 +112,19 @@ const ASlugRoute = ASlugRouteImport.update({
   path: '/a/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ACalendarRoute = ACalendarRouteImport.update({
+  id: '/a/calendar',
+  path: '/a/calendar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ACliqueRoute = ACliqueRouteImport.update({
   id: '/a/clique',
   path: '/a/clique',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AFilesRoute = AFilesRouteImport.update({
+  id: '/a/files',
+  path: '/a/files',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ActivationActivationIdRoute = ActivationActivationIdRouteImport.update({
@@ -177,7 +189,9 @@ export interface FileRoutesByFullPath {
   '/timeline': typeof TimelineRoute
   '/wallet': typeof WalletRouteWithChildren
   '/a/$slug': typeof ASlugRoute
+  '/a/calendar': typeof ACalendarRoute
   '/a/clique': typeof ACliqueRoute
+  '/a/files': typeof AFilesRoute
   '/activation/$activationId': typeof ActivationActivationIdRoute
   '/office/salaries': typeof OfficeSalariesRoute
   '/office/staff': typeof OfficeStaffRoute
@@ -202,7 +216,9 @@ export interface FileRoutesByTo {
   '/tasks': typeof TasksRoute
   '/timeline': typeof TimelineRoute
   '/a/$slug': typeof ASlugRoute
+  '/a/calendar': typeof ACalendarRoute
   '/a/clique': typeof ACliqueRoute
+  '/a/files': typeof AFilesRoute
   '/activation/$activationId': typeof ActivationActivationIdRoute
   '/office/salaries': typeof OfficeSalariesRoute
   '/office/staff': typeof OfficeStaffRoute
@@ -230,7 +246,9 @@ export interface FileRoutesById {
   '/timeline': typeof TimelineRoute
   '/wallet': typeof WalletRouteWithChildren
   '/a/$slug': typeof ASlugRoute
+  '/a/calendar': typeof ACalendarRoute
   '/a/clique': typeof ACliqueRoute
+  '/a/files': typeof AFilesRoute
   '/activation/$activationId': typeof ActivationActivationIdRoute
   '/office/salaries': typeof OfficeSalariesRoute
   '/office/staff': typeof OfficeStaffRoute
@@ -259,7 +277,9 @@ export interface FileRouteTypes {
     | '/timeline'
     | '/wallet'
     | '/a/$slug'
+    | '/a/calendar'
     | '/a/clique'
+    | '/a/files'
     | '/activation/$activationId'
     | '/office/salaries'
     | '/office/staff'
@@ -284,7 +304,9 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/timeline'
     | '/a/$slug'
+    | '/a/calendar'
     | '/a/clique'
+    | '/a/files'
     | '/activation/$activationId'
     | '/office/salaries'
     | '/office/staff'
@@ -311,7 +333,9 @@ export interface FileRouteTypes {
     | '/timeline'
     | '/wallet'
     | '/a/$slug'
+    | '/a/calendar'
     | '/a/clique'
+    | '/a/files'
     | '/activation/$activationId'
     | '/office/salaries'
     | '/office/staff'
@@ -339,7 +363,9 @@ export interface RootRouteChildren {
   TimelineRoute: typeof TimelineRoute
   WalletRoute: typeof WalletRouteWithChildren
   ASlugRoute: typeof ASlugRoute
+  ACalendarRoute: typeof ACalendarRoute
   ACliqueRoute: typeof ACliqueRoute
+  AFilesRoute: typeof AFilesRoute
   ActivationActivationIdRoute: typeof ActivationActivationIdRoute
   PlanPlanIdRoute: typeof PlanPlanIdRoute
 }
@@ -451,11 +477,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ASlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/a/calendar': {
+      id: '/a/calendar'
+      path: '/a/calendar'
+      fullPath: '/a/calendar'
+      preLoaderRoute: typeof ACalendarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/a/clique': {
       id: '/a/clique'
       path: '/a/clique'
       fullPath: '/a/clique'
       preLoaderRoute: typeof ACliqueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/a/files': {
+      id: '/a/files'
+      path: '/a/files'
+      fullPath: '/a/files'
+      preLoaderRoute: typeof AFilesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/activation/$activationId': {
@@ -572,7 +612,9 @@ const rootRouteChildren: RootRouteChildren = {
   TimelineRoute: TimelineRoute,
   WalletRoute: WalletRouteWithChildren,
   ASlugRoute: ASlugRoute,
+  ACalendarRoute: ACalendarRoute,
   ACliqueRoute: ACliqueRoute,
+  AFilesRoute: AFilesRoute,
   ActivationActivationIdRoute: ActivationActivationIdRoute,
   PlanPlanIdRoute: PlanPlanIdRoute,
 }
