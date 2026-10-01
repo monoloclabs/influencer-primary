@@ -42,7 +42,7 @@ const workspace: Item[] = [
 const library: Item[] = [
   { label: "Contracts and briefs", icon: Folder, to: "/a/files", meta: "Deal terms and usage rights" },
   { label: "Media kit and rates", icon: BadgeCheck, to: "/a/media-kit", meta: "Audience, results, pricing" },
-  { label: "Brand network", icon: Users, to: "/a/clique", meta: "Brand contacts and managers" },
+  { label: "Brand network", icon: Users, to: "/a/clique", meta: "Partnerships, payouts, full history" },
   { label: "Rate research", icon: Library, to: "/a/research", meta: "What other creators charge" },
 ];
 
