@@ -107,12 +107,19 @@ function ApprovalsScreen() {
                   }
                 />
               ) : (
-                <div className="mt-3.5 grid grid-cols-3 gap-2">
-                  <AButton size="sm" variant="neutral" onClick={() => setInspecting(a.id)}>Inspect</AButton>
-                  <AButton size="sm" variant="neutral" onClick={() => decide(a.id, "declined")}>Decline</AButton>
-                  <AButton size="sm" onClick={() => decide(a.id, "accepted")}>Accept</AButton>
+                <div className="mt-3.5 flex items-center gap-2">
+                  <AButton size="md" className="flex-1" onClick={() => decide(a.id, "accepted")}>Approve</AButton>
+                  <AButton size="md" variant="neutral" className="px-5" onClick={() => setInspecting(a.id)}>Inspect</AButton>
+                  <button
+                    type="button"
+                    onClick={() => decide(a.id, "declined")}
+                    className="shrink-0 px-1 text-sm font-semibold text-destructive hover:underline"
+                  >
+                    Decline
+                  </button>
                 </div>
               )}
+
             </Card>
           );
         })}
