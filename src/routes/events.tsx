@@ -61,8 +61,13 @@ function EventsScreen() {
                       {e.when} · {e.where}
                     </p>
                   </div>
-                  {"plan" in e && e.plan && <Pill tone="blue">{e.plan}</Pill>}
+                  {"plan" in e && e.plan && (
+                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-surface">
+                      <BrandMark brand={e.plan} className="h-[1.05rem] w-[1.05rem] text-foreground" />
+                    </span>
+                  )}
                 </Card>
+
               ))}
             </div>
           </section>
