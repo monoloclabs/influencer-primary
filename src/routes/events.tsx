@@ -2,7 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@/components/alfred/ui";
 import { CalendarDays, Camera, Video, Mic, Users, Plane } from "lucide-react";
 import { AppShell } from "@/components/alfred/AppShell";
-import { AButton, Card, IconBadge, Pill } from "@/components/alfred/ui";
+import { AButton, Card, IconBadge } from "@/components/alfred/ui";
+import { BrandMark } from "@/components/influencer/Marks";
+
 
 export const Route = createFileRoute("/events")({
   head: () => ({
