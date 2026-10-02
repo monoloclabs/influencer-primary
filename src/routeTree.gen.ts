@@ -27,6 +27,8 @@ import { Route as ASlugRouteImport } from './routes/a.$slug'
 import { Route as ACalendarRouteImport } from './routes/a.calendar'
 import { Route as ACliqueRouteImport } from './routes/a.clique'
 import { Route as AFilesRouteImport } from './routes/a.files'
+import { Route as AMediaKitRouteImport } from './routes/a.media-kit'
+import { Route as AResearchRouteImport } from './routes/a.research'
 import { Route as ActivationActivationIdRouteImport } from './routes/activation.$activationId'
 import { Route as OfficeIndexRouteImport } from './routes/office.index'
 import { Route as OfficeSalariesRouteImport } from './routes/office.salaries'
@@ -127,6 +129,16 @@ const AFilesRoute = AFilesRouteImport.update({
   path: '/a/files',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AMediaKitRoute = AMediaKitRouteImport.update({
+  id: '/a/media-kit',
+  path: '/a/media-kit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AResearchRoute = AResearchRouteImport.update({
+  id: '/a/research',
+  path: '/a/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ActivationActivationIdRoute = ActivationActivationIdRouteImport.update({
   id: '/activation/$activationId',
   path: '/activation/$activationId',
@@ -192,6 +204,8 @@ export interface FileRoutesByFullPath {
   '/a/calendar': typeof ACalendarRoute
   '/a/clique': typeof ACliqueRoute
   '/a/files': typeof AFilesRoute
+  '/a/media-kit': typeof AMediaKitRoute
+  '/a/research': typeof AResearchRoute
   '/activation/$activationId': typeof ActivationActivationIdRoute
   '/office/salaries': typeof OfficeSalariesRoute
   '/office/staff': typeof OfficeStaffRoute
@@ -219,6 +233,8 @@ export interface FileRoutesByTo {
   '/a/calendar': typeof ACalendarRoute
   '/a/clique': typeof ACliqueRoute
   '/a/files': typeof AFilesRoute
+  '/a/media-kit': typeof AMediaKitRoute
+  '/a/research': typeof AResearchRoute
   '/activation/$activationId': typeof ActivationActivationIdRoute
   '/office/salaries': typeof OfficeSalariesRoute
   '/office/staff': typeof OfficeStaffRoute
@@ -249,6 +265,8 @@ export interface FileRoutesById {
   '/a/calendar': typeof ACalendarRoute
   '/a/clique': typeof ACliqueRoute
   '/a/files': typeof AFilesRoute
+  '/a/media-kit': typeof AMediaKitRoute
+  '/a/research': typeof AResearchRoute
   '/activation/$activationId': typeof ActivationActivationIdRoute
   '/office/salaries': typeof OfficeSalariesRoute
   '/office/staff': typeof OfficeStaffRoute
@@ -280,6 +298,8 @@ export interface FileRouteTypes {
     | '/a/calendar'
     | '/a/clique'
     | '/a/files'
+    | '/a/media-kit'
+    | '/a/research'
     | '/activation/$activationId'
     | '/office/salaries'
     | '/office/staff'
@@ -307,6 +327,8 @@ export interface FileRouteTypes {
     | '/a/calendar'
     | '/a/clique'
     | '/a/files'
+    | '/a/media-kit'
+    | '/a/research'
     | '/activation/$activationId'
     | '/office/salaries'
     | '/office/staff'
@@ -336,6 +358,8 @@ export interface FileRouteTypes {
     | '/a/calendar'
     | '/a/clique'
     | '/a/files'
+    | '/a/media-kit'
+    | '/a/research'
     | '/activation/$activationId'
     | '/office/salaries'
     | '/office/staff'
@@ -366,6 +390,8 @@ export interface RootRouteChildren {
   ACalendarRoute: typeof ACalendarRoute
   ACliqueRoute: typeof ACliqueRoute
   AFilesRoute: typeof AFilesRoute
+  AMediaKitRoute: typeof AMediaKitRoute
+  AResearchRoute: typeof AResearchRoute
   ActivationActivationIdRoute: typeof ActivationActivationIdRoute
   PlanPlanIdRoute: typeof PlanPlanIdRoute
 }
@@ -498,6 +524,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AFilesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/a/media-kit': {
+      id: '/a/media-kit'
+      path: '/a/media-kit'
+      fullPath: '/a/media-kit'
+      preLoaderRoute: typeof AMediaKitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/a/research': {
+      id: '/a/research'
+      path: '/a/research'
+      fullPath: '/a/research'
+      preLoaderRoute: typeof AResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/activation/$activationId': {
       id: '/activation/$activationId'
       path: '/activation/$activationId'
@@ -615,6 +655,8 @@ const rootRouteChildren: RootRouteChildren = {
   ACalendarRoute: ACalendarRoute,
   ACliqueRoute: ACliqueRoute,
   AFilesRoute: AFilesRoute,
+  AMediaKitRoute: AMediaKitRoute,
+  AResearchRoute: AResearchRoute,
   ActivationActivationIdRoute: ActivationActivationIdRoute,
   PlanPlanIdRoute: PlanPlanIdRoute,
 }
