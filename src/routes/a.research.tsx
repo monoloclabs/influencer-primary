@@ -44,7 +44,7 @@ function RateResearchScreen() {
   const [counts, setCounts] = useState<number[]>([1, 1, 0, 0]);
   const [extras, setExtras] = useState<boolean[]>([true, false, false]);
 
-  const base = market.reduce(
+  const base = market.reduce<[number, number]>(
     (acc, m, i) => {
       const [lo, hi] = m.rates[tier];
       return [acc[0] + lo * counts[i]!, acc[1] + hi * counts[i]!];
