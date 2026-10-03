@@ -41,6 +41,8 @@
   --color-ring: var(--ring);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
+  --color-welcome: var(--welcome);
+  --color-welcome-accent: var(--welcome-accent);
   --color-tint-blue: var(--tint-blue);
   --color-tint-blue-foreground: var(--tint-blue-foreground);
   --color-tint-green: var(--tint-green);
@@ -87,6 +89,8 @@
 
   --surface: oklch(0.976 0.001 286.4);
   --surface-2: oklch(0.985 0.001 286.4);
+  --welcome: oklch(0.33 0.13 18);
+  --welcome-accent: oklch(0.86 0.09 330);
 
   --tint-blue: oklch(0.973 0.013 251.6);
   --tint-blue-foreground: oklch(0.488 0.217 264.4);
