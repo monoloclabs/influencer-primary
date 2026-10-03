@@ -14,7 +14,7 @@ export const Route = createFileRoute("/activations")({
       { title: "Activations — INFLUENCER" },
       { name: "description", content: "Plan and manage the content, channels, schedule and publishing work behind accepted campaigns." },
       { property: "og:title", content: "Activations — INFLUENCER" },
-      { property: "og:description", content: "The creator execution workspace for accepted brand campaigns." },
+      { property: "og:description", content: "The campaign execution workspace for accepted brand campaigns." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -38,7 +38,7 @@ function ActivationsScreen() {
     <AppShell title="Activations">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h2 className="text-[1.75rem] leading-tight font-extrabold">Creator execution</h2>
+          <h2 className="text-[1.75rem] leading-tight font-extrabold">Campaign execution</h2>
           <p className="mt-1.5 text-[0.9375rem] text-muted-foreground">
             Turn accepted campaign briefs into content, production dates and publishing steps.
           </p>
