@@ -1,9 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { ArrowLeft, ChevronDown } from "lucide-react";
+import { useMemo, useState } from "react";
+import { ArrowLeft, ArrowUpRight, ChevronDown } from "lucide-react";
 import { AppShell } from "@/components/alfred/AppShell";
-import { AButton, Card, Link, Pill } from "@/components/alfred/ui";
+import { Card, Link, Pill } from "@/components/alfred/ui";
+import { useCampaignState } from "@/components/influencer/CampaignState";
 import { BrandMark } from "@/components/influencer/Marks";
+import {
+  campaignEvents,
+  campaigns,
+  statusMeta,
+  transactions,
+  type Campaign,
+  type CampaignStatus,
+  type PillTone,
+} from "@/data/influencer";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/a/clique")({
@@ -20,88 +30,73 @@ export const Route = createFileRoute("/a/clique")({
   component: BrandNetworkScreen,
 });
 
-type Brand = {
+type Relationship = {
   name: string;
-  state: string;
-  tone: "orange" | "blue" | "green" | "neutral";
   contact: string;
-  projects: number;
-  lifetime: string;
-  campaignId?: string;
-  history: { label: string; when: string; detail: string }[];
+  deals: Campaign[];
 };
 
-const brands: Brand[] = [
-  {
-    name: "Gymshark",
-    state: "Anchor partner",
-    tone: "orange",
-    contact: "Marcus Vance · Partnerships",
-    projects: 2,
-    lifetime: "$18,500",
-    campaignId: "c1",
-    history: [
-      { label: "In production", when: "Now", detail: "Reel and Threads set, content under review" },
-      { label: "Contract change", when: "Sep", detail: "Usage window extended by 30 days" },
-      { label: "Paid", when: "Jul", detail: "$4,250 received for the signature drop" },
-    ],
-  },
-  {
-    name: "Spotify",
-    state: "Offer pending",
-    tone: "blue",
-    contact: "Elena Rostova · Creator marketing",
-    projects: 1,
-    lifetime: "$12,000",
-    campaignId: "c2",
-    history: [
-      { label: "Offer received", when: "This week", detail: "$12,000 across 3 deliverables, expires in 3 days" },
-      { label: "Pitch sent", when: "Aug", detail: "Playlist takeover concept shared" },
-    ],
-  },
-  {
-    name: "Notion",
-    state: "Payment processing",
-    tone: "green",
-    contact: "David K. · Brand lead",
-    projects: 2,
-    lifetime: "$4,680",
-    campaignId: "c3",
-    history: [
-      { label: "Delivered", when: "Sep", detail: "Walkthrough video and template kit approved" },
-      { label: "Invoice sent", when: "Sep", detail: "$4,680 awaiting payout" },
-    ],
-  },
-  {
-    name: "Apple Music",
-    state: "Payment processing",
-    tone: "green",
-    contact: "Amara Okafor · Artist services",
-    projects: 1,
-    lifetime: "$8,820",
-    campaignId: "c5",
-    history: [
-      { label: "Delivered", when: "Sep", detail: "Launch event coverage completed" },
-      { label: "Invoice sent", when: "Sep", detail: "$8,820 awaiting payout" },
-    ],
-  },
-  {
-    name: "Sephora",
-    state: "Finished",
-    tone: "neutral",
-    contact: "Archived relationship",
-    projects: 1,
-    lifetime: "$5,760",
-    history: [
-      { label: "Paid and closed", when: "Jun", detail: "$5,760 received, $640 agency fee deducted" },
-      { label: "Travel campaign", when: "May", detail: "Abuja shoot, 4 deliverables" },
-    ],
-  },
-];
+const closedStatuses = new Set<CampaignStatus>(["completed", "paid", "declined", "cancelled"]);
+const incomeStatuses = new Set<CampaignStatus>([
+  "accepted",
+  "pending_approval",
+  "active",
+  "awaiting_content",
+  "awaiting_brand_approval",
+  "completed",
+  "payment_pending",
+  "paid",
+]);
+
+function amountFrom(value?: string) {
+  return value ? Number(value.replace(/[^0-9.-]+/g, "")) || 0 : 0;
+}
+
+function money(value: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
+function relationshipTone(statuses: CampaignStatus[]): PillTone {
+  if (statuses.some((status) => status === "offer")) return "violet";
+  if (statuses.some((status) => !closedStatuses.has(status))) return "orange";
+  return "green";
+}
+
+function relationshipLabel(statuses: CampaignStatus[]) {
+  if (statuses.some((status) => status === "offer")) return "Offer pending";
+  if (statuses.some((status) => !closedStatuses.has(status))) return "Ongoing";
+  return "Past partner";
+}
 
 function BrandNetworkScreen() {
-  const [open, setOpen] = useState<string | null>("Gymshark");
-  const active = brands.filter((b) => b.state !== "Finished").length;
+  const [open, setOpen] = useState<string | null>(null);
+  const { statusFor } = useCampaignState();
+  const relationships = useMemo<Relationship[]>(() => {
+    const names = Array.from(new Set(campaigns.map((campaign) => campaign.brand)));
+    return names.map((name) => {
+      const deals = campaigns.filter((campaign) => campaign.brand === name);
+      return { name, contact: deals[0]?.contact ?? "Brand contact", deals };
+    });
+  }, []);
+  const active = relationships.filter((relationship) =>
+    relationship.deals.some((deal) => {
+      const status = statusFor(deal.id) ?? deal.status;
+      return status !== "offer" && !closedStatuses.has(status);
+    }),
+  ).length;
+  const lifetimeIncome = relationships.reduce(
+    (sum, relationship) =>
+      sum +
+      relationship.deals.reduce((dealSum, deal) => {
+        const status = statusFor(deal.id) ?? deal.status;
+        return dealSum + (incomeStatuses.has(status) ? amountFrom(deal.net) : 0);
+      }, 0),
+    0,
+  );
 
   return (
     <AppShell title="Brand network">
@@ -121,32 +116,56 @@ function BrandNetworkScreen() {
           <p className="mt-0.5 text-xs font-semibold text-muted-foreground">Live relationships</p>
         </Card>
         <Card className="p-4">
-          <p className="text-2xl font-extrabold">$49,760</p>
-          <p className="mt-0.5 text-xs font-semibold text-muted-foreground">Lifetime earned</p>
+          <p className="text-2xl font-extrabold">{money(lifetimeIncome)}</p>
+          <p className="mt-0.5 text-xs font-semibold text-muted-foreground">Total income</p>
         </Card>
       </div>
 
       <p className="eyebrow mt-8 mb-3 px-1 text-muted-foreground">Partners</p>
       <div className="space-y-2.5">
-        {brands.map((b) => {
-          const isOpen = open === b.name;
+        {relationships.map((relationship) => {
+          const isOpen = open === relationship.name;
+          const statuses = relationship.deals.map((deal) => statusFor(deal.id) ?? deal.status);
+          const ongoingDeals = relationship.deals.filter((deal) => {
+            const status = statusFor(deal.id) ?? deal.status;
+            return status !== "offer" && !closedStatuses.has(status);
+          });
+          const brandTransactions = transactions.flatMap((group) =>
+            group.items
+              .filter((item) => item.title.toLowerCase().includes(relationship.name.toLowerCase()))
+              .map((item) => ({ ...item, group: group.day })),
+          );
+          const brandEvents = campaignEvents.flatMap((group) =>
+            group.items
+              .filter((item) => item.title.toLowerCase().includes(relationship.name.toLowerCase()))
+              .map((item) => ({ ...item, group: group.day })),
+          );
+          const paid = brandTransactions.reduce(
+            (sum, item) => sum + (item.amount?.startsWith("+") ? amountFrom(item.amount) : 0),
+            0,
+          );
+          const totalIncome = relationship.deals.reduce((sum, deal) => {
+            const status = statusFor(deal.id) ?? deal.status;
+            return sum + (incomeStatuses.has(status) ? amountFrom(deal.net) : 0);
+          }, 0);
           return (
-            <Card key={b.name} className="p-4">
+            <Card key={relationship.name} className="p-4">
               <button
                 type="button"
-                onClick={() => setOpen(isOpen ? null : b.name)}
+                onClick={() => setOpen(isOpen ? null : relationship.name)}
                 className="flex w-full items-center gap-3.5 text-left"
+                aria-expanded={isOpen}
               >
                 <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-surface">
-                  <BrandMark brand={b.name} className="h-5 w-5 text-foreground" />
+                  <BrandMark brand={relationship.name} className="h-5 w-5 text-foreground" />
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-[0.9375rem] font-bold">{b.name}</span>
+                  <span className="block truncate text-[0.9375rem] font-bold">{relationship.name}</span>
                   <span className="block truncate text-xs text-muted-foreground">
-                    {b.projects} {b.projects === 1 ? "project" : "projects"} · {b.lifetime} earned
+                    {relationship.deals.length} {relationship.deals.length === 1 ? "deal" : "deals"} · {money(totalIncome)} income
                   </span>
                 </span>
-                <Pill tone={b.tone}>{b.state}</Pill>
+                <Pill tone={relationshipTone(statuses)}>{relationshipLabel(statuses)}</Pill>
                 <ChevronDown
                   className={cn("h-4 w-4 shrink-0 text-muted-foreground transition-transform", isOpen && "rotate-180")}
                   strokeWidth={2.6}
@@ -155,26 +174,74 @@ function BrandNetworkScreen() {
 
               {isOpen && (
                 <div className="mt-4 border-t border-border pt-4">
-                  <p className="text-xs font-semibold text-muted-foreground">{b.contact}</p>
-                  <div className="mt-3.5 space-y-3.5">
-                    {b.history.map((h) => (
-                      <div key={h.label + h.when} className="flex gap-3">
-                        <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-primary" />
-                        <div className="min-w-0">
-                          <p className="text-[0.8125rem] font-bold">
-                            {h.label} <span className="font-semibold text-muted-foreground">· {h.when}</span>
-                          </p>
-                          <p className="text-xs text-muted-foreground">{h.detail}</p>
-                        </div>
-                      </div>
-                    ))}
+                  <p className="text-xs font-semibold text-muted-foreground">{relationship.contact}</p>
+
+                  <div className="mt-4 grid grid-cols-3 gap-2">
+                    <div className="rounded-2xl bg-surface px-3 py-3">
+                      <p className="text-lg font-extrabold">{relationship.deals.length}</p>
+                      <p className="text-[0.6875rem] font-semibold text-muted-foreground">Deals</p>
+                    </div>
+                    <div className="rounded-2xl bg-surface px-3 py-3">
+                      <p className="text-lg font-extrabold">{money(paid)}</p>
+                      <p className="text-[0.6875rem] font-semibold text-muted-foreground">Amount paid</p>
+                    </div>
+                    <div className="rounded-2xl bg-surface px-3 py-3">
+                      <p className="text-lg font-extrabold">{money(totalIncome)}</p>
+                      <p className="text-[0.6875rem] font-semibold text-muted-foreground">Total income</p>
+                    </div>
                   </div>
-                  {b.campaignId && (
-                    <Link to={`/plan/${b.campaignId}`} className="mt-4 block">
-                      <AButton variant="neutral" size="md" className="w-full">
-                        Open campaign
-                      </AButton>
-                    </Link>
+
+                  {ongoingDeals.length > 0 && (
+                    <section className="mt-5">
+                      <p className="eyebrow mb-2.5 text-primary">Ongoing</p>
+                      <div className="space-y-2">
+                        {ongoingDeals.map((deal) => {
+                          const status = statusFor(deal.id) ?? deal.status;
+                          return (
+                            <DealRow key={deal.id} deal={deal} status={status} />
+                          );
+                        })}
+                      </div>
+                    </section>
+                  )}
+
+                  <section className="mt-5">
+                    <p className="eyebrow mb-2.5 text-muted-foreground">All deals</p>
+                    <div className="space-y-2">
+                      {relationship.deals.map((deal) => {
+                        const status = statusFor(deal.id) ?? deal.status;
+                        return <DealRow key={deal.id} deal={deal} status={status} />;
+                      })}
+                    </div>
+                  </section>
+
+                  {(brandEvents.length > 0 || brandTransactions.length > 0) && (
+                    <section className="mt-5">
+                      <p className="eyebrow mb-3 text-muted-foreground">Relationship timeline</p>
+                      <div className="space-y-3.5 border-l border-border pl-4">
+                        {brandEvents.map((event) => (
+                          <div key={event.id} className="relative">
+                            <span className="absolute top-1.5 -left-[1.1875rem] h-2 w-2 rounded-full bg-primary" />
+                            <p className="text-[0.8125rem] font-bold">{event.title}</p>
+                            <p className="text-xs text-muted-foreground">{event.group} · {event.meta}</p>
+                          </div>
+                        ))}
+                        {brandTransactions.map((transaction) => (
+                          <div key={transaction.id} className="relative">
+                            <span className="absolute top-1.5 -left-[1.1875rem] h-2 w-2 rounded-full bg-foreground" />
+                            <div className="flex items-start justify-between gap-3">
+                              <div>
+                                <p className="text-[0.8125rem] font-bold">{transaction.title}</p>
+                                <p className="text-xs text-muted-foreground">{transaction.group} · {transaction.meta}</p>
+                              </div>
+                              {transaction.amount && (
+                                <span className="shrink-0 text-xs font-extrabold tabular-nums">{transaction.amount}</span>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
                   )}
                 </div>
               )}
@@ -183,5 +250,22 @@ function BrandNetworkScreen() {
         })}
       </div>
     </AppShell>
+  );
+}
+
+function DealRow({ deal, status }: { deal: Campaign; status: CampaignStatus }) {
+  const meta = statusMeta[status];
+  return (
+    <Link
+      to={`/plan/${deal.id}`}
+      className="flex items-center gap-3 rounded-2xl bg-surface px-3.5 py-3 active:scale-[0.99]"
+    >
+      <span className="min-w-0 flex-1">
+        <span className="block truncate text-[0.8125rem] font-bold">{deal.title}</span>
+        <span className="block text-xs text-muted-foreground">{deal.window} · {deal.net} net</span>
+      </span>
+      <Pill tone={meta.tone}>{meta.label}</Pill>
+      <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={2.4} />
+    </Link>
   );
 }

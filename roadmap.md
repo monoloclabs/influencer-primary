@@ -28,3 +28,8 @@
 - [x] Create starts activations from accepted campaigns; templates are reusable execution structures
 - [x] Activations uses a compact New control and shared creation flow
 - [x] Verify navigation and lifecycle states
+
+## Brand relationships
+- [x] Rename creator execution to campaign execution
+- [x] Auto-populate Brand Network from campaigns, earnings, transactions, and lifecycle events
+- [x] Show deal counts, amount paid, total income, ongoing work, all deals, and relationship history
