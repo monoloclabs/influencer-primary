@@ -257,8 +257,7 @@ function DealRow({ deal, status }: { deal: Campaign; status: CampaignStatus }) {
   const meta = statusMeta[status];
   return (
     <Link
-      to="/plan/$planId"
-      params={{ planId: deal.id }}
+      to={`/plan/${deal.id}`}
       className="flex items-center gap-3 rounded-2xl bg-surface px-3.5 py-3 active:scale-[0.99]"
     >
       <span className="min-w-0 flex-1">
