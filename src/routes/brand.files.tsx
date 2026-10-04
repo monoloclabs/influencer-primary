@@ -78,7 +78,7 @@ function BrandFiles() {
                 onChange={(e) => { if (e.target.value) { toast.success(`${a.name} attached to ${e.target.value}`); e.target.value = ""; } }}
                 className="mt-4 h-10 w-full rounded-full bg-primary-soft px-3 text-xs font-bold text-primary"
               >
-                <option value="" disabled>Attach to campaign</option>
+                <option value="" disabled>Attach</option>
                 {active.map((c) => <option key={c.id} value={c.title}>{c.title}</option>)}
               </select>
             </div>
