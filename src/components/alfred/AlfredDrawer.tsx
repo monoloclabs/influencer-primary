@@ -1,3 +1,4 @@
+import { useNavigate } from "@tanstack/react-router";
 import { Link } from "@/components/alfred/ui";
 import {
   X,
@@ -142,6 +143,11 @@ export function AlfredDrawer({
   onOpenChange: (v: boolean) => void;
 }) {
   const close = () => onOpenChange(false);
+  const navigate = useNavigate({ from: "/" });
+  const logout = () => {
+    close();
+    navigate({ to: "/welcome" });
+  };
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -273,7 +279,7 @@ export function AlfredDrawer({
                 );
               })}
               <button
-                onClick={close}
+                onClick={logout}
                 className="flex w-full items-center gap-3.5 px-2 py-3 text-left active:opacity-70"
               >
                 <DoorOpen className="h-5 w-5 shrink-0 text-destructive" strokeWidth={1.9} />
