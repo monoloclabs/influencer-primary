@@ -28,7 +28,7 @@ const sectionCopy = "mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed 
 function Homepage() {
   const [contact, setContact] = useState(false);
   return (
-    <div className="min-h-screen overflow-hidden bg-home-lime text-home-ink">
+    <div className="min-h-screen overflow-x-clip bg-home-lime text-home-ink">
       <header className="sticky top-0 z-50 bg-home-lime/95 backdrop-blur"><div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
         <div className="flex items-center gap-2 text-base font-extrabold text-primary">
           <span>INFLUENCER</span>
