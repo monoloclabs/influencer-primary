@@ -115,13 +115,13 @@ function BrandCards() {
   return (
     <div className="mt-8 flex flex-col items-center gap-4 px-5">
       {brandRows.map((row, i) => (
-        <div key={i} className={cn("flex", i === 1 && "translate-x-6")}>
+        <div key={i} className={cn("flex", i === 1 && "translate-x-4")}>
           {row.map((c, j) => (
             <div
               key={c.platform}
-              className={cn("flex h-28 w-28 -skew-y-6 flex-col justify-between rounded-3xl p-3 shadow-card", c.bg, j > 0 && "-ml-3")}
+              className={cn("flex h-28 w-[6.5rem] -skew-y-6 flex-col justify-between rounded-3xl p-3 shadow-card", c.bg, j > 0 && "-ml-3")}
             >
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-card"><PlatformMark platform={c.platform} className="h-5 w-5" /></span>
+              <span className="grid h-9 w-9 place-items-center rounded-xl bg-card text-foreground"><PlatformMark platform={c.platform} className="h-5 w-5" /></span>
               <div><p className="text-xl leading-none font-extrabold">{c.stat}</p><p className="text-[0.6rem] font-semibold">{c.label}</p></div>
             </div>
           ))}
