@@ -26,10 +26,10 @@ function Welcome() {
   const navigate = useNavigate();
 
   return (
-    <div className={cn("mx-auto flex min-h-screen w-full max-w-[520px] flex-col text-primary-foreground transition-colors duration-500", role === "creator" ? "bg-welcome-creator" : "bg-tint-blue-foreground")}>
-      <Link to="/" aria-label="INFLUENCER home" className="mx-auto flex items-center justify-center gap-1.5 pt-8 text-base font-bold tracking-tight text-primary-foreground">
+    <div className={cn("mx-auto flex min-h-screen w-full max-w-[520px] flex-col transition-colors duration-500", role === "creator" ? "bg-welcome-creator text-home-ink" : "bg-tint-blue-foreground text-primary-foreground")}>
+      <Link to="/" aria-label="INFLUENCER home" className="mx-auto flex items-center justify-center gap-1.5 pt-8 text-base font-bold tracking-tight">
         <span>INFLUENCER</span>
-        <InfluencerMark className="h-[1.15rem] w-[1.15rem] text-primary-foreground" />
+        <InfluencerMark className="h-[1.15rem] w-[1.15rem]" />
       </Link>
 
       {role === "creator" ? <CreatorCards /> : <BrandCards />}
@@ -38,7 +38,7 @@ function Welcome() {
         <h2 className="mx-auto max-w-md text-[2.25rem] leading-[1.04] font-extrabold">{role === "creator" ? "Turn your audience into a business." : "Reach the people who matter to your brand."}</h2>
         <p className="mx-auto mt-4 max-w-xs text-sm opacity-85">{role === "creator" ? "Find paid brand work, manage every campaign and get paid on time." : "Find the right creators, launch campaigns, track deliverables and reach real audiences."}</p>
 
-        <div role="radiogroup" className="mt-8 grid grid-cols-2 rounded-full border border-primary-foreground/60 p-1">
+        <div role="radiogroup" className="mt-8 grid grid-cols-2 rounded-full border border-current/60 p-1">
           {(["creator", "brand"] as const).map((r) => (
             <button
               key={r}
@@ -47,7 +47,7 @@ function Welcome() {
               onClick={() => setRole(r)}
               className={cn(
                 "h-12 rounded-full text-base font-semibold transition-colors",
-                role === r ? "bg-card text-foreground" : "text-primary-foreground",
+                role === r ? "bg-card text-foreground" : "",
               )}
             >
               I'm a {r}
@@ -75,7 +75,7 @@ function Welcome() {
 function CreatorCards() {
   return (
     <div className="mx-auto mt-8 grid w-full max-w-[360px] grid-cols-3 gap-3 px-5">
-      <div className="col-span-1 row-span-2 flex flex-col justify-between rounded-3xl bg-tint-blue p-3 text-tint-blue-foreground shadow-card">
+      <div className="col-span-1 row-span-2 flex flex-col justify-between rounded-3xl bg-home-yellow p-3 text-home-ink shadow-card">
         <BrandMark brand="Gymshark" className="h-7 w-7" />
         <div><p className="text-lg font-extrabold">$4,250</p><p className="text-[0.65rem] font-semibold">Payment released</p></div>
       </div>
@@ -86,7 +86,7 @@ function CreatorCards() {
       <div className="col-span-2 flex items-center justify-center rounded-full bg-card px-4 py-3 text-xs font-bold text-foreground shadow-card">
         <span className="text-primary">✱</span>&nbsp;@tola · creator
       </div>
-      <div className="col-span-2 flex items-center gap-3 rounded-3xl bg-welcome-accent p-4 text-foreground shadow-card">
+      <div className="col-span-2 flex items-center gap-3 rounded-3xl bg-home-sky p-4 text-home-ink shadow-card">
         <BrandMark brand="Sephora" className="h-7 w-7" />
         <div><p className="text-sm font-extrabold">Campaign accepted</p><p className="text-[0.65rem]">Hero Reel approved</p></div>
       </div>

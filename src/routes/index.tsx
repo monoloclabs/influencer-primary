@@ -28,8 +28,8 @@ const sectionCopy = "mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed 
 function Homepage() {
   const [contact, setContact] = useState(false);
   return (
-    <div className="min-h-screen overflow-hidden bg-home-lime text-home-ink">
-      <header className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
+    <div className="min-h-screen overflow-x-clip bg-home-lime text-home-ink">
+      <header className="sticky top-0 z-50 bg-home-lime/95 backdrop-blur"><div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
         <div className="flex items-center gap-2 text-base font-extrabold text-primary">
           <span>INFLUENCER</span>
           <InfluencerMark className="h-5 w-5 text-primary" />
@@ -38,7 +38,7 @@ function Homepage() {
           <button onClick={() => setContact(true)} className="inline-flex h-9 items-center rounded-full bg-home-ink px-4 text-sm font-bold text-primary-foreground active:scale-[0.98]">Contact Us</button>
           <button aria-label="Menu" className="grid h-9 w-9 place-items-center rounded-full bg-home-ink text-primary-foreground"><Menu className="h-5 w-5" strokeWidth={2.6} /></button>
         </div>
-      </header>
+      </div></header>
 
       <main>
         {/* 1 — Hero */}
@@ -88,12 +88,13 @@ function Homepage() {
                 <div key={d} className="flex items-center gap-2 border-b border-border py-2.5 text-xs last:border-0"><span className={`grid h-5 w-5 place-items-center rounded-full ${i === 0 ? "bg-home-lime" : "bg-surface"}`}>{i === 0 && <Check className="h-3 w-3" strokeWidth={3.5} />}</span>{d}</div>
               ))}
             </div>
-            <div className="rounded-[2rem] bg-card p-4 text-foreground shadow-card">
+            <div className="rounded-[2rem] bg-home-pink p-4 text-home-ink shadow-card">
               <div className="flex items-center gap-2"><BrandMark brand="Gymshark" className="h-7 w-7" /><p className="text-xs font-bold">Autumn Athlete</p></div>
               <p className="mt-2 text-2xl font-extrabold">$4,250</p>
               <div className="mt-2 flex h-9 items-center justify-center rounded-full bg-home-ink text-xs font-bold text-primary-foreground">Payment released</div>
             </div>
-            <div className="col-start-2 flex w-3/4 flex-col items-center justify-center rounded-[2rem] bg-home-pink p-5 text-home-plum">
+            <div className="flex items-center justify-end"><div className="flex w-3/4 flex-col items-center justify-center rounded-[2rem] bg-home-sky p-4 text-home-ink"><p className="text-3xl font-semibold">3</p><p className="text-sm font-bold">Active briefs</p></div></div>
+            <div className="flex w-3/4 flex-col items-center justify-center rounded-[2rem] bg-home-pink p-5 text-home-plum">
               <p className="text-4xl font-semibold">4/4</p><p className="font-bold">Delivered</p>
             </div>
           </div>
