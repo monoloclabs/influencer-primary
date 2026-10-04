@@ -21,7 +21,7 @@ function Homepage() {
   return (
     <div className="min-h-screen overflow-hidden bg-home-lime text-home-ink">
       <header className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
-        <div className="flex items-center gap-2 text-base font-extrabold">
+        <div className="flex items-center gap-2 text-base font-extrabold text-primary">
           <span>INFLUENCER</span>
           <InfluencerMark className="h-5 w-5 text-primary" />
         </div>

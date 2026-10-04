@@ -43,6 +43,7 @@
   --color-surface-2: var(--surface-2);
   --color-welcome: var(--welcome);
   --color-welcome-accent: var(--welcome-accent);
+  --color-creator-violet: var(--creator-violet);
   --color-brand-welcome-background: var(--brand-welcome-background);
   --color-home-coral: var(--home-coral);
   --color-home-lime: var(--home-lime);
@@ -111,6 +112,7 @@
   --surface-2: oklch(0.985 0.001 286.4);
   --welcome: oklch(0.33 0.13 18);
   --welcome-accent: oklch(0.86 0.09 330);
+  --creator-violet: oklch(0.56 0.27 300);
   --brand-welcome-background: oklch(0.39 0.15 250);
 
   --home-coral: oklch(0.72 0.2 28);

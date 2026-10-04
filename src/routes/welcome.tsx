@@ -27,9 +27,9 @@ function Welcome() {
 
   return (
     <div className={cn("mx-auto flex min-h-screen w-full max-w-[520px] flex-col text-primary-foreground transition-colors duration-500", role === "creator" ? "bg-welcome" : "bg-tint-blue-foreground")}>
-      <div className="flex items-center justify-center gap-1.5 pt-8 text-base font-bold tracking-tight text-primary">
+      <div className="flex items-center justify-center gap-1.5 pt-8 text-base font-bold tracking-tight text-primary-foreground">
         <span>INFLUENCER</span>
-        <InfluencerMark className="h-[1.15rem] w-[1.15rem]" />
+        <InfluencerMark className="h-[1.15rem] w-[1.15rem] text-primary-foreground" />
       </div>
 
       {role === "creator" ? <CreatorCards /> : <BrandCards />}
@@ -71,28 +71,62 @@ function Welcome() {
   );
 }
 
+/* Creator: varied-size, deliberately arranged composition with violet accent */
 function CreatorCards() {
-  return <div className="relative mx-5 mt-8 h-64">
-    <Tile className="left-2 top-6 h-28 w-24 rotate-[-6deg] bg-tint-amber text-tint-amber-foreground"><span className="text-xs font-bold">$4,250</span><span className="text-[0.65rem]">Payment released</span></Tile>
-    <Tile className="left-[34%] top-0 h-24 w-36 bg-welcome-accent text-foreground"><BrandMark brand="Gymshark" className="h-6 w-6" /><span className="text-[0.65rem] font-semibold">Campaign accepted</span></Tile>
-    <Tile className="right-2 top-16 h-28 w-24 rotate-[5deg] bg-primary text-primary-foreground"><BrandMark brand="Spotify" className="h-6 w-6" /><span className="text-[0.65rem] font-semibold">New offer</span></Tile>
-    <span className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full bg-card px-4 py-2 text-xs font-bold whitespace-nowrap text-foreground shadow-card">✱ Approved · Hero Reel</span>
-    <Tile className="bottom-0 left-6 h-16 w-20 bg-secondary text-secondary-foreground"><BrandMark brand="Sephora" className="h-5 w-5" /></Tile>
-  </div>;
+  return (
+    <div className="mx-auto mt-8 grid w-full max-w-[360px] grid-cols-3 gap-3 px-5">
+      <div className="col-span-1 row-span-2 flex flex-col justify-between rounded-3xl bg-tint-amber p-3 text-tint-amber-foreground shadow-card">
+        <BrandMark brand="Gymshark" className="h-7 w-7" />
+        <div><p className="text-lg font-extrabold">$4,250</p><p className="text-[0.65rem] font-semibold">Payment released</p></div>
+      </div>
+      <div className="col-span-2 flex items-center gap-3 rounded-3xl bg-creator-violet p-4 text-primary-foreground shadow-card">
+        <BrandMark brand="Spotify" className="h-8 w-8" />
+        <div><p className="text-sm font-extrabold">New offer</p><p className="text-[0.65rem] opacity-85">Podcast launch · 3 deliverables</p></div>
+      </div>
+      <div className="col-span-2 flex items-center justify-center rounded-full bg-card px-4 py-3 text-xs font-bold text-foreground shadow-card">
+        <span className="text-primary">✱</span>&nbsp;@tola · creator
+      </div>
+      <div className="col-span-2 flex items-center gap-3 rounded-3xl bg-welcome-accent p-4 text-foreground shadow-card">
+        <BrandMark brand="Sephora" className="h-7 w-7" />
+        <div><p className="text-sm font-extrabold">Campaign accepted</p><p className="text-[0.65rem]">Hero Reel approved</p></div>
+      </div>
+      <div className="col-span-1 flex flex-col items-center justify-center gap-1 rounded-3xl bg-primary p-3 text-primary-foreground shadow-card">
+        <p className="text-lg font-extrabold">4/4</p><p className="text-[0.6rem] font-semibold">Delivered</p>
+      </div>
+    </div>
+  );
 }
+
+/* Brand: clean horizontal stacked/overlapping cards with platform reach */
+const brandRows: { platform: string; stat: string; label: string; bg: string }[][] = [
+  [
+    { platform: "Instagram", stat: "3.2M", label: "Reach", bg: "bg-creator-violet text-primary-foreground" },
+    { platform: "YouTube", stat: "1.4M", label: "Views", bg: "bg-tint-amber text-tint-amber-foreground" },
+    { platform: "TikTok", stat: "8M", label: "Views", bg: "bg-home-coral text-home-ink" },
+  ],
+  [
+    { platform: "X", stat: "640K", label: "Impressions", bg: "bg-home-sky text-home-ink" },
+    { platform: "WhatsApp", stat: "92%", label: "Open rate", bg: "bg-home-lime text-home-ink" },
+    { platform: "Threads", stat: "24", label: "Creators matched", bg: "bg-card text-foreground" },
+  ],
+];
 
 function BrandCards() {
-  return <div className="relative mx-5 mt-8 h-64">
-    <div className="absolute top-0 left-2 w-[78%] -rotate-2 rounded-3xl bg-home-sky p-4 text-home-ink shadow-card"><div className="flex items-center gap-3"><span className="grid h-11 w-11 place-items-center rounded-2xl bg-card"><PlatformMark platform="TikTok" className="h-6 w-6" /></span><span><strong className="block text-2xl font-extrabold">8M views</strong><small className="font-semibold">Creator match reach</small></span></div></div>
-    <div className="absolute top-24 right-1 w-[68%] rotate-3 rounded-3xl bg-home-lime p-4 text-home-ink shadow-card"><p className="text-xs font-extrabold uppercase tracking-[0.12em]">Audience mix</p><div className="mt-4 flex items-center gap-5"><PlatformMark platform="Instagram" className="h-7 w-7" /><PlatformMark platform="TikTok" className="h-7 w-7" /><PlatformMark platform="X" className="h-7 w-7" /><strong className="ml-auto text-xl">6.8%</strong></div><p className="mt-1 text-right text-[0.65rem] font-semibold">Engagement</p></div>
-    <div className="absolute bottom-0 left-5 w-[54%] -rotate-3 rounded-3xl bg-welcome-accent p-4 text-foreground shadow-card"><p className="text-3xl font-extrabold">24</p><p className="text-xs font-bold">Creators shortlisted</p></div>
-  </div>;
-}
-
-function Tile({ className, children }: { className?: string; children: React.ReactNode }) {
   return (
-    <div className={cn("absolute flex flex-col items-center justify-center gap-1.5 rounded-2xl shadow-card", className)}>
-      {children}
+    <div className="mt-8 flex flex-col items-center gap-4 px-5">
+      {brandRows.map((row, i) => (
+        <div key={i} className={cn("flex", i === 1 && "translate-x-6")}>
+          {row.map((c, j) => (
+            <div
+              key={c.platform}
+              className={cn("flex h-28 w-28 -skew-y-6 flex-col justify-between rounded-3xl p-3 shadow-card", c.bg, j > 0 && "-ml-3")}
+            >
+              <span className="grid h-9 w-9 place-items-center rounded-xl bg-card"><PlatformMark platform={c.platform} className="h-5 w-5" /></span>
+              <div><p className="text-xl leading-none font-extrabold">{c.stat}</p><p className="text-[0.6rem] font-semibold">{c.label}</p></div>
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   );
 }
