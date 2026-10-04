@@ -41,7 +41,7 @@ function BrandCampaigns() {
               </span>
               <span className="font-semibold">{money(c.spent)} <span className="text-muted-foreground">/ {money(c.budget)}</span></span>
             </div>
-            <span className="mt-3 flex h-10 items-center justify-center rounded-full bg-surface text-sm font-bold">Open campaign</span>
+            <span className="mt-3 flex h-10 items-center justify-center rounded-full bg-primary-soft text-sm font-bold text-primary">Open campaign</span>
           </Link>
         ))}
       </div>

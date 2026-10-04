@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { CheckCircle2, ShieldCheck } from "lucide-react";
-import { Link } from "@/components/alfred/ui";
+import { AButton, Link } from "@/components/alfred/ui";
 import { BrandShell, brandMeta } from "@/components/brand/BrandShell";
 import { PlatformMark } from "@/components/influencer/Marks";
 import { cn } from "@/lib/utils";
@@ -33,7 +33,7 @@ function PostBrief() {
 
   if (sent) {
     return (
-      <BrandShell title="Brief posted">
+      <BrandShell title="Brief posted" focused>
         <div className="mt-16 text-center">
           <CheckCircle2 className="mx-auto h-14 w-14 text-primary" />
           <h2 className="mt-4 text-2xl font-extrabold">Brief posted</h2>
@@ -42,7 +42,7 @@ function PostBrief() {
           </p>
           <div className="mt-6 grid gap-3">
             <Link to="/brand" className="flex h-12 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">Back to dashboard</Link>
-            <button onClick={() => setSent(false)} className="h-12 rounded-full bg-surface font-semibold">Post another</button>
+            <AButton onClick={() => setSent(false)} variant="neutral" className="h-12">Post another</AButton>
           </div>
         </div>
       </BrandShell>
@@ -50,7 +50,7 @@ function PostBrief() {
   }
 
   return (
-    <BrandShell title="Post a brief">
+    <BrandShell title="Post a brief" focused>
       <h2 className="pt-2 text-2xl font-extrabold tracking-tight">Post a brief</h2>
       <p className="mt-1 text-sm text-muted-foreground">Tell us what you need. We find the creator.</p>
       <div className="mt-3 flex items-start gap-2 rounded-2xl bg-tint-blue p-3 text-xs text-tint-blue-foreground">
@@ -81,13 +81,16 @@ function PostBrief() {
         </div>
       </Field>
 
-      <button
-        disabled={!plats.length || !fmt.length}
-        onClick={() => setSent(true)}
-        className="mt-8 h-14 w-full rounded-full bg-primary text-base font-bold text-primary-foreground disabled:opacity-50"
-      >
-        Submit brief for matching
-      </button>
+      <div className="fixed bottom-0 left-1/2 z-30 w-full max-w-[520px] -translate-x-1/2 border-t border-border bg-background/95 px-5 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-xl">
+        <AButton
+          disabled={!plats.length || !fmt.length}
+          onClick={() => setSent(true)}
+          size="lg"
+          className="w-full text-base font-bold"
+        >
+          Submit brief for matching
+        </AButton>
+      </div>
     </BrandShell>
   );
 }

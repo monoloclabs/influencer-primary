@@ -10,3 +10,5 @@
 <!-- LOVABLE:END -->
 
 Use the shared CampaignState provider for offer decisions and activation creation, and reuse one activation setup sheet across entry points; this keeps campaign lifecycle actions consistent without a backend.
+
+Keep unfinished brand drawer destinations under the brand route namespace and render them with the brand shell; this prevents navigation into creator-only screens while brand features are pending.
