@@ -1,40 +1,41 @@
 import { useRouterState } from "@tanstack/react-router";
 import { Link } from "@/components/alfred/ui";
-import { LayoutGrid, FilePlus2, Briefcase, FileCheck2, CalendarClock, ArrowLeftRight } from "lucide-react";
-import type { ReactNode } from "react";
+import { LayoutGrid, FilePlus2, Briefcase, FileCheck2, CalendarClock } from "lucide-react";
+import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { InfluencerMark } from "@/components/alfred/InfluencerMark";
+import { BrandDrawer } from "./BrandDrawer";
 
 const tabs = [
   { to: "/brand", label: "Dashboard", icon: LayoutGrid },
+  { to: "/brand/timeline", label: "Timeline", icon: CalendarClock },
   { to: "/brand/brief", label: "Post a Brief", icon: FilePlus2 },
   { to: "/brand/campaigns", label: "Campaigns", icon: Briefcase },
   { to: "/brand/approvals", label: "Approvals", icon: FileCheck2, dot: true },
-  { to: "/brand/timeline", label: "Timeline", icon: CalendarClock },
 ] as const;
 
 export function BrandShell({ title, children }: { title: string; children: ReactNode }) {
+  const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[520px] flex-col bg-background">
       <header className="sticky top-0 z-30 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 bg-background/85 px-5 pt-4 pb-3 backdrop-blur-xl">
-        <span className="h-9 rounded-full bg-secondary px-3 text-[0.6875rem] leading-9 font-extrabold text-secondary-foreground">
-          BRAND
-        </span>
+        <button
+          aria-label="Open menu"
+          onClick={() => setOpen(true)}
+          className="h-11 shrink-0 rounded-full bg-card px-3 text-[0.6875rem] font-extrabold text-foreground shadow-card"
+        >
+          MENU
+        </button>
         <h1 className="flex min-w-0 items-center justify-center gap-1.5 text-base font-bold tracking-tight text-primary">
           <span className="truncate">INFLUENCER</span>
           <InfluencerMark className="h-[1.15rem] w-[1.15rem] shrink-0" />
           <span className="sr-only">— {title}</span>
         </h1>
-        <Link
-          to="/welcome"
-          aria-label="Switch role"
-          className="grid h-11 w-11 place-items-center rounded-full bg-card shadow-card"
-        >
-          <ArrowLeftRight className="h-5 w-5" strokeWidth={2.2} />
-        </Link>
+        <span aria-hidden className="w-[3.25rem]" />
       </header>
+      <BrandDrawer open={open} onOpenChange={setOpen} />
 
       <main className="flex-1 px-5 pb-32">{children}</main>
 
