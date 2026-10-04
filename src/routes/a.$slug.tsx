@@ -54,7 +54,7 @@ function PlaceholderScreen() {
 
   return (
     <AppShell title={meta.title}>
-      <Link to="/" className="inline-flex items-center gap-1.5 text-sm font-bold text-muted-foreground">
+      <Link to="/dashboard" className="inline-flex items-center gap-1.5 text-sm font-bold text-muted-foreground">
         <ArrowLeft className="h-4 w-4" strokeWidth={2.6} />
         Back
       </Link>
@@ -74,7 +74,7 @@ function PlaceholderScreen() {
         <ActionPair
           className="mt-6"
           secondary={
-            <Link to="/">
+            <Link to="/dashboard">
               <AButton variant="neutral" size="lg">
                 Dashboard
               </AButton>

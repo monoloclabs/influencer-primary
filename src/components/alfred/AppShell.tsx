@@ -7,7 +7,7 @@ import { AlfredDrawer } from "./AlfredDrawer";
 import { InfluencerMark } from "./InfluencerMark";
 
 const tabs = [
-  { to: "/", label: "Dashboard", icon: LayoutGrid },
+  { to: "/dashboard", label: "Dashboard", icon: LayoutGrid },
   { to: "/timeline", label: "Timeline", icon: CalendarClock },
   { to: "/plans", label: "Campaigns", icon: Briefcase },
   { to: "/messages", label: "Approvals", icon: FileCheck2, dot: true },

@@ -100,7 +100,7 @@ function BrandNetworkScreen() {
 
   return (
     <AppShell title="Brand network">
-      <Link to="/" className="inline-flex items-center gap-1.5 text-sm font-bold text-muted-foreground">
+      <Link to="/dashboard" className="inline-flex items-center gap-1.5 text-sm font-bold text-muted-foreground">
         <ArrowLeft className="h-4 w-4" strokeWidth={2.6} />
         Back
       </Link>

@@ -43,6 +43,26 @@
   --color-surface-2: var(--surface-2);
   --color-welcome: var(--welcome);
   --color-welcome-accent: var(--welcome-accent);
+  --color-welcome-brand: var(--welcome-brand);
+  --color-home-coral: var(--home-coral);
+  --color-home-lime: var(--home-lime);
+  --color-home-lilac: var(--home-lilac);
+  --color-home-ink: var(--home-ink);
+  --color-home-sky: var(--home-sky);
+  --color-logo-slack-a: var(--logo-slack-a);
+  --color-logo-slack-b: var(--logo-slack-b);
+  --color-logo-slack-c: var(--logo-slack-c);
+  --color-logo-slack-d: var(--logo-slack-d);
+  --color-logo-gmail-a: var(--logo-gmail-a);
+  --color-logo-gmail-b: var(--logo-gmail-b);
+  --color-logo-gmail-c: var(--logo-gmail-c);
+  --color-logo-gmail-d: var(--logo-gmail-d);
+  --color-logo-drive-a: var(--logo-drive-a);
+  --color-logo-drive-b: var(--logo-drive-b);
+  --color-logo-drive-c: var(--logo-drive-c);
+  --color-logo-youtube: var(--logo-youtube);
+  --color-logo-instagram: var(--logo-instagram);
+  --color-logo-canva: var(--logo-canva);
   --color-tint-blue: var(--tint-blue);
   --color-tint-blue-foreground: var(--tint-blue-foreground);
   --color-tint-green: var(--tint-green);
@@ -91,6 +111,28 @@
   --surface-2: oklch(0.985 0.001 286.4);
   --welcome: oklch(0.33 0.13 18);
   --welcome-accent: oklch(0.86 0.09 330);
+  --welcome-brand: oklch(0.39 0.15 250);
+
+  --home-coral: oklch(0.72 0.2 28);
+  --home-lime: oklch(0.9 0.19 115);
+  --home-lilac: oklch(0.82 0.13 310);
+  --home-ink: oklch(0.2 0.03 275);
+  --home-sky: oklch(0.84 0.11 230);
+
+  --logo-slack-a: oklch(0.71 0.16 196);
+  --logo-slack-b: oklch(0.66 0.23 345);
+  --logo-slack-c: oklch(0.82 0.17 83);
+  --logo-slack-d: oklch(0.65 0.23 24);
+  --logo-gmail-a: oklch(0.62 0.22 27);
+  --logo-gmail-b: oklch(0.68 0.17 248);
+  --logo-gmail-c: oklch(0.82 0.17 86);
+  --logo-gmail-d: oklch(0.7 0.16 151);
+  --logo-drive-a: oklch(0.72 0.18 150);
+  --logo-drive-b: oklch(0.72 0.17 247);
+  --logo-drive-c: oklch(0.84 0.17 91);
+  --logo-youtube: oklch(0.62 0.25 29);
+  --logo-instagram: oklch(0.59 0.25 344);
+  --logo-canva: oklch(0.71 0.14 205);
 
   --tint-blue: oklch(0.973 0.013 251.6);
   --tint-blue-foreground: oklch(0.488 0.217 264.4);

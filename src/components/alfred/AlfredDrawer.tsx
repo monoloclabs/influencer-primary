@@ -143,7 +143,7 @@ export function AlfredDrawer({
   onOpenChange: (v: boolean) => void;
 }) {
   const close = () => onOpenChange(false);
-  const navigate = useNavigate({ from: "/" });
+  const navigate = useNavigate();
   const logout = () => {
     close();
     navigate({ to: "/welcome" });
