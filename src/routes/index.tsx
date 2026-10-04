@@ -149,7 +149,7 @@ function Homepage() {
               ["What does it cost?", "Pricing details are coming soon."],
               ["Can I be both a creator and a brand?", "Yes — pick a side on the welcome screen and switch any time."],
             ].map(([q, a]) => (
-              <AccordionItem key={q} value={q} className="border-home-brown/20">
+              <AccordionItem key={q} value={q ?? ""} className="border-home-brown/20">
                 <AccordionTrigger className="text-left text-lg font-bold">{q}</AccordionTrigger>
                 <AccordionContent className="text-base">{a}</AccordionContent>
               </AccordionItem>
