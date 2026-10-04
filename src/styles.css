@@ -50,6 +50,16 @@
   --color-home-lilac: var(--home-lilac);
   --color-home-ink: var(--home-ink);
   --color-home-sky: var(--home-sky);
+  --color-home-magenta: var(--home-magenta);
+  --color-home-pink: var(--home-pink);
+  --color-home-sage: var(--home-sage);
+  --color-home-mustard: var(--home-mustard);
+  --color-home-brown: var(--home-brown);
+  --color-home-plum: var(--home-plum);
+  --color-home-navy: var(--home-navy);
+  --color-home-blue: var(--home-blue);
+  --color-home-forest: var(--home-forest);
+  --color-home-charcoal: var(--home-charcoal);
   --color-logo-slack-a: var(--logo-slack-a);
   --color-logo-slack-b: var(--logo-slack-b);
   --color-logo-slack-c: var(--logo-slack-c);
@@ -120,6 +130,16 @@
   --home-lilac: oklch(0.82 0.13 310);
   --home-ink: oklch(0.2 0.03 275);
   --home-sky: oklch(0.84 0.11 230);
+  --home-magenta: oklch(0.55 0.29 325);
+  --home-pink: oklch(0.88 0.07 330);
+  --home-sage: oklch(0.92 0.04 120);
+  --home-mustard: oklch(0.74 0.14 80);
+  --home-brown: oklch(0.3 0.07 60);
+  --home-plum: oklch(0.36 0.13 310);
+  --home-navy: oklch(0.3 0.17 270);
+  --home-blue: oklch(0.55 0.19 260);
+  --home-forest: oklch(0.33 0.09 145);
+  --home-charcoal: oklch(0.25 0 0);
 
   --logo-slack-a: oklch(0.71 0.16 196);
   --logo-slack-b: oklch(0.66 0.23 345);
