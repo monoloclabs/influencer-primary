@@ -121,7 +121,7 @@ function BrandCards() {
               key={c.platform}
               className={cn("flex h-28 w-[6.5rem] -skew-y-6 flex-col justify-between rounded-3xl p-3 shadow-card", c.bg, j > 0 && "-ml-3")}
             >
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-card text-foreground"><PlatformMark platform={c.platform} className="h-5 w-5" /></span>
+              <span className="grid h-9 w-9 place-items-center rounded-xl bg-card text-foreground"><PlatformMark platform={c.platform} className="h-5 w-5 text-foreground" /></span>
               <div><p className="text-xl leading-none font-extrabold">{c.stat}</p><p className="text-[0.6rem] font-semibold">{c.label}</p></div>
             </div>
           ))}
