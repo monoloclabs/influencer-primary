@@ -29,6 +29,7 @@ import { Route as ASlugRouteImport } from './routes/a.$slug'
 import { Route as ACalendarRouteImport } from './routes/a.calendar'
 import { Route as ACliqueRouteImport } from './routes/a.clique'
 import { Route as AFilesRouteImport } from './routes/a.files'
+import { Route as AIntegrationsRouteImport } from './routes/a.integrations'
 import { Route as AMediaKitRouteImport } from './routes/a.media-kit'
 import { Route as AResearchRouteImport } from './routes/a.research'
 import { Route as ActivationActivationIdRouteImport } from './routes/activation.$activationId'
@@ -37,6 +38,7 @@ import { Route as BrandSlugRouteImport } from './routes/brand.$slug'
 import { Route as BrandApprovalsRouteImport } from './routes/brand.approvals'
 import { Route as BrandBriefRouteImport } from './routes/brand.brief'
 import { Route as BrandCampaignsRouteImport } from './routes/brand.campaigns'
+import { Route as BrandIntegrationsRouteImport } from './routes/brand.integrations'
 import { Route as BrandTimelineRouteImport } from './routes/brand.timeline'
 import { Route as OfficeIndexRouteImport } from './routes/office.index'
 import { Route as OfficeSalariesRouteImport } from './routes/office.salaries'
@@ -148,6 +150,11 @@ const AFilesRoute = AFilesRouteImport.update({
   path: '/a/files',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AIntegrationsRoute = AIntegrationsRouteImport.update({
+  id: '/a/integrations',
+  path: '/a/integrations',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AMediaKitRoute = AMediaKitRouteImport.update({
   id: '/a/media-kit',
   path: '/a/media-kit',
@@ -186,6 +193,11 @@ const BrandBriefRoute = BrandBriefRouteImport.update({
 const BrandCampaignsRoute = BrandCampaignsRouteImport.update({
   id: '/brand/campaigns',
   path: '/brand/campaigns',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrandIntegrationsRoute = BrandIntegrationsRouteImport.update({
+  id: '/brand/integrations',
+  path: '/brand/integrations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrandTimelineRoute = BrandTimelineRouteImport.update({
@@ -260,6 +272,7 @@ export interface FileRoutesByFullPath {
   '/a/calendar': typeof ACalendarRoute
   '/a/clique': typeof ACliqueRoute
   '/a/files': typeof AFilesRoute
+  '/a/integrations': typeof AIntegrationsRoute
   '/a/media-kit': typeof AMediaKitRoute
   '/a/research': typeof AResearchRoute
   '/activation/$activationId': typeof ActivationActivationIdRoute
@@ -267,6 +280,7 @@ export interface FileRoutesByFullPath {
   '/brand/approvals': typeof BrandApprovalsRoute
   '/brand/brief': typeof BrandBriefRoute
   '/brand/campaigns': typeof BrandCampaignsRoute
+  '/brand/integrations': typeof BrandIntegrationsRoute
   '/brand/timeline': typeof BrandTimelineRoute
   '/office/salaries': typeof OfficeSalariesRoute
   '/office/staff': typeof OfficeStaffRoute
@@ -298,6 +312,7 @@ export interface FileRoutesByTo {
   '/a/calendar': typeof ACalendarRoute
   '/a/clique': typeof ACliqueRoute
   '/a/files': typeof AFilesRoute
+  '/a/integrations': typeof AIntegrationsRoute
   '/a/media-kit': typeof AMediaKitRoute
   '/a/research': typeof AResearchRoute
   '/activation/$activationId': typeof ActivationActivationIdRoute
@@ -305,6 +320,7 @@ export interface FileRoutesByTo {
   '/brand/approvals': typeof BrandApprovalsRoute
   '/brand/brief': typeof BrandBriefRoute
   '/brand/campaigns': typeof BrandCampaignsRoute
+  '/brand/integrations': typeof BrandIntegrationsRoute
   '/brand/timeline': typeof BrandTimelineRoute
   '/office/salaries': typeof OfficeSalariesRoute
   '/office/staff': typeof OfficeStaffRoute
@@ -339,6 +355,7 @@ export interface FileRoutesById {
   '/a/calendar': typeof ACalendarRoute
   '/a/clique': typeof ACliqueRoute
   '/a/files': typeof AFilesRoute
+  '/a/integrations': typeof AIntegrationsRoute
   '/a/media-kit': typeof AMediaKitRoute
   '/a/research': typeof AResearchRoute
   '/activation/$activationId': typeof ActivationActivationIdRoute
@@ -346,6 +363,7 @@ export interface FileRoutesById {
   '/brand/approvals': typeof BrandApprovalsRoute
   '/brand/brief': typeof BrandBriefRoute
   '/brand/campaigns': typeof BrandCampaignsRoute
+  '/brand/integrations': typeof BrandIntegrationsRoute
   '/brand/timeline': typeof BrandTimelineRoute
   '/office/salaries': typeof OfficeSalariesRoute
   '/office/staff': typeof OfficeStaffRoute
@@ -381,6 +399,7 @@ export interface FileRouteTypes {
     | '/a/calendar'
     | '/a/clique'
     | '/a/files'
+    | '/a/integrations'
     | '/a/media-kit'
     | '/a/research'
     | '/activation/$activationId'
@@ -388,6 +407,7 @@ export interface FileRouteTypes {
     | '/brand/approvals'
     | '/brand/brief'
     | '/brand/campaigns'
+    | '/brand/integrations'
     | '/brand/timeline'
     | '/office/salaries'
     | '/office/staff'
@@ -419,6 +439,7 @@ export interface FileRouteTypes {
     | '/a/calendar'
     | '/a/clique'
     | '/a/files'
+    | '/a/integrations'
     | '/a/media-kit'
     | '/a/research'
     | '/activation/$activationId'
@@ -426,6 +447,7 @@ export interface FileRouteTypes {
     | '/brand/approvals'
     | '/brand/brief'
     | '/brand/campaigns'
+    | '/brand/integrations'
     | '/brand/timeline'
     | '/office/salaries'
     | '/office/staff'
@@ -459,6 +481,7 @@ export interface FileRouteTypes {
     | '/a/calendar'
     | '/a/clique'
     | '/a/files'
+    | '/a/integrations'
     | '/a/media-kit'
     | '/a/research'
     | '/activation/$activationId'
@@ -466,6 +489,7 @@ export interface FileRouteTypes {
     | '/brand/approvals'
     | '/brand/brief'
     | '/brand/campaigns'
+    | '/brand/integrations'
     | '/brand/timeline'
     | '/office/salaries'
     | '/office/staff'
@@ -500,6 +524,7 @@ export interface RootRouteChildren {
   ACalendarRoute: typeof ACalendarRoute
   ACliqueRoute: typeof ACliqueRoute
   AFilesRoute: typeof AFilesRoute
+  AIntegrationsRoute: typeof AIntegrationsRoute
   AMediaKitRoute: typeof AMediaKitRoute
   AResearchRoute: typeof AResearchRoute
   ActivationActivationIdRoute: typeof ActivationActivationIdRoute
@@ -507,6 +532,7 @@ export interface RootRouteChildren {
   BrandApprovalsRoute: typeof BrandApprovalsRoute
   BrandBriefRoute: typeof BrandBriefRoute
   BrandCampaignsRoute: typeof BrandCampaignsRoute
+  BrandIntegrationsRoute: typeof BrandIntegrationsRoute
   BrandTimelineRoute: typeof BrandTimelineRoute
   PlanPlanIdRoute: typeof PlanPlanIdRoute
   BrandIndexRoute: typeof BrandIndexRoute
@@ -655,6 +681,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AFilesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/a/integrations': {
+      id: '/a/integrations'
+      path: '/a/integrations'
+      fullPath: '/a/integrations'
+      preLoaderRoute: typeof AIntegrationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/a/media-kit': {
       id: '/a/media-kit'
       path: '/a/media-kit'
@@ -709,6 +742,13 @@ declare module '@tanstack/react-router' {
       path: '/brand/campaigns'
       fullPath: '/brand/campaigns'
       preLoaderRoute: typeof BrandCampaignsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brand/integrations': {
+      id: '/brand/integrations'
+      path: '/brand/integrations'
+      fullPath: '/brand/integrations'
+      preLoaderRoute: typeof BrandIntegrationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brand/timeline': {
@@ -837,6 +877,7 @@ const rootRouteChildren: RootRouteChildren = {
   ACalendarRoute: ACalendarRoute,
   ACliqueRoute: ACliqueRoute,
   AFilesRoute: AFilesRoute,
+  AIntegrationsRoute: AIntegrationsRoute,
   AMediaKitRoute: AMediaKitRoute,
   AResearchRoute: AResearchRoute,
   ActivationActivationIdRoute: ActivationActivationIdRoute,
@@ -844,6 +885,7 @@ const rootRouteChildren: RootRouteChildren = {
   BrandApprovalsRoute: BrandApprovalsRoute,
   BrandBriefRoute: BrandBriefRoute,
   BrandCampaignsRoute: BrandCampaignsRoute,
+  BrandIntegrationsRoute: BrandIntegrationsRoute,
   BrandTimelineRoute: BrandTimelineRoute,
   PlanPlanIdRoute: PlanPlanIdRoute,
   BrandIndexRoute: BrandIndexRoute,
