@@ -15,10 +15,10 @@ function BrandDashboard() {
   const spend = brandCampaigns.filter((c) => c.status !== "completed").reduce((s, c) => s + c.spent, 0);
   const next = brandApprovals[0]!;
   const stats = [
-    { label: "Campaigns", value: String(active), sub: "Active", icon: Briefcase },
-    { label: "Money", value: money(spend), sub: "Spend this quarter", icon: Wallet },
-    { label: "Approvals", value: String(brandApprovals.length), sub: "Pending", icon: FileCheck2 },
-    { label: "Briefs", value: String(briefsAwaitingMatch.length), sub: "Awaiting match", icon: Clock4 },
+    { label: "Campaigns", value: String(active), sub: "Active", icon: Briefcase, tint: "bg-tint-blue", fg: "text-tint-blue-foreground" },
+    { label: "Money", value: money(spend), sub: "Spend this quarter", icon: Wallet, tint: "bg-tint-green", fg: "text-tint-green-foreground" },
+    { label: "Approvals", value: String(brandApprovals.length), sub: "Pending", icon: FileCheck2, tint: "bg-tint-amber", fg: "text-tint-amber-foreground" },
+    { label: "Briefs", value: String(briefsAwaitingMatch.length), sub: "Awaiting match", icon: Clock4, tint: "bg-tint-violet", fg: "text-tint-violet-foreground" },
   ];
 
   return (
@@ -35,8 +35,8 @@ function BrandDashboard() {
 
       <div className="mt-5 grid grid-cols-2 gap-3">
         {stats.map((s) => (
-          <div key={s.label} className="rounded-3xl bg-card p-4 shadow-card">
-            <div className="flex items-center gap-2"><s.icon className="h-5 w-5 shrink-0 text-primary" /><p className="text-sm font-bold">{s.label}</p></div>
+          <div key={s.label} className={`rounded-3xl p-4 shadow-card ${s.tint}`}>
+            <div className="flex items-center gap-2"><s.icon className={`h-5 w-5 shrink-0 ${s.fg}`} /><p className="text-sm font-bold">{s.label}</p></div>
             <p className="mt-3 text-2xl font-extrabold text-foreground">{s.value}</p>
             <p className="text-xs text-muted-foreground">{s.sub}</p>
           </div>

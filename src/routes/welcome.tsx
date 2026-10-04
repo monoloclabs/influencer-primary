@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { InfluencerMark } from "@/components/alfred/InfluencerMark";
@@ -26,17 +26,17 @@ function Welcome() {
   const navigate = useNavigate();
 
   return (
-    <div className={cn("mx-auto flex min-h-screen w-full max-w-[520px] flex-col text-primary-foreground transition-colors duration-500", role === "creator" ? "bg-welcome" : "bg-tint-blue-foreground")}>
-      <div className="flex items-center justify-center gap-1.5 pt-8 text-base font-bold tracking-tight text-primary-foreground">
+    <div className={cn("mx-auto flex min-h-screen w-full max-w-[520px] flex-col text-primary-foreground transition-colors duration-500", role === "creator" ? "bg-welcome-creator" : "bg-tint-blue-foreground")}>
+      <Link to="/" aria-label="INFLUENCER home" className="mx-auto flex items-center justify-center gap-1.5 pt-8 text-base font-bold tracking-tight text-primary-foreground">
         <span>INFLUENCER</span>
         <InfluencerMark className="h-[1.15rem] w-[1.15rem] text-primary-foreground" />
-      </div>
+      </Link>
 
       {role === "creator" ? <CreatorCards /> : <BrandCards />}
 
       <div className="mt-auto px-6 pb-10 text-center">
-        <h2 className="mx-auto max-w-md text-[2.25rem] leading-[1.04] font-extrabold">Creators run their business. Brands post briefs and get matched. One place for both.</h2>
-        <p className="mx-auto mt-4 max-w-xs text-sm opacity-85">{role === "creator" ? "Run deals, deliver work and know exactly when you get paid." : "Reach real audiences, find the right creators and move from brief to live."}</p>
+        <h2 className="mx-auto max-w-md text-[2.25rem] leading-[1.04] font-extrabold">{role === "creator" ? "Turn your audience into a business." : "Reach the people who matter to your brand."}</h2>
+        <p className="mx-auto mt-4 max-w-xs text-sm opacity-85">{role === "creator" ? "Find paid brand work, manage every campaign and get paid on time." : "Find the right creators, launch campaigns, track deliverables and reach real audiences."}</p>
 
         <div role="radiogroup" className="mt-8 grid grid-cols-2 rounded-full border border-primary-foreground/60 p-1">
           {(["creator", "brand"] as const).map((r) => (
@@ -75,7 +75,7 @@ function Welcome() {
 function CreatorCards() {
   return (
     <div className="mx-auto mt-8 grid w-full max-w-[360px] grid-cols-3 gap-3 px-5">
-      <div className="col-span-1 row-span-2 flex flex-col justify-between rounded-3xl bg-tint-amber p-3 text-tint-amber-foreground shadow-card">
+      <div className="col-span-1 row-span-2 flex flex-col justify-between rounded-3xl bg-tint-blue p-3 text-tint-blue-foreground shadow-card">
         <BrandMark brand="Gymshark" className="h-7 w-7" />
         <div><p className="text-lg font-extrabold">$4,250</p><p className="text-[0.65rem] font-semibold">Payment released</p></div>
       </div>
