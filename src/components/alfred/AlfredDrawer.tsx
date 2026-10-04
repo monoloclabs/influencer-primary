@@ -1,3 +1,4 @@
+import { useNavigate } from "@tanstack/react-router";
 import { Link } from "@/components/alfred/ui";
 import {
   X,
