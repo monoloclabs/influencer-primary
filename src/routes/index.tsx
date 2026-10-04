@@ -1,209 +1,62 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ArrowRight, Check } from "lucide-react";
 import { Link } from "@/components/alfred/ui";
-import {
-  ArrowRight,
-  Briefcase,
-  ChevronRight,
-  Clock4,
-  ShieldCheck,
-  Sparkles,
-  Wallet,
-} from "lucide-react";
-import { AppShell } from "@/components/alfred/AppShell";
-import { AButton, ActionPair, Card, IconBadge, Pill, SectionHeader } from "@/components/alfred/ui";
-import {
-  approvalQueue,
-  campaignEvents,
-  creator,
-  dashboardStats,
-  heroCampaign,
-  statusMeta,
-  upcomingDeliverables,
-} from "@/data/influencer";
-import { BrandMark, BrandPlatformRow } from "@/components/influencer/Marks";
-import { useCampaignState } from "@/components/influencer/CampaignState";
-import { cn } from "@/lib/utils";
+import { InfluencerMark } from "@/components/alfred/InfluencerMark";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "INFLUENCER — Your creator business, in one place" },
-      {
-        name: "description",
-        content:
-          "Track brand campaigns, deliverables, approvals and earnings from one creator command centre.",
-      },
-      { property: "og:title", content: "INFLUENCER — Your creator business, in one place" },
-      {
-        property: "og:description",
-        content: "Brand deals, deliverables, decisions and payouts in one calm mobile dashboard.",
-      },
+      { title: "INFLUENCER — Brands and creators, in motion" },
+      { name: "description", content: "Connect brands and creators, launch campaigns quickly, track live deliverables and release milestone-verified payouts." },
+      { property: "og:title", content: "INFLUENCER — Brands and creators, in motion" },
+      { property: "og:description", content: "Brief to live in minutes, with tracked deliverables and milestone-verified payouts." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  component: DashboardScreen,
+  component: Homepage,
 });
 
-const statIcons = { wallet: Wallet, briefcase: Briefcase, shield: ShieldCheck, clock: Clock4 };
-
-function DashboardScreen() {
-  const { statusFor, acceptOffer } = useCampaignState();
-  const hero = heroCampaign;
-
+function Homepage() {
   return (
-    <AppShell title="Dashboard">
-      <p className="eyebrow text-primary">Friday · 25 September</p>
-      <h2 className="mt-1.5 text-[2rem] leading-[1.1] font-extrabold">Good afternoon, {creator.name}</h2>
-      <p className="mt-2 text-[0.9375rem] text-muted-foreground">
-        One draft due this week, three decisions waiting, and $13,500 on its way to you.
-      </p>
-
-      {/* Hero campaign */}
-      <div className="mt-6 rounded-4xl bg-tint-blue p-5">
-        <div className="flex items-start gap-3.5">
-          <IconBadge tone="blue" shape="round" size="md" className="bg-background">
-            <BrandMark brand={hero.brand} className="h-5 w-5 text-foreground" />
-          </IconBadge>
-          <div className="min-w-0 flex-1">
-            <p className="eyebrow text-tint-blue-foreground">Up next · {hero.brand}</p>
-            <p className="mt-1 text-[1.0625rem] leading-snug font-bold">{hero.title}</p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {hero.fee} · {hero.window}
-            </p>
-          </div>
-          <Pill tone={statusMeta[hero.status].tone}>{statusMeta[hero.status].label}</Pill>
+    <div className="min-h-screen overflow-hidden bg-home-lime text-home-ink">
+      <header className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
+        <div className="flex items-center gap-2 text-base font-extrabold">
+          <span>INFLUENCER</span>
+          <InfluencerMark className="h-5 w-5 text-primary" />
         </div>
-        <p className="mt-3 text-sm font-semibold">{hero.nudge}</p>
-        <ActionPair
-          className="mt-4"
-          secondary={
-            <AButton variant="neutral" size="lg" className="bg-background">
-              Remind me
-            </AButton>
-          }
-          primary={
-            <Link to={`/plan/${hero.id}`} className="block">
-              <AButton size="lg" className="w-full">
-                View campaign
-                <ArrowRight className="h-4 w-4" strokeWidth={2.6} />
-              </AButton>
-            </Link>
-          }
-        />
-      </div>
+        <Link to="/welcome" className="inline-flex h-11 items-center rounded-full bg-home-ink px-5 text-sm font-bold text-primary-foreground active:scale-[0.98]">Get Started</Link>
+      </header>
 
-      {/* Economic snapshot */}
-      <div className="mt-4 grid grid-cols-2 gap-3">
-        {dashboardStats.map((s) => {
-          const Icon = statIcons[s.icon as keyof typeof statIcons];
-          return (
-            <Link key={s.label} to={s.to} className="active:scale-[0.98]">
-              <Card className="h-full p-4">
-                <div className="flex items-start justify-between">
-                  <IconBadge tone={s.tone} size="sm">
-                    <Icon className="h-[1.05rem] w-[1.05rem]" strokeWidth={2.3} />
-                  </IconBadge>
-                  <ChevronRight className="h-4 w-4 text-muted-foreground/50" strokeWidth={2.4} />
-                </div>
-                <p className={cn("mt-3 text-2xl font-extrabold", s.positive && "text-tint-green-foreground")}>{s.value}</p>
-                <p className="text-sm font-semibold">{s.label}</p>
-                <p className={cn("text-xs", s.positive ? "font-semibold text-tint-green-foreground" : "text-muted-foreground")}>{s.sub}</p>
-              </Card>
-            </Link>
-          );
-        })}
-      </div>
-
-      {/* Waiting on you */}
-      <SectionHeader
-        className="mt-8 mb-3"
-        title="Waiting on you"
-        action={
-          <Link to="/messages" className="text-sm font-bold text-tint-blue-foreground">
-            All approvals
-          </Link>
-        }
-      />
-      <div className="space-y-2.5">
-        {approvalQueue.filter((item) => item.kind === "brand_offer").map((a) => {
-          const state = a.campaignId ? statusFor(a.campaignId) : undefined;
-          if (a.kind === "brand_offer" && state !== "offer") return null;
-          return (
-            <Card key={a.id} className="p-4">
-              <div className="flex items-center gap-3.5">
-                <IconBadge tone={a.tone} shape="round" size="md">
-                  <BrandMark brand={a.brand} />
-                </IconBadge>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-[0.9375rem] font-bold">{a.title}</p>
-                  <p className="truncate text-xs text-muted-foreground">
-                    {a.brand} · {a.value}
-                  </p>
-                </div>
-              </div>
-              {a.kind === "brand_offer" && a.campaignId && (
-                <ActionPair
-                  className="mt-3.5"
-                  secondary={
-                    <Link to={`/plan/${a.campaignId}`} className="block"><AButton size="md" variant="neutral" className="w-full">Open</AButton></Link>
-                  }
-                  primary={
-                    <AButton size="md" onClick={() => acceptOffer(a.campaignId ?? "")}>
-                      Accept
-                    </AButton>
-                  }
-                />
-              )}
-            </Card>
-          );
-        })}
-      </div>
-
-      {/* Upcoming deliverables */}
-      <SectionHeader
-        className="mt-8 mb-3"
-        title="Upcoming deliverables"
-        action={
-          <Link to="/plans" className="text-sm font-bold text-tint-blue-foreground">
-            Campaigns
-          </Link>
-        }
-      />
-      <Card className="divide-y divide-border/70 p-0">
-        {upcomingDeliverables.map((d) => (
-          <div key={d.id} className="flex items-start gap-4 px-4 py-4">
-            <span className="w-14 shrink-0 pt-0.5 text-sm font-extrabold tabular-nums">{d.when}</span>
-            <span className="min-w-0 flex-1">
-              <span className="block truncate text-[0.9375rem] font-bold">{d.title}</span>
-              <BrandPlatformRow brand={d.brand} platforms={d.platforms} className="mt-1.5" />
-            </span>
+      <main>
+        <section className="mx-auto grid min-h-[calc(min(100svh,52rem)-5.25rem)] max-w-[1440px] content-between px-5 pt-8 pb-6 sm:px-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(22rem,0.7fr)] lg:gap-10 lg:px-12 lg:pt-14">
+          <div className="relative z-10">
+            <p className="mb-5 max-w-xl text-sm font-bold uppercase tracking-[0.12em]">One platform. Both sides of the deal.</p>
+            <h1 className="max-w-5xl text-[clamp(3.5rem,9vw,8.5rem)] leading-[0.86] font-extrabold">Real reach.<br />Real work.<br /><span className="text-primary">Paid right.</span></h1>
+            <p className="mt-7 max-w-2xl text-lg leading-relaxed font-semibold sm:text-xl">Brands meet creators who move real audiences. Creators turn influence into a business.</p>
+            <Link to="/welcome" className="mt-8 inline-flex h-16 items-center gap-3 rounded-full bg-primary px-7 text-base font-bold text-primary-foreground shadow-card active:scale-[0.98]">Get Started <ArrowRight className="h-5 w-5" strokeWidth={3} /></Link>
           </div>
-        ))}
-      </Card>
 
-      {/* Recent commercial activity */}
-      <div className="mt-8 rounded-4xl bg-primary-soft p-5">
-        <div className="flex items-center gap-3">
-          <IconBadge tone="orange" shape="round" size="sm" className="bg-background">
-            <Sparkles className="h-4 w-4" strokeWidth={2.3} />
-          </IconBadge>
-          <p className="eyebrow text-primary">Recent activity</p>
-        </div>
-        <ul className="mt-4 space-y-3.5">
-          {(campaignEvents[0]?.items ?? []).map((e) => (
-            <li key={e.id} className="border-b border-primary/10 pb-3.5 last:border-0 last:pb-0">
-              <p className="text-[0.9375rem] leading-snug font-semibold">{e.title}</p>
-              <p className="mt-0.5 text-xs text-muted-foreground">{e.meta}</p>
-            </li>
-          ))}
-        </ul>
-        <Link to="/timeline" className="mt-4 block">
-          <AButton variant="soft" size="md" className="w-full bg-background">
-            Open the timeline
-          </AButton>
-        </Link>
-      </div>
-    </AppShell>
+          <div className="relative mt-12 min-h-[24rem] lg:mt-0 lg:min-h-0">
+            <div className="absolute top-2 right-0 w-[82%] rotate-3 rounded-[2rem] bg-home-lilac p-5 shadow-card sm:w-[72%] lg:w-full">
+              <p className="text-xs font-extrabold uppercase tracking-[0.12em]">Campaign velocity</p><p className="mt-4 text-5xl font-extrabold">Brief → live</p><p className="mt-2 text-lg font-bold">in minutes, not weeks.</p>
+            </div>
+            <div className="absolute top-40 left-0 w-[74%] -rotate-3 rounded-[2rem] bg-home-coral p-5 text-home-ink shadow-card sm:w-[60%] lg:top-[44%] lg:w-[78%]">
+              <div className="flex items-center justify-between"><span className="grid h-12 w-12 place-items-center rounded-full bg-home-ink text-primary-foreground"><Check className="h-6 w-6" strokeWidth={3.5} /></span><span className="text-xs font-extrabold uppercase tracking-[0.12em]">Verified</span></div>
+              <p className="mt-8 text-3xl font-extrabold">$12,500 released</p><p className="mt-1 font-bold">Milestone complete</p>
+            </div>
+            <div className="absolute right-2 bottom-0 w-[56%] rotate-2 rounded-[2rem] bg-home-sky p-5 shadow-card sm:w-[44%] lg:w-[62%]"><p className="text-4xl font-extrabold">4/4</p><p className="mt-1 font-bold">Deliverables tracked live</p></div>
+          </div>
+        </section>
+
+        <section className="bg-home-ink text-primary-foreground">
+          <div className="mx-auto grid max-w-[1440px] gap-px bg-primary-foreground/15 md:grid-cols-3">
+            {[["01", "Connect", "Brands find creators with the audience, fit and proof to make the work matter."], ["02", "Create", "Briefs become live campaigns with every deliverable visible as it moves."], ["03", "Clear", "Payments stay in escrow, then release automatically when milestones are verified."]].map(([number, title, copy]) => (
+              <article key={number} className="bg-home-ink p-8 sm:p-10"><p className="text-sm font-extrabold text-home-lime">{number}</p><h2 className="mt-8 text-4xl font-extrabold">{title}</h2><p className="mt-4 max-w-sm text-base leading-relaxed text-primary-foreground/75">{copy}</p></article>
+            ))}
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }
