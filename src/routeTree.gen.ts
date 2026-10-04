@@ -32,6 +32,7 @@ import { Route as AMediaKitRouteImport } from './routes/a.media-kit'
 import { Route as AResearchRouteImport } from './routes/a.research'
 import { Route as ActivationActivationIdRouteImport } from './routes/activation.$activationId'
 import { Route as BrandIndexRouteImport } from './routes/brand.index'
+import { Route as BrandSlugRouteImport } from './routes/brand.$slug'
 import { Route as BrandApprovalsRouteImport } from './routes/brand.approvals'
 import { Route as BrandBriefRouteImport } from './routes/brand.brief'
 import { Route as BrandCampaignsRouteImport } from './routes/brand.campaigns'
@@ -161,6 +162,11 @@ const BrandIndexRoute = BrandIndexRouteImport.update({
   path: '/brand/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BrandSlugRoute = BrandSlugRouteImport.update({
+  id: '/brand/$slug',
+  path: '/brand/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BrandApprovalsRoute = BrandApprovalsRouteImport.update({
   id: '/brand/approvals',
   path: '/brand/approvals',
@@ -250,6 +256,7 @@ export interface FileRoutesByFullPath {
   '/a/media-kit': typeof AMediaKitRoute
   '/a/research': typeof AResearchRoute
   '/activation/$activationId': typeof ActivationActivationIdRoute
+  '/brand/$slug': typeof BrandSlugRoute
   '/brand/approvals': typeof BrandApprovalsRoute
   '/brand/brief': typeof BrandBriefRoute
   '/brand/campaigns': typeof BrandCampaignsRoute
@@ -286,6 +293,7 @@ export interface FileRoutesByTo {
   '/a/media-kit': typeof AMediaKitRoute
   '/a/research': typeof AResearchRoute
   '/activation/$activationId': typeof ActivationActivationIdRoute
+  '/brand/$slug': typeof BrandSlugRoute
   '/brand/approvals': typeof BrandApprovalsRoute
   '/brand/brief': typeof BrandBriefRoute
   '/brand/campaigns': typeof BrandCampaignsRoute
@@ -325,6 +333,7 @@ export interface FileRoutesById {
   '/a/media-kit': typeof AMediaKitRoute
   '/a/research': typeof AResearchRoute
   '/activation/$activationId': typeof ActivationActivationIdRoute
+  '/brand/$slug': typeof BrandSlugRoute
   '/brand/approvals': typeof BrandApprovalsRoute
   '/brand/brief': typeof BrandBriefRoute
   '/brand/campaigns': typeof BrandCampaignsRoute
@@ -365,6 +374,7 @@ export interface FileRouteTypes {
     | '/a/media-kit'
     | '/a/research'
     | '/activation/$activationId'
+    | '/brand/$slug'
     | '/brand/approvals'
     | '/brand/brief'
     | '/brand/campaigns'
@@ -401,6 +411,7 @@ export interface FileRouteTypes {
     | '/a/media-kit'
     | '/a/research'
     | '/activation/$activationId'
+    | '/brand/$slug'
     | '/brand/approvals'
     | '/brand/brief'
     | '/brand/campaigns'
@@ -439,6 +450,7 @@ export interface FileRouteTypes {
     | '/a/media-kit'
     | '/a/research'
     | '/activation/$activationId'
+    | '/brand/$slug'
     | '/brand/approvals'
     | '/brand/brief'
     | '/brand/campaigns'
@@ -478,6 +490,7 @@ export interface RootRouteChildren {
   AMediaKitRoute: typeof AMediaKitRoute
   AResearchRoute: typeof AResearchRoute
   ActivationActivationIdRoute: typeof ActivationActivationIdRoute
+  BrandSlugRoute: typeof BrandSlugRoute
   BrandApprovalsRoute: typeof BrandApprovalsRoute
   BrandBriefRoute: typeof BrandBriefRoute
   BrandCampaignsRoute: typeof BrandCampaignsRoute
@@ -650,6 +663,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrandIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brand/$slug': {
+      id: '/brand/$slug'
+      path: '/brand/$slug'
+      fullPath: '/brand/$slug'
+      preLoaderRoute: typeof BrandSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/brand/approvals': {
       id: '/brand/approvals'
       path: '/brand/approvals'
@@ -799,6 +819,7 @@ const rootRouteChildren: RootRouteChildren = {
   AMediaKitRoute: AMediaKitRoute,
   AResearchRoute: AResearchRoute,
   ActivationActivationIdRoute: ActivationActivationIdRoute,
+  BrandSlugRoute: BrandSlugRoute,
   BrandApprovalsRoute: BrandApprovalsRoute,
   BrandBriefRoute: BrandBriefRoute,
   BrandCampaignsRoute: BrandCampaignsRoute,
