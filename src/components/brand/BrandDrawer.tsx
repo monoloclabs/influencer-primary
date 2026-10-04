@@ -22,16 +22,16 @@ type IconType = React.ComponentType<{ className?: string; strokeWidth?: number }
 type Item = { label: string; icon: IconType; to: string; meta?: string };
 
 const workspace: Item[] = [
-  { label: "Calendar", icon: Calendar, to: "/a/calendar", meta: "Campaign dates and deliverables" },
-  { label: "Files & Documents", icon: Folder, to: "/a/files", meta: "Briefs, contracts and assets" },
+  { label: "Calendar", icon: Calendar, to: "/brand/calendar", meta: "Campaign dates and deliverables" },
+  { label: "Files & Documents", icon: Folder, to: "/brand/files", meta: "Briefs, contracts and assets" },
 ];
-const ai: Item[] = [{ label: "Assistant", icon: Sparkles, to: "/assistant", meta: "Draft briefs and review content" }];
-const rules: Item[] = [{ label: "Instructions", icon: ScrollText, to: "/instructions", meta: "Standing brand rules" }];
+const ai: Item[] = [{ label: "Assistant", icon: Sparkles, to: "/brand/assistant", meta: "Draft briefs and review content" }];
+const rules: Item[] = [{ label: "Instructions", icon: ScrollText, to: "/brand/instructions", meta: "Standing brand rules" }];
 const account: Item[] = [
-  { label: "Profile", icon: User, to: "/a/profile" },
-  { label: "Plan & Billing", icon: CreditCard, to: "/a/plans" },
-  { label: "Settings", icon: Settings, to: "/a/settings" },
-  { label: "Support", icon: LifeBuoy, to: "/a/support" },
+  { label: "Profile", icon: User, to: "/brand/profile" },
+  { label: "Plan & Billing", icon: CreditCard, to: "/brand/plans" },
+  { label: "Settings", icon: Settings, to: "/brand/settings" },
+  { label: "Support", icon: LifeBuoy, to: "/brand/support" },
 ];
 
 function Group({ label, children, labelClassName }: { label: string; children: React.ReactNode; labelClassName?: string }) {
@@ -116,7 +116,7 @@ export function BrandDrawer({ open, onOpenChange }: { open: boolean; onOpenChang
           </Group>
 
           <Group label="Connections">
-            <Link to="/a/integrations" onClick={close} className="flex items-center gap-3.5 rounded-3xl bg-surface px-4 py-3.5 active:opacity-80">
+            <Link to="/brand/integrations" onClick={close} className="flex items-center gap-3.5 rounded-3xl bg-surface px-4 py-3.5 active:opacity-80">
               <IconBadge tone="dark" shape="round" size="sm">
                 <Plug className="h-[1.05rem] w-[1.05rem]" strokeWidth={2.1} />
               </IconBadge>

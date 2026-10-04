@@ -1,6 +1,6 @@
 import { useRouterState } from "@tanstack/react-router";
-import { Link } from "@/components/alfred/ui";
-import { LayoutGrid, FilePlus2, Briefcase, FileCheck2, CalendarClock } from "lucide-react";
+import { Link, AButton } from "@/components/alfred/ui";
+import { LayoutGrid, FilePlus2, Briefcase, FileCheck2, CalendarClock, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { InfluencerMark } from "@/components/alfred/InfluencerMark";
@@ -14,32 +14,31 @@ const tabs = [
   { to: "/brand/approvals", label: "Approvals", icon: FileCheck2, dot: true },
 ] as const;
 
-export function BrandShell({ title, children }: { title: string; children: ReactNode }) {
+export function BrandShell({ title, children, focused = false }: { title: string; children: ReactNode; focused?: boolean }) {
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[520px] flex-col bg-background">
       <header className="sticky top-0 z-30 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 bg-background/85 px-5 pt-4 pb-3 backdrop-blur-xl">
-        <button
+        {focused ? <span aria-hidden className="w-[3.25rem]" /> : <AButton
           aria-label="Open menu"
+          variant="neutral"
           onClick={() => setOpen(true)}
-          className="h-11 shrink-0 rounded-full bg-card px-3 text-[0.6875rem] font-extrabold text-foreground shadow-card"
-        >
-          MENU
-        </button>
+          className="h-11 shrink-0 bg-card px-3 text-[0.6875rem] font-extrabold text-foreground shadow-card"
+        >MENU</AButton>}
         <h1 className="flex min-w-0 items-center justify-center gap-1.5 text-base font-bold tracking-tight text-primary">
           <span className="truncate">INFLUENCER</span>
           <InfluencerMark className="h-[1.15rem] w-[1.15rem] shrink-0" />
           <span className="sr-only">— {title}</span>
         </h1>
-        <span aria-hidden className="w-[3.25rem]" />
+        {focused ? <Link to="/brand" aria-label="Close brief" className="grid h-11 w-11 place-items-center rounded-full bg-surface"><X className="h-5 w-5" /></Link> : <span aria-hidden className="w-[3.25rem]" />}
       </header>
-      <BrandDrawer open={open} onOpenChange={setOpen} />
+      {!focused && <BrandDrawer open={open} onOpenChange={setOpen} />}
 
-      <main className="flex-1 px-5 pb-32">{children}</main>
+      <main className={cn("flex-1 px-5", focused ? "pb-28" : "pb-32")}>{children}</main>
 
-      <nav className="fixed bottom-0 z-30 w-full max-w-[520px] border-t border-border/70 bg-background/95 px-2 pt-2 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-xl">
+      {!focused && <nav className="fixed bottom-0 z-30 w-full max-w-[520px] border-t border-border/70 bg-background/95 px-2 pt-2 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-xl">
         <ul className="grid grid-cols-5">
           {tabs.map((t) => {
             const active =
@@ -60,7 +59,7 @@ export function BrandShell({ title, children }: { title: string; children: React
             );
           })}
         </ul>
-      </nav>
+      </nav>}
     </div>
   );
 }

@@ -33,3 +33,9 @@
 - [x] Rename creator execution to campaign execution
 - [x] Auto-populate Brand Network from campaigns, earnings, transactions, and lifecycle events
 - [x] Show deal counts, amount paid, total income, ongoing work, all deals, and relationship history
+
+## Brand-side six fixes
+- [x] Isolate all brand drawer destinations as brand-styled placeholders
+- [x] Color campaign links, iconize activity, and color negative transactions red
+- [x] Focus the brief form with a close control and fixed submit button
+- [x] Restructure all four brand dashboard snapshot cards

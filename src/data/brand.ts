@@ -115,7 +115,7 @@ export const brandTransactions = [
   { id: "bt1", title: "Escrow deposit — Summer Lift Series", amount: -12500, date: "Oct 1" },
   { id: "bt2", title: "Milestone released — CR-408 kickoff", amount: -6250, date: "Oct 3" },
   { id: "bt3", title: "Escrow deposit — Recovery Range", amount: -6000, date: "Sep 28" },
-  { id: "bt4", title: "Refund — unused usage add-on", amount: 450, date: "Sep 20" },
+  { id: "bt4", title: "Refund — unused usage add-on", amount: -450, date: "Sep 20" },
   { id: "bt5", title: "Final payout — Spring Training Drop", amount: -9250, date: "May 2" },
 ];
 
