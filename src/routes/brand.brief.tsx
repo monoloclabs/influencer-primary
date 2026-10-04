@@ -20,10 +20,10 @@ const formats = ["Reel", "Story set", "TikTok video", "Dedicated YouTube", "Caro
 function PostBrief() {
   const [sent, setSent] = useState(false);
   const [title, setTitle] = useState("");
-  const [tier, setTier] = useState(tiers[1]);
-  const [band, setBand] = useState(reach[0]);
+  const [tier, setTier] = useState(tiers[1]!);
+  const [band, setBand] = useState(reach[0]!);
   const [plats, setPlats] = useState<string[]>(["Instagram"]);
-  const [niche, setNiche] = useState(niches[0]);
+  const [niche, setNiche] = useState(niches[0]!);
   const [fmt, setFmt] = useState<string[]>(["Reel"]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");

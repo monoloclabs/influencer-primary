@@ -29,7 +29,7 @@ function BrandCampaigns() {
       </div>
       <div className="mt-4 grid gap-3">
         {list.map((c) => (
-          <Link key={c.id} to="/brand/campaign/$campaignId" params={{ campaignId: c.id }} className="block rounded-3xl bg-card p-4 shadow-card">
+          <Link key={c.id} to={`/brand/campaign/${c.id}`} className="block rounded-3xl bg-card p-4 shadow-card">
             <div className="flex items-start justify-between gap-3">
               <h3 className="font-bold">{c.title}</h3>
               <span className={cn("shrink-0 rounded-full px-2.5 py-1 text-xs font-bold", brandStatusMeta[c.status].className)}>{brandStatusMeta[c.status].label}</span>
