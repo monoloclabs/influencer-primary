@@ -24,7 +24,7 @@ import { BrandMark, BrandPlatformRow } from "@/components/influencer/Marks";
 import { useCampaignState } from "@/components/influencer/CampaignState";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
       { title: "INFLUENCER — Your creator business, in one place" },

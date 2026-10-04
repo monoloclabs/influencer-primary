@@ -9,11 +9,11 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as ActivationsRouteImport } from './routes/activations'
 import { Route as ApprovalsRouteImport } from './routes/approvals'
 import { Route as AssistantRouteImport } from './routes/assistant'
 import { Route as CreateRouteImport } from './routes/create'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as InstructionsRouteImport } from './routes/instructions'
 import { Route as MessagesRouteImport } from './routes/messages'
@@ -47,11 +47,6 @@ import { Route as WalletApprovalsRouteImport } from './routes/wallet.approvals'
 import { Route as WalletTransactionsRouteImport } from './routes/wallet.transactions'
 import { Route as BrandCampaignCampaignIdRouteImport } from './routes/brand.campaign.$campaignId'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ActivationsRoute = ActivationsRouteImport.update({
   id: '/activations',
   path: '/activations',
@@ -70,6 +65,11 @@ const AssistantRoute = AssistantRouteImport.update({
 const CreateRoute = CreateRouteImport.update({
   id: '/create',
   path: '/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventsRoute = EventsRouteImport.update({
@@ -234,11 +234,11 @@ const BrandCampaignCampaignIdRoute = BrandCampaignCampaignIdRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/activations': typeof ActivationsRoute
   '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
+  '/dashboard': typeof DashboardRoute
   '/events': typeof EventsRoute
   '/instructions': typeof InstructionsRoute
   '/messages': typeof MessagesRoute
@@ -273,11 +273,11 @@ export interface FileRoutesByFullPath {
   '/brand/campaign/$campaignId': typeof BrandCampaignCampaignIdRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/activations': typeof ActivationsRoute
   '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
+  '/dashboard': typeof DashboardRoute
   '/events': typeof EventsRoute
   '/instructions': typeof InstructionsRoute
   '/messages': typeof MessagesRoute
@@ -311,11 +311,11 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/activations': typeof ActivationsRoute
   '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
   '/create': typeof CreateRoute
+  '/dashboard': typeof DashboardRoute
   '/events': typeof EventsRoute
   '/instructions': typeof InstructionsRoute
   '/messages': typeof MessagesRoute
@@ -352,11 +352,11 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/activations'
     | '/approvals'
     | '/assistant'
     | '/create'
+    | '/dashboard'
     | '/events'
     | '/instructions'
     | '/messages'
@@ -391,11 +391,11 @@ export interface FileRouteTypes {
     | '/brand/campaign/$campaignId'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/activations'
     | '/approvals'
     | '/assistant'
     | '/create'
+    | '/dashboard'
     | '/events'
     | '/instructions'
     | '/messages'
@@ -428,11 +428,11 @@ export interface FileRouteTypes {
     | '/brand/campaign/$campaignId'
   id:
     | '__root__'
-    | '/'
     | '/activations'
     | '/approvals'
     | '/assistant'
     | '/create'
+    | '/dashboard'
     | '/events'
     | '/instructions'
     | '/messages'
@@ -468,11 +468,11 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   ActivationsRoute: typeof ActivationsRoute
   ApprovalsRoute: typeof ApprovalsRoute
   AssistantRoute: typeof AssistantRoute
   CreateRoute: typeof CreateRoute
+  DashboardRoute: typeof DashboardRoute
   EventsRoute: typeof EventsRoute
   InstructionsRoute: typeof InstructionsRoute
   MessagesRoute: typeof MessagesRoute
@@ -502,13 +502,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/activations': {
       id: '/activations'
       path: '/activations'
@@ -535,6 +528,13 @@ declare module '@tanstack/react-router' {
       path: '/create'
       fullPath: '/create'
       preLoaderRoute: typeof CreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/events': {
@@ -797,11 +797,11 @@ const WalletRouteWithChildren =
   WalletRoute._addFileChildren(WalletRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   ActivationsRoute: ActivationsRoute,
   ApprovalsRoute: ApprovalsRoute,
   AssistantRoute: AssistantRoute,
   CreateRoute: CreateRoute,
+  DashboardRoute: DashboardRoute,
   EventsRoute: EventsRoute,
   InstructionsRoute: InstructionsRoute,
   MessagesRoute: MessagesRoute,
