@@ -13,7 +13,7 @@ export const Route = createFileRoute("/brand/")({
 function BrandDashboard() {
   const active = brandCampaigns.filter((c) => c.status !== "completed").length;
   const spend = brandCampaigns.filter((c) => c.status !== "completed").reduce((s, c) => s + c.spent, 0);
-  const next = brandApprovals[0];
+  const next = brandApprovals[0]!;
   const stats = [
     { label: "Active campaigns", value: String(active), icon: Briefcase },
     { label: `Spend · ${brandAccount.period}`, value: money(spend), icon: Wallet },

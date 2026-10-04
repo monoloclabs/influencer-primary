@@ -63,7 +63,7 @@ function BrandApprovals() {
               <ul className="mt-4 grid gap-2">
                 {open.details.map((x) => <li key={x} className="rounded-2xl bg-surface p-3 text-sm">{x}</li>)}
               </ul>
-              <Link to="/brand/campaign/$campaignId" params={{ campaignId: open.campaignId }} className="mt-3 block text-center text-sm font-semibold text-primary">View campaign</Link>
+              <Link to={`/brand/campaign/${open.campaignId}`} className="mt-3 block text-center text-sm font-semibold text-primary">View campaign</Link>
               <div className="mt-4 flex items-center gap-2">
                 <button onClick={() => decide(open.id, "approved")} className="h-11 flex-1 rounded-full bg-primary font-bold text-primary-foreground">Approve</button>
                 <button onClick={() => decide(open.id, "declined")} className="px-3 font-semibold text-destructive">Decline</button>
