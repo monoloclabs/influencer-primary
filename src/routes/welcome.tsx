@@ -26,7 +26,7 @@ function Welcome() {
   const navigate = useNavigate();
 
   return (
-    <div className={cn("mx-auto flex min-h-screen w-full max-w-[520px] flex-col text-primary-foreground transition-colors duration-500", role === "creator" ? "bg-welcome" : "bg-welcome-brand")}>
+    <div className={cn("mx-auto flex min-h-screen w-full max-w-[520px] flex-col text-primary-foreground transition-colors duration-500", role === "creator" ? "bg-welcome" : "bg-brand-welcome-background")}>
       <div className="flex items-center justify-center gap-1.5 pt-8 text-base font-bold tracking-tight text-primary">
         <span>INFLUENCER</span>
         <InfluencerMark className="h-[1.15rem] w-[1.15rem]" />

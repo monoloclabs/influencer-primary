@@ -29,7 +29,7 @@ function Homepage() {
       </header>
 
       <main>
-        <section className="mx-auto grid min-h-[calc(100vh-5.25rem)] max-w-[1440px] content-between px-5 pt-8 pb-6 sm:px-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(22rem,0.7fr)] lg:gap-10 lg:px-12 lg:pt-14">
+        <section className="mx-auto grid min-h-[calc(min(100svh,52rem)-5.25rem)] max-w-[1440px] content-between px-5 pt-8 pb-6 sm:px-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(22rem,0.7fr)] lg:gap-10 lg:px-12 lg:pt-14">
           <div className="relative z-10">
             <p className="mb-5 max-w-xl text-sm font-bold uppercase tracking-[0.12em]">One platform. Both sides of the deal.</p>
             <h1 className="max-w-5xl text-[clamp(3.5rem,9vw,8.5rem)] leading-[0.86] font-extrabold">Real reach.<br />Real work.<br /><span className="text-primary">Paid right.</span></h1>

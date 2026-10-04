@@ -39,3 +39,8 @@
 - [x] Color campaign links, iconize activity, and color negative transactions red
 - [x] Focus the brief form with a close control and fixed submit button
 - [x] Restructure all four brand dashboard snapshot cards
+
+## Public entry and connections
+- [x] Make the public marketing homepage the default route and move the creator dashboard to `/dashboard`
+- [x] Build distinct creator and brand welcome states with direct dashboard entry
+- [x] Reuse one static integrations experience for Tola and Gymshark
