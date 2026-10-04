@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as ActivationsRouteImport } from './routes/activations'
 import { Route as ApprovalsRouteImport } from './routes/approvals'
 import { Route as AssistantRouteImport } from './routes/assistant'
@@ -47,6 +48,11 @@ import { Route as WalletApprovalsRouteImport } from './routes/wallet.approvals'
 import { Route as WalletTransactionsRouteImport } from './routes/wallet.transactions'
 import { Route as BrandCampaignCampaignIdRouteImport } from './routes/brand.campaign.$campaignId'
 
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ActivationsRoute = ActivationsRouteImport.update({
   id: '/activations',
   path: '/activations',
@@ -234,6 +240,7 @@ const BrandCampaignCampaignIdRoute = BrandCampaignCampaignIdRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
   '/activations': typeof ActivationsRoute
   '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
@@ -273,6 +280,7 @@ export interface FileRoutesByFullPath {
   '/brand/campaign/$campaignId': typeof BrandCampaignCampaignIdRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
   '/activations': typeof ActivationsRoute
   '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
@@ -311,6 +319,7 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/activations': typeof ActivationsRoute
   '/approvals': typeof ApprovalsRoute
   '/assistant': typeof AssistantRoute
@@ -352,6 +361,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/activations'
     | '/approvals'
     | '/assistant'
@@ -391,6 +401,7 @@ export interface FileRouteTypes {
     | '/brand/campaign/$campaignId'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
     | '/activations'
     | '/approvals'
     | '/assistant'
@@ -428,6 +439,7 @@ export interface FileRouteTypes {
     | '/brand/campaign/$campaignId'
   id:
     | '__root__'
+    | '/'
     | '/activations'
     | '/approvals'
     | '/assistant'
@@ -468,6 +480,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   ActivationsRoute: typeof ActivationsRoute
   ApprovalsRoute: typeof ApprovalsRoute
   AssistantRoute: typeof AssistantRoute
@@ -502,6 +515,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/activations': {
       id: '/activations'
       path: '/activations'
@@ -797,6 +817,7 @@ const WalletRouteWithChildren =
   WalletRoute._addFileChildren(WalletRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   ActivationsRoute: ActivationsRoute,
   ApprovalsRoute: ApprovalsRoute,
   AssistantRoute: AssistantRoute,
