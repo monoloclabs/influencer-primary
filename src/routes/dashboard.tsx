@@ -100,15 +100,15 @@ function DashboardScreen() {
           return (
             <Link key={s.label} to={s.to} className="active:scale-[0.98]">
               <Card className="h-full p-4">
-                <div className="flex items-start justify-between">
+                <div className="flex items-center gap-2">
                   <IconBadge tone={s.tone} size="sm">
                     <Icon className="h-[1.05rem] w-[1.05rem]" strokeWidth={2.3} />
                   </IconBadge>
-                  <ChevronRight className="h-4 w-4 text-muted-foreground/50" strokeWidth={2.4} />
+                  <p className="min-w-0 flex-1 truncate text-sm font-bold">{s.label}</p>
+                  <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground/50" strokeWidth={2.4} />
                 </div>
                 <p className={cn("mt-3 text-2xl font-extrabold", s.positive && "text-tint-green-foreground")}>{s.value}</p>
-                <p className="text-sm font-semibold">{s.label}</p>
-                <p className={cn("text-xs", s.positive ? "font-semibold text-tint-green-foreground" : "text-muted-foreground")}>{s.sub}</p>
+                <p className={cn("mt-0.5 text-xs", s.positive ? "font-semibold text-tint-green-foreground" : "text-muted-foreground")}>{s.sub}</p>
               </Card>
             </Link>
           );
