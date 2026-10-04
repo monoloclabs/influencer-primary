@@ -6,6 +6,7 @@ import {
   siSpotify,
   siThreads,
   siTiktok,
+  siWhatsapp,
   siX,
   siYoutube,
   type SimpleIcon,
@@ -46,6 +47,7 @@ const platformMarks: Record<string, Mark | undefined> = {
   TikTok: toMark(siTiktok, "TikTok"),
   X: toMark(siX, "X"),
   YouTube: toMark(siYoutube, "YouTube"),
+  WhatsApp: toMark(siWhatsapp, "WhatsApp"),
 };
 
 const knownBrands = Object.keys(brandMarks);
