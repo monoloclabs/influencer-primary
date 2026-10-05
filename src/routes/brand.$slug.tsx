@@ -3,8 +3,6 @@ import { Link } from "@/components/alfred/ui";
 import { BrandShell, brandMeta } from "@/components/brand/BrandShell";
 
 const destinations: Record<string, { title: string; description: string }> = {
-  assistant: { title: "Assistant", description: "Your brand campaign assistant." },
-  instructions: { title: "Instructions", description: "Standing instructions for your brand." },
   integrations: { title: "Integrations", description: "Connections for your brand workspace." },
   profile: { title: "Profile", description: "Your brand profile." },
   plans: { title: "Plan & Billing", description: "Brand plan and billing." },

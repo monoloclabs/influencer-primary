@@ -108,11 +108,13 @@ function TimelineScreen() {
                     <span
                       className={cn(
                         "shrink-0 pt-0.5 text-sm font-extrabold tabular-nums",
-                        item.amount.startsWith("+")
-                          ? "text-tint-green-foreground"
-                          : item.amount.startsWith("-")
-                            ? "text-foreground"
-                            : "text-muted-foreground",
+                        item.tag === "Pending"
+                          ? "text-muted-foreground"
+                          : item.amount.startsWith("+")
+                            ? "text-tint-green-foreground"
+                            : item.amount.startsWith("-")
+                              ? "text-destructive"
+                              : "text-muted-foreground",
                       )}
                     >
                       {item.amount}

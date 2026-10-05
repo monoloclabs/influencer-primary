@@ -46,6 +46,7 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 const statIcons = { wallet: Wallet, briefcase: Briefcase, shield: ShieldCheck, clock: Clock4 };
+const solidTone: Record<string, string> = { green: "bg-home-forest", orange: "bg-primary", blue: "bg-home-blue", violet: "bg-home-electric" };
 
 function DashboardScreen() {
   const { statusFor, acceptOffer } = useCampaignState();
@@ -101,9 +102,9 @@ function DashboardScreen() {
             <Link key={s.label} to={s.to} className="active:scale-[0.98]">
               <Card className="h-full p-4">
                 <div className="flex items-center gap-2">
-                  <IconBadge tone={s.tone} size="sm">
-                    <Icon className="h-[1.05rem] w-[1.05rem]" strokeWidth={2.3} />
-                  </IconBadge>
+                  <span className={cn("grid h-8 w-8 shrink-0 place-items-center rounded-xl text-primary-foreground", solidTone[s.tone])}>
+                    <Icon className="h-4 w-4" strokeWidth={2.8} />
+                  </span>
                   <p className="min-w-0 flex-1 truncate text-sm font-bold">{s.label}</p>
                   <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground/50" strokeWidth={2.4} />
                 </div>
