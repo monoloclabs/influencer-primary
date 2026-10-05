@@ -7,7 +7,7 @@ export const user = {
 
 export const upNext = {
   time: "18:40",
-  title: "Dinner with Mum — Yellow Chilli",
+  title: "Dinner with Mum, Yellow Chilli",
   meta: "Lekki Phase 1 · in 1h 25m",
   cta: "Open the plan",
 };
@@ -28,7 +28,7 @@ export const tasks = [
 export const approvals = [
   {
     id: "a1",
-    title: "Pay DSTV subscription — ₦24,500",
+    title: "Pay DSTV subscription, ₦24,500",
     meta: "From instruction · Subscriptions",
     tone: "orange" as const,
   },
@@ -65,13 +65,13 @@ export const timeline = [
       { time: "09:15", title: "Alfred paid your electricity bill", tag: "Alfred", tone: "orange" as const },
       { time: "12:30", title: "Lunch with the design team", tag: "Event", tone: "blue" as const },
       { time: "16:00", title: "Submit apartment application", tag: "Deadline", tone: "red" as const },
-      { time: "18:40", title: "Dinner with Mum — Yellow Chilli", tag: "Booking", tone: "green" as const },
+      { time: "18:40", title: "Dinner with Mum, Yellow Chilli", tag: "Booking", tone: "green" as const },
     ],
   },
   {
     day: "Tomorrow · Wed 02 Sep",
     items: [
-      { time: "07:00", title: "Gym — leg day", tag: "Routine", tone: "violet" as const },
+      { time: "07:00", title: "Gym, leg day", tag: "Routine", tone: "violet" as const },
       { time: "11:00", title: "Call with landlord", tag: "Task", tone: "amber" as const },
       { time: "19:30", title: "Flight to Abuja · AA 314", tag: "Travel", tone: "blue" as const },
     ],
@@ -79,7 +79,7 @@ export const timeline = [
   {
     day: "Thu 03 Sep",
     items: [
-      { time: "10:00", title: "Dentist — Smile Studio", tag: "Appointment", tone: "green" as const },
+      { time: "10:00", title: "Dentist, Smile Studio", tag: "Appointment", tone: "green" as const },
       { time: "23:59", title: "Netflix renews · ₦7,500", tag: "Money", tone: "orange" as const },
     ],
   },

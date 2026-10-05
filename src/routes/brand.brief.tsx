@@ -7,7 +7,7 @@ import { PlatformMark } from "@/components/influencer/Marks";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/brand/brief")({
-  head: () => brandMeta("Post a brief — INFLUENCER", "Describe what you need. We match you with a creator — identities stay private until the deal is locked."),
+  head: () => brandMeta("Post a brief | INFLUENCER", "Describe what you need. We match you with a creator, identities stay private until the deal is locked."),
   component: PostBrief,
 });
 

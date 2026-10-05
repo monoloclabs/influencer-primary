@@ -6,7 +6,7 @@ import { BrandMark } from "@/components/influencer/Marks";
 import { brandAccount, brandActivity, brandApprovals, brandCampaigns, briefsAwaitingMatch, money } from "@/data/brand";
 
 export const Route = createFileRoute("/brand/")({
-  head: () => brandMeta("Brand dashboard — INFLUENCER", "Active campaigns, spend, approvals and briefs awaiting a creator match."),
+  head: () => brandMeta("Brand dashboard | INFLUENCER", "Active campaigns, spend, approvals and briefs awaiting a creator match."),
   component: BrandDashboard,
 });
 

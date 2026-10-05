@@ -36,10 +36,12 @@ import { Route as ActivationActivationIdRouteImport } from './routes/activation.
 import { Route as BrandIndexRouteImport } from './routes/brand.index'
 import { Route as BrandSlugRouteImport } from './routes/brand.$slug'
 import { Route as BrandApprovalsRouteImport } from './routes/brand.approvals'
+import { Route as BrandAssistantRouteImport } from './routes/brand.assistant'
 import { Route as BrandBriefRouteImport } from './routes/brand.brief'
 import { Route as BrandCalendarRouteImport } from './routes/brand.calendar'
 import { Route as BrandCampaignsRouteImport } from './routes/brand.campaigns'
 import { Route as BrandFilesRouteImport } from './routes/brand.files'
+import { Route as BrandInstructionsRouteImport } from './routes/brand.instructions'
 import { Route as BrandIntegrationsRouteImport } from './routes/brand.integrations'
 import { Route as BrandTimelineRouteImport } from './routes/brand.timeline'
 import { Route as OfficeIndexRouteImport } from './routes/office.index'
@@ -187,6 +189,11 @@ const BrandApprovalsRoute = BrandApprovalsRouteImport.update({
   path: '/brand/approvals',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BrandAssistantRoute = BrandAssistantRouteImport.update({
+  id: '/brand/assistant',
+  path: '/brand/assistant',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BrandBriefRoute = BrandBriefRouteImport.update({
   id: '/brand/brief',
   path: '/brand/brief',
@@ -205,6 +212,11 @@ const BrandCampaignsRoute = BrandCampaignsRouteImport.update({
 const BrandFilesRoute = BrandFilesRouteImport.update({
   id: '/brand/files',
   path: '/brand/files',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrandInstructionsRoute = BrandInstructionsRouteImport.update({
+  id: '/brand/instructions',
+  path: '/brand/instructions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrandIntegrationsRoute = BrandIntegrationsRouteImport.update({
@@ -290,10 +302,12 @@ export interface FileRoutesByFullPath {
   '/activation/$activationId': typeof ActivationActivationIdRoute
   '/brand/$slug': typeof BrandSlugRoute
   '/brand/approvals': typeof BrandApprovalsRoute
+  '/brand/assistant': typeof BrandAssistantRoute
   '/brand/brief': typeof BrandBriefRoute
   '/brand/calendar': typeof BrandCalendarRoute
   '/brand/campaigns': typeof BrandCampaignsRoute
   '/brand/files': typeof BrandFilesRoute
+  '/brand/instructions': typeof BrandInstructionsRoute
   '/brand/integrations': typeof BrandIntegrationsRoute
   '/brand/timeline': typeof BrandTimelineRoute
   '/office/salaries': typeof OfficeSalariesRoute
@@ -332,10 +346,12 @@ export interface FileRoutesByTo {
   '/activation/$activationId': typeof ActivationActivationIdRoute
   '/brand/$slug': typeof BrandSlugRoute
   '/brand/approvals': typeof BrandApprovalsRoute
+  '/brand/assistant': typeof BrandAssistantRoute
   '/brand/brief': typeof BrandBriefRoute
   '/brand/calendar': typeof BrandCalendarRoute
   '/brand/campaigns': typeof BrandCampaignsRoute
   '/brand/files': typeof BrandFilesRoute
+  '/brand/instructions': typeof BrandInstructionsRoute
   '/brand/integrations': typeof BrandIntegrationsRoute
   '/brand/timeline': typeof BrandTimelineRoute
   '/office/salaries': typeof OfficeSalariesRoute
@@ -377,10 +393,12 @@ export interface FileRoutesById {
   '/activation/$activationId': typeof ActivationActivationIdRoute
   '/brand/$slug': typeof BrandSlugRoute
   '/brand/approvals': typeof BrandApprovalsRoute
+  '/brand/assistant': typeof BrandAssistantRoute
   '/brand/brief': typeof BrandBriefRoute
   '/brand/calendar': typeof BrandCalendarRoute
   '/brand/campaigns': typeof BrandCampaignsRoute
   '/brand/files': typeof BrandFilesRoute
+  '/brand/instructions': typeof BrandInstructionsRoute
   '/brand/integrations': typeof BrandIntegrationsRoute
   '/brand/timeline': typeof BrandTimelineRoute
   '/office/salaries': typeof OfficeSalariesRoute
@@ -423,10 +441,12 @@ export interface FileRouteTypes {
     | '/activation/$activationId'
     | '/brand/$slug'
     | '/brand/approvals'
+    | '/brand/assistant'
     | '/brand/brief'
     | '/brand/calendar'
     | '/brand/campaigns'
     | '/brand/files'
+    | '/brand/instructions'
     | '/brand/integrations'
     | '/brand/timeline'
     | '/office/salaries'
@@ -465,10 +485,12 @@ export interface FileRouteTypes {
     | '/activation/$activationId'
     | '/brand/$slug'
     | '/brand/approvals'
+    | '/brand/assistant'
     | '/brand/brief'
     | '/brand/calendar'
     | '/brand/campaigns'
     | '/brand/files'
+    | '/brand/instructions'
     | '/brand/integrations'
     | '/brand/timeline'
     | '/office/salaries'
@@ -509,10 +531,12 @@ export interface FileRouteTypes {
     | '/activation/$activationId'
     | '/brand/$slug'
     | '/brand/approvals'
+    | '/brand/assistant'
     | '/brand/brief'
     | '/brand/calendar'
     | '/brand/campaigns'
     | '/brand/files'
+    | '/brand/instructions'
     | '/brand/integrations'
     | '/brand/timeline'
     | '/office/salaries'
@@ -554,10 +578,12 @@ export interface RootRouteChildren {
   ActivationActivationIdRoute: typeof ActivationActivationIdRoute
   BrandSlugRoute: typeof BrandSlugRoute
   BrandApprovalsRoute: typeof BrandApprovalsRoute
+  BrandAssistantRoute: typeof BrandAssistantRoute
   BrandBriefRoute: typeof BrandBriefRoute
   BrandCalendarRoute: typeof BrandCalendarRoute
   BrandCampaignsRoute: typeof BrandCampaignsRoute
   BrandFilesRoute: typeof BrandFilesRoute
+  BrandInstructionsRoute: typeof BrandInstructionsRoute
   BrandIntegrationsRoute: typeof BrandIntegrationsRoute
   BrandTimelineRoute: typeof BrandTimelineRoute
   PlanPlanIdRoute: typeof PlanPlanIdRoute
@@ -756,6 +782,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrandApprovalsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brand/assistant': {
+      id: '/brand/assistant'
+      path: '/brand/assistant'
+      fullPath: '/brand/assistant'
+      preLoaderRoute: typeof BrandAssistantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/brand/brief': {
       id: '/brand/brief'
       path: '/brand/brief'
@@ -782,6 +815,13 @@ declare module '@tanstack/react-router' {
       path: '/brand/files'
       fullPath: '/brand/files'
       preLoaderRoute: typeof BrandFilesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brand/instructions': {
+      id: '/brand/instructions'
+      path: '/brand/instructions'
+      fullPath: '/brand/instructions'
+      preLoaderRoute: typeof BrandInstructionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brand/integrations': {
@@ -923,10 +963,12 @@ const rootRouteChildren: RootRouteChildren = {
   ActivationActivationIdRoute: ActivationActivationIdRoute,
   BrandSlugRoute: BrandSlugRoute,
   BrandApprovalsRoute: BrandApprovalsRoute,
+  BrandAssistantRoute: BrandAssistantRoute,
   BrandBriefRoute: BrandBriefRoute,
   BrandCalendarRoute: BrandCalendarRoute,
   BrandCampaignsRoute: BrandCampaignsRoute,
   BrandFilesRoute: BrandFilesRoute,
+  BrandInstructionsRoute: BrandInstructionsRoute,
   BrandIntegrationsRoute: BrandIntegrationsRoute,
   BrandTimelineRoute: BrandTimelineRoute,
   PlanPlanIdRoute: PlanPlanIdRoute,

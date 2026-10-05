@@ -9,9 +9,9 @@ import { creator } from "@/data/influencer";
 export const Route = createFileRoute("/a/media-kit")({
   head: () => ({
     meta: [
-      { title: "Media kit and rates — INFLUENCER" },
+      { title: "Media kit and rates | INFLUENCER" },
       { name: "description", content: "Your audience, results and rate card, ready to share with brands." },
-      { property: "og:title", content: "Media kit and rates — INFLUENCER" },
+      { property: "og:title", content: "Media kit and rates | INFLUENCER" },
       { property: "og:description", content: "Audience, past results and pricing in one brand-ready kit." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

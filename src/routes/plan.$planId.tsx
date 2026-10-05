@@ -25,9 +25,9 @@ export const Route = createFileRoute("/plan/$planId")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Campaign unavailable — INFLUENCER" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Campaign unavailable | INFLUENCER" }, { name: "robots", content: "noindex" }] };
     }
-    const title = `${loaderData.brand} — ${loaderData.title}`;
+    const title = `${loaderData.brand}, ${loaderData.title}`;
     const description = `${loaderData.brand}: ${loaderData.title}, ${loaderData.window}. Deliverables, deadlines, fee and payment terms in one brief.`;
     return {
       meta: [
@@ -118,7 +118,7 @@ function CampaignDetailScreen() {
         {(shared || reminded) && (
           <div className="mt-5 rounded-3xl bg-primary-soft p-4">
             <p className="text-sm font-semibold text-primary">
-              {reminded ? "Reminder set for the next deadline on this campaign." : "Sharing is coming soon — this will send a read-only campaign brief."}
+              {reminded ? "Reminder set for the next deadline on this campaign." : "Sharing is coming soon, this will send a read-only campaign brief."}
             </p>
           </div>
         )}

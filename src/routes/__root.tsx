@@ -79,10 +79,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "INFLUENCER — Your creator business OS" },
+      { title: "INFLUENCER, Your creator business OS" },
       { name: "description", content: "A calm operating system for campaigns, content and creator earnings." },
       { name: "author", content: "INFLUENCER" },
-      { property: "og:title", content: "INFLUENCER — Your creator business OS" },
+      { property: "og:title", content: "INFLUENCER, Your creator business OS" },
       { property: "og:description", content: "Campaigns, activations, approvals and earnings in one place." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

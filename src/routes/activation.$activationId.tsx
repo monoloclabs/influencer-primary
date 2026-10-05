@@ -13,7 +13,7 @@ export const Route = createFileRoute("/activation/$activationId")({
     return { title: activation.title, brand: campaign?.brand ?? "Campaign" };
   },
   head: ({ loaderData }) => {
-    const title = loaderData ? `${loaderData.title} — INFLUENCER` : "Activation — INFLUENCER";
+    const title = loaderData ? `${loaderData.title} | INFLUENCER` : "Activation | INFLUENCER";
     const description = loaderData ? `${loaderData.brand} activation schedule, content and production steps.` : "Activation schedule, content and production steps.";
     return { meta: [{ title }, { name: "description", content: description }, { property: "og:title", content: title }, { property: "og:description", content: description }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] };
   },

@@ -7,7 +7,7 @@ import { PlatformMark } from "@/components/influencer/Marks";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/brand/calendar")({
-  head: () => brandMeta("Campaign calendar — Brand workspace | INFLUENCER", "Review deadlines, deliverable submissions and campaign milestones across every brand campaign."),
+  head: () => brandMeta("Campaign calendar, Brand workspace | INFLUENCER", "Review deadlines, deliverable submissions and campaign milestones across every brand campaign."),
   component: BrandCalendar,
 });
 
@@ -17,8 +17,8 @@ type Entry = { id: string; campaign: string; creator: string; title: string; pla
 const entries: Entry[] = [
   { id: "b1", campaign: "Summer Lift Series", creator: "CR-408", title: "Review Hero Reel first cut", platform: "Instagram", day: "Tue", date: "14 Oct", time: "Decide by 5:00 PM", kind: "Review deadline", week: "this" },
   { id: "b2", campaign: "Recovery Range Teaser", creator: "CR-221", title: "Story set submission", platform: "Instagram", day: "Thu", date: "16 Oct", time: "Expected by 12:00 PM", kind: "Submission", week: "this" },
-  { id: "b3", campaign: "Summer Lift Series", creator: "CR-408", title: "Kickoff milestone — $6,250 released", platform: "Instagram", day: "Fri", date: "17 Oct", time: "Escrow release", kind: "Milestone", week: "this" },
-  { id: "b4", campaign: "Summer Lift Series", creator: "CR-408", title: "TikTok — 5 lifts, 5 cues", platform: "TikTok", day: "Mon", date: "20 Oct", time: "Goes live 6:00 PM", kind: "Go live", week: "next" },
+  { id: "b3", campaign: "Summer Lift Series", creator: "CR-408", title: "Kickoff milestone, $6,250 released", platform: "Instagram", day: "Fri", date: "17 Oct", time: "Escrow release", kind: "Milestone", week: "this" },
+  { id: "b4", campaign: "Summer Lift Series", creator: "CR-408", title: "TikTok, 5 lifts, 5 cues", platform: "TikTok", day: "Mon", date: "20 Oct", time: "Goes live 6:00 PM", kind: "Go live", week: "next" },
   { id: "b5", campaign: "Recovery Range Teaser", creator: "CR-221", title: "Approve usage-rights counter-offer", platform: "TikTok", day: "Wed", date: "22 Oct", time: "Decide by 10:00 AM", kind: "Review deadline", week: "next" },
   { id: "b6", campaign: "Summer Lift Series", creator: "CR-408", title: "YouTube cutdown submission", platform: "YouTube", day: "Fri", date: "24 Oct", time: "Expected by 5:00 PM", kind: "Submission", week: "next" },
   { id: "b7", campaign: "Hydration bottle launch", creator: "Matching", title: "Creator match window closes", platform: "Instagram", day: "Mon", date: "3 Nov", time: "Brief milestone", kind: "Milestone", week: "later" },

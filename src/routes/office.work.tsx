@@ -9,9 +9,9 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/office/work")({
   head: () => ({
     meta: [
-      { title: "Work — Alfred Office" },
+      { title: "Work, Alfred Office" },
       { name: "description", content: "Business work you want your staff to handle, kept separate from personal tasks." },
-      { property: "og:title", content: "Work — Alfred Office" },
+      { property: "og:title", content: "Work, Alfred Office" },
       { property: "og:description", content: "Business work assigned across your team." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

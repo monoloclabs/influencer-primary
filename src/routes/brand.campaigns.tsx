@@ -7,7 +7,7 @@ import { brandCampaigns, brandStatusMeta, money, type BrandCampaignStatus } from
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/brand/campaigns")({
-  head: () => brandMeta("Brand campaigns — INFLUENCER", "Your matched, active and completed creator campaigns."),
+  head: () => brandMeta("Brand campaigns | INFLUENCER", "Your matched, active and completed creator campaigns."),
   component: BrandCampaigns,
 });
 

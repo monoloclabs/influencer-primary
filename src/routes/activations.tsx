@@ -11,9 +11,9 @@ import { getCampaign } from "@/data/influencer";
 export const Route = createFileRoute("/activations")({
   head: () => ({
     meta: [
-      { title: "Activations — INFLUENCER" },
+      { title: "Activations | INFLUENCER" },
       { name: "description", content: "Plan and manage the content, channels, schedule and publishing work behind accepted campaigns." },
-      { property: "og:title", content: "Activations — INFLUENCER" },
+      { property: "og:title", content: "Activations | INFLUENCER" },
       { property: "og:description", content: "The campaign execution workspace for accepted brand campaigns." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

@@ -12,13 +12,13 @@ import { useCampaignState } from "@/components/influencer/CampaignState";
 export const Route = createFileRoute("/plans")({
   head: () => ({
     meta: [
-      { title: "Campaigns — INFLUENCER" },
+      { title: "Campaigns | INFLUENCER" },
       {
         name: "description",
         content:
           "Every brand deal in one place: offers, active campaigns, deliverables, payment terms and completed history.",
       },
-      { property: "og:title", content: "Campaigns — INFLUENCER" },
+      { property: "og:title", content: "Campaigns | INFLUENCER" },
       {
         property: "og:description",
         content: "Brand deals with their deliverables, deadlines, fees and payment status.",
@@ -146,7 +146,7 @@ function CampaignsScreen() {
       <div className="mt-8 rounded-4xl bg-tint-blue p-5">
         <p className="eyebrow text-tint-blue-foreground">Offers vs campaigns</p>
         <p className="mt-2 text-[0.9375rem] leading-snug font-semibold">
-          An offer is a proposal. It only becomes a campaign once you accept it — that decision lives
+          An offer is a proposal. It only becomes a campaign once you accept it, that decision lives
           in Approvals.
         </p>
         <Link to="/messages" className="mt-4 block">

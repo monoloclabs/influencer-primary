@@ -31,7 +31,7 @@ import { cn } from "@/lib/utils";
 type IconType = React.ComponentType<{ className?: string; strokeWidth?: number }>;
 type Item = { label: string; icon: IconType; to: string; meta?: string; blue?: boolean };
 
-/** Workspace — where creator work and campaign execution happen. */
+/** Workspace, where creator work and campaign execution happen. */
 const workspace: Item[] = [
   { label: "Activations", icon: Workflow, to: "/activations", meta: "Campaign execution in progress", blue: true },
   { label: "Production tasks", icon: CheckCircle2, to: "/tasks", meta: "4 due this week", blue: true },
@@ -39,7 +39,7 @@ const workspace: Item[] = [
   { label: "Content calendar", icon: Calendar, to: "/a/calendar", meta: "Your posting schedule", blue: true },
 ];
 
-/** Library — creator business and reference material. */
+/** Library, creator business and reference material. */
 const library: Item[] = [
   { label: "Contracts and briefs", icon: Folder, to: "/a/files", meta: "Deal terms and usage rights" },
   { label: "Media kit and rates", icon: BadgeCheck, to: "/a/media-kit", meta: "Audience, results, pricing" },
@@ -47,7 +47,7 @@ const library: Item[] = [
   { label: "Rate research", icon: Library, to: "/a/research", meta: "What other creators charge" },
 ];
 
-/** Rules — the standing operating instructions Alfred follows. */
+/** Rules, the standing operating instructions Alfred follows. */
 const rules: Item[] = [
   { label: "Instructions", icon: ScrollText, to: "/instructions", meta: "6 rules running" },
 ];

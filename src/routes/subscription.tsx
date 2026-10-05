@@ -6,9 +6,9 @@ import { AButton, Card, IconBadge, Pill } from "@/components/alfred/ui";
 export const Route = createFileRoute("/subscription")({
   head: () => ({
     meta: [
-      { title: "Subscription — Alfred" },
+      { title: "Subscription, Alfred" },
       { name: "description", content: "Your Alfred membership: Free, Standard and Premium, and what each tier unlocks." },
-      { property: "og:title", content: "Subscription — Alfred" },
+      { property: "og:title", content: "Subscription, Alfred" },
       { property: "og:description", content: "Free, Standard and Premium tiers of the Alfred membership." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

@@ -21,9 +21,9 @@ import { ActivationSetup } from "@/components/influencer/ActivationSetup";
 export const Route = createFileRoute("/create")({
   head: () => ({
     meta: [
-      { title: "Create — INFLUENCER" },
+      { title: "Create | INFLUENCER" },
       { name: "description", content: "Activate an accepted campaign, use execution templates, or organise creator work." },
-      { property: "og:title", content: "Create — INFLUENCER" },
+      { property: "og:title", content: "Create | INFLUENCER" },
       { property: "og:description", content: "Start campaign execution with reusable content and scheduling structures." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

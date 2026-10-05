@@ -36,7 +36,7 @@ export function ActivationSetup({ open, onOpenChange, initialCampaignId = "", in
         <label className="mt-6 block text-xs font-bold text-muted-foreground" htmlFor="setup-campaign">Accepted campaign</label>
         <select id="setup-campaign" value={campaignId} onChange={(event) => setSelectedCampaign(event.target.value)} className="mt-2 h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm font-semibold">
           <option value="">{campaignsReadyForActivation.length ? "Select campaign" : "No accepted campaigns available"}</option>
-          {campaignsReadyForActivation.map((campaign) => <option key={campaign.id} value={campaign.id}>{campaign.brand} — {campaign.title}</option>)}
+          {campaignsReadyForActivation.map((campaign) => <option key={campaign.id} value={campaign.id}>{campaign.brand}, {campaign.title}</option>)}
         </select>
         <label className="mt-5 block text-xs font-bold text-muted-foreground" htmlFor="setup-template">Execution structure</label>
         <select id="setup-template" value={templateId} onChange={(event) => setSelectedTemplate(event.target.value)} className="mt-2 h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm font-semibold">

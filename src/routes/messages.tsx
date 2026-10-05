@@ -12,13 +12,13 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 export const Route = createFileRoute("/messages")({
   head: () => ({
     meta: [
-      { title: "Approvals — INFLUENCER" },
+      { title: "Approvals | INFLUENCER" },
       {
         name: "description",
         content:
           "Every commercial decision waiting on you: new campaign offers, contract terms and content revision requests.",
       },
-      { property: "og:title", content: "Approvals — INFLUENCER" },
+      { property: "og:title", content: "Approvals | INFLUENCER" },
       {
         property: "og:description",
         content: "Accept or decline brand offers, contract changes and content revisions.",
@@ -47,7 +47,7 @@ function ApprovalsScreen() {
     <AppShell title="Approvals">
       <h2 className="text-[1.75rem] leading-tight font-extrabold">Decisions</h2>
       <p className="mt-1.5 text-[0.9375rem] text-muted-foreground">
-        Brands don't message you here. They send decisions — you accept or decline.
+        Brands don't message you here. They send decisions, you accept or decline.
       </p>
 
       <div className="mt-5 flex items-center gap-3 rounded-full bg-surface px-4 py-3.5">

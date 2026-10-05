@@ -7,7 +7,7 @@ import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { brandApprovals, brandCampaigns, type BrandApproval } from "@/data/brand";
 
 export const Route = createFileRoute("/brand/approvals")({
-  head: () => brandMeta("Brand approvals — INFLUENCER", "Sign off creator content and respond to counter-offers."),
+  head: () => brandMeta("Brand approvals | INFLUENCER", "Sign off creator content and respond to counter-offers."),
   component: BrandApprovals,
 });
 

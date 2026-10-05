@@ -70,7 +70,7 @@ export const employees: Employee[] = [
 export const workItems = [
   { id: "w1", title: "Call the packaging supplier", who: "Tunde Bakare", meta: "Due today · 15:00", tone: "orange" as const, tag: "Today" },
   { id: "w2", title: "Send the Ikeja customer invoice", who: "Chidinma Okafor", meta: "Due today · 17:30", tone: "orange" as const, tag: "Today" },
-  { id: "w3", title: "Restock inventory — 40 cartons", who: "Segun Ade", meta: "Tomorrow", tone: "blue" as const, tag: "Upcoming" },
+  { id: "w3", title: "Restock inventory, 40 cartons", who: "Segun Ade", meta: "Tomorrow", tone: "blue" as const, tag: "Upcoming" },
   { id: "w4", title: "Deliver signed contract to Femi", who: "Tunde Bakare", meta: "Thursday", tone: "blue" as const, tag: "Upcoming" },
   { id: "w5", title: "Follow up with the Yaba customer", who: "Amaka Eze", meta: "Friday", tone: "violet" as const, tag: "Upcoming" },
   { id: "w6", title: "Reconcile last week's deliveries", who: "Chidinma Okafor", meta: "Completed Monday", tone: "green" as const, tag: "Done" },
