@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, Check, Mail, Menu, MessageCircle, Phone } from "lucide-react";
+import { ArrowRight, Check, Handshake, Mail, Menu, MessageCircle, Phone, X } from "lucide-react";
+import { toast } from "sonner";
 import { Link } from "@/components/alfred/ui";
 import { InfluencerMark } from "@/components/alfred/InfluencerMark";
 import { BrandMark, PlatformMark } from "@/components/influencer/Marks";
-import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/")({
@@ -24,9 +25,18 @@ export const Route = createFileRoute("/")({
 const cta = "inline-flex h-16 w-full max-w-md items-center justify-center gap-3 rounded-full text-lg font-bold active:scale-[0.98]";
 const sectionHead = "mx-auto max-w-3xl text-center text-[clamp(2.75rem,8vw,5.5rem)] leading-[0.92] font-extrabold tracking-tight";
 const sectionCopy = "mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed sm:text-xl";
+const sections = [["how-it-works", "How it works"], ["creators", "For creators"], ["brands", "For brands"], ["platform", "Why us"], ["questions", "Questions"]] as const;
 
 function Homepage() {
   const [contact, setContact] = useState(false);
+  const [menu, setMenu] = useState(false);
+  const [partner, setPartner] = useState(false);
+  const [pRole, setPRole] = useState<"Brand" | "Influencer">("Brand");
+  const [pType, setPType] = useState("");
+  const go = (id: string) => {
+    setMenu(false);
+    setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 300);
+  };
   return (
     <div className="min-h-screen overflow-x-clip bg-home-lime text-home-ink">
       <header className="sticky top-0 z-50 bg-home-lime/95 backdrop-blur"><div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
@@ -36,7 +46,7 @@ function Homepage() {
         </div>
         <div className="flex items-center gap-2">
           <button onClick={() => setContact(true)} className="inline-flex h-9 items-center rounded-full bg-home-ink px-4 text-sm font-bold text-primary-foreground active:scale-[0.98]">Contact Us</button>
-          <button aria-label="Menu" className="grid h-9 w-9 place-items-center rounded-full bg-home-ink text-primary-foreground"><Menu className="h-5 w-5" strokeWidth={2.6} /></button>
+          <button aria-label="Menu" onClick={() => setMenu(true)} className="grid h-9 w-9 place-items-center rounded-full bg-home-ink text-primary-foreground"><Menu className="h-5 w-5" strokeWidth={2.6} /></button>
         </div>
       </div></header>
 
@@ -62,7 +72,7 @@ function Homepage() {
         </section>
 
         {/* 2, Connect / Create / Clear */}
-        <section className="bg-home-ink text-primary-foreground">
+        <section id="how-it-works" className="scroll-mt-20 bg-home-ink text-primary-foreground">
           <div className="mx-auto grid max-w-[1440px] gap-px bg-primary-foreground/15 md:grid-cols-3">
             {[["01", "Connect", "Brands find creators with the audience, fit and proof to make the work matter."], ["02", "Create", "Briefs become live campaigns with every deliverable visible as it moves."], ["03", "Clear", "Payments stay in escrow, then release automatically when milestones are verified."]].map(([number, title, copy]) => (
               <article key={number} className="bg-home-ink p-8 sm:p-10"><p className="text-sm font-extrabold text-home-lime">{number}</p><h2 className="mt-8 text-4xl font-extrabold">{title}</h2><p className="mt-4 max-w-sm text-base leading-relaxed text-primary-foreground/75">{copy}</p></article>
@@ -71,7 +81,7 @@ function Homepage() {
         </section>
 
         {/* 3, Creators (magenta, varied-size cards) */}
-        <section className="bg-home-magenta px-5 py-20 text-primary-foreground sm:py-28">
+        <section id="creators" className="scroll-mt-20 bg-home-magenta px-5 py-20 text-primary-foreground sm:py-28">
           <h2 className={sectionHead}>Turn your audience into income.</h2>
           <p className={sectionCopy}>Discover paid brand work, run every campaign from one place, track each deliverable and see exactly when your money lands. Build a creator business, not a side hustle.</p>
           <div className="mx-auto mt-14 grid max-w-xl grid-cols-2 gap-4">
@@ -102,7 +112,7 @@ function Homepage() {
         </section>
 
         {/* 4, Brands (lime, stacked tilted platform cards) */}
-        <section className="bg-home-yellow px-5 py-20 text-home-forest sm:py-28">
+        <section id="brands" className="scroll-mt-20 bg-home-yellow px-5 py-20 text-home-forest sm:py-28">
           <h2 className={sectionHead}>Reach the people who matter.</h2>
           <p className={sectionCopy}>Find relevant creators, build campaigns across many of them at once, manage briefs, approve work and watch progress and spend in real time.</p>
           <div className="relative mx-auto mt-14 h-[26rem] max-w-md">
@@ -122,7 +132,7 @@ function Homepage() {
         </section>
 
         {/* 5, Different (sage + plum stat cards) */}
-        <section className="bg-home-sage px-5 py-20 text-home-electric sm:py-28">
+        <section id="platform" className="scroll-mt-20 bg-home-sage px-5 py-20 text-home-electric sm:py-28">
           <h2 className={sectionHead}>One deal flow. Not a directory.</h2>
           <p className={sectionCopy}>Creators and brands work in the same commercial workflow. Reach becomes campaign inventory, and we run the whole deal, not just the introduction.</p>
           <div className="mx-auto mt-14 max-w-xl rounded-[2.5rem] bg-home-plum p-6 text-primary-foreground sm:p-8">
@@ -141,7 +151,7 @@ function Homepage() {
         </section>
 
         {/* FAQ (mustard) */}
-        <section className="bg-home-sky px-5 py-16 text-home-brown">
+        <section id="questions" className="scroll-mt-20 bg-home-sky px-5 py-16 text-home-ink">
           <h2 className="text-center text-4xl font-extrabold">Questions</h2>
           <Accordion type="single" collapsible className="mx-auto mt-8 max-w-2xl">
             {[
@@ -150,7 +160,7 @@ function Homepage() {
               ["What does it cost?", "Pricing details are coming soon."],
               ["Can I be both a creator and a brand?", "Yes, pick a side on the welcome screen and switch any time."],
             ].map(([q, a]) => (
-              <AccordionItem key={q} value={q ?? ""} className="border-home-brown/20">
+              <AccordionItem key={q} value={q ?? ""} className="border-home-ink/20">
                 <AccordionTrigger className="text-left text-lg font-bold">{q}</AccordionTrigger>
                 <AccordionContent className="text-base">{a}</AccordionContent>
               </AccordionItem>
@@ -166,15 +176,70 @@ function Homepage() {
           <div className="mt-8 flex gap-6">{["X", "YouTube", "Instagram", "TikTok"].map((p) => <PlatformMark key={p} platform={p} className="h-7 w-7 text-primary-foreground" />)}</div>
           <div className="mt-12 grid max-w-lg grid-cols-2 gap-8">
             {[["Company", ["About", "Blog", "Contact"]], ["Explore", ["Products", "Partnerships", "Pricing"]]].map(([h, items]) => (
-              <div key={h as string}><p className="text-sm font-bold uppercase tracking-[0.14em] text-primary-foreground/80">{h}</p><ul className="mt-5 space-y-4">{(items as string[]).map((i) => <li key={i} className="text-lg text-primary-foreground/60">{i}</li>)}</ul></div>
+              <div key={h as string}><p className="text-sm font-bold uppercase tracking-[0.14em] text-primary-foreground/80">{h}</p><ul className="mt-5 space-y-4">{(items as string[]).map((i) => <li key={i} className="text-lg text-primary-foreground/60">{i === "Partnerships" ? <button onClick={() => setPartner(true)}>{i}</button> : i === "Contact" ? <button onClick={() => setContact(true)}>{i}</button> : i}</li>)}</ul></div>
             ))}
           </div>
         </div>
       </footer>
 
+      <Sheet open={menu} onOpenChange={setMenu}>
+        <SheetContent side="right" hideClose className="flex w-[85%] flex-col border-0 bg-home-ink px-6 pt-6 pb-8 text-primary-foreground">
+          <div className="flex items-center justify-between">
+            <SheetTitle className="flex items-center gap-2 text-base font-extrabold text-primary">INFLUENCER <InfluencerMark className="h-5 w-5 text-primary" /></SheetTitle>
+            <SheetClose aria-label="Close menu" className="grid h-9 w-9 place-items-center rounded-full bg-primary-foreground/15 active:scale-95"><X className="h-4 w-4" strokeWidth={3} /></SheetClose>
+          </div>
+          <nav className="mt-10 flex flex-col gap-1">
+            {sections.map(([id, label]) => (
+              <button key={id} onClick={() => go(id)} className="flex items-center justify-between rounded-2xl px-2 py-3 text-left text-2xl font-extrabold active:bg-primary-foreground/10">{label}<ArrowRight className="h-5 w-5 opacity-50" strokeWidth={3} /></button>
+            ))}
+            <button onClick={() => { setMenu(false); setPartner(true); }} className="mt-2 flex items-center justify-between rounded-2xl bg-home-lime px-4 py-3 text-left text-2xl font-extrabold text-home-ink">Partnerships<Handshake className="h-6 w-6" strokeWidth={2.6} /></button>
+          </nav>
+          <Link to="/welcome" className="mt-auto inline-flex h-14 items-center justify-center gap-2 rounded-full bg-primary text-base font-bold text-primary-foreground">Get Started <ArrowRight className="h-5 w-5" strokeWidth={3} /></Link>
+        </SheetContent>
+      </Sheet>
+
+      <Sheet open={partner} onOpenChange={setPartner}>
+        <SheetContent side="bottom" hideClose className="max-h-[92svh] overflow-y-auto rounded-t-[2rem] border-0 px-5 pt-6 pb-10">
+          <div className="flex items-center justify-between">
+            <SheetTitle className="text-2xl font-extrabold">Partner with us</SheetTitle>
+            <SheetClose aria-label="Close" className="grid h-9 w-9 place-items-center rounded-full bg-surface active:scale-95"><X className="h-4 w-4" strokeWidth={3} /></SheetClose>
+          </div>
+          <div className="mt-5 grid grid-cols-2 rounded-full bg-surface p-1">
+            {(["Brand", "Influencer"] as const).map((r) => (
+              <button key={r} type="button" onClick={() => { setPRole(r); setPType(""); }} className={`h-11 rounded-full text-sm font-bold ${pRole === r ? "bg-home-ink text-primary-foreground" : "text-muted-foreground"}`}>{r}</button>
+            ))}
+          </div>
+          <form onSubmit={(e) => { e.preventDefault(); setPartner(false); toast.success("Thanks, we will be in touch soon."); }} className="mt-5 space-y-4">
+            <div>
+              <p className="mb-2 text-sm font-bold">Type of partnership</p>
+              <div className="flex flex-wrap gap-2">
+                {(pRole === "Brand" ? ["Campaign", "Long-term ambassador", "Agency", "Integration", "Other"] : ["Brand deals", "Management", "Events", "Affiliate", "Other"]).map((t) => (
+                  <button key={t} type="button" onClick={() => setPType(t)} className={`rounded-full px-4 py-2 text-sm font-bold ${pType === t ? "bg-primary text-primary-foreground" : "bg-surface"}`}>{t}</button>
+                ))}
+              </div>
+            </div>
+            {[
+              ["Contact number", "tel", "+234 800 000 0000"],
+              ["Email", "email", "you@company.com"],
+              ["Social handle", "text", "@handle"],
+              ["Website", "url", "https://"],
+            ].map(([l, t, p]) => (
+              <label key={l} className="block">
+                <span className="mb-1.5 block text-sm font-bold">{l}</span>
+                <input type={t} placeholder={p} required={l === "Email"} className="h-12 w-full rounded-2xl bg-surface px-4 text-base outline-none focus:ring-2 focus:ring-primary" />
+              </label>
+            ))}
+            <button type="submit" className="h-14 w-full rounded-full bg-home-ink text-base font-bold text-primary-foreground active:scale-[0.98]">Send request</button>
+          </form>
+        </SheetContent>
+      </Sheet>
+
       <Sheet open={contact} onOpenChange={setContact}>
-        <SheetContent side="bottom" className="rounded-t-[2rem] border-0 px-5 pt-6 pb-10">
-          <SheetTitle className="text-2xl font-extrabold">Get in touch</SheetTitle>
+        <SheetContent side="bottom" hideClose className="rounded-t-[2rem] border-0 px-5 pt-6 pb-10">
+          <div className="flex items-center justify-between">
+            <SheetTitle className="text-2xl font-extrabold">Get in touch</SheetTitle>
+            <SheetClose aria-label="Close" className="grid h-9 w-9 place-items-center rounded-full bg-surface active:scale-95"><X className="h-4 w-4" strokeWidth={3} /></SheetClose>
+          </div>
           <div className="mt-6 grid grid-cols-3 gap-3">
             {[
               { l: "Email", Icon: Mail, bg: "bg-home-sky" },
