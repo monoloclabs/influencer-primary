@@ -102,7 +102,7 @@ function Homepage() {
         </section>
 
         {/* 4 — Brands (lime, stacked tilted platform cards) */}
-        <section className="bg-home-lime px-5 py-20 text-home-forest sm:py-28">
+        <section className="bg-home-yellow px-5 py-20 text-home-forest sm:py-28">
           <h2 className={sectionHead}>Reach the people who matter.</h2>
           <p className={sectionCopy}>Find relevant creators, build campaigns across many of them at once, manage briefs, approve work and watch progress and spend in real time.</p>
           <div className="relative mx-auto mt-14 h-[26rem] max-w-md">
@@ -122,7 +122,7 @@ function Homepage() {
         </section>
 
         {/* 5 — Different (sage + plum stat cards) */}
-        <section className="bg-home-sage px-5 py-20 text-home-brown sm:py-28">
+        <section className="bg-home-sage px-5 py-20 text-home-electric sm:py-28">
           <h2 className={sectionHead}>One deal flow. Not a directory.</h2>
           <p className={sectionCopy}>Creators and brands work in the same commercial workflow. Reach becomes campaign inventory, and we run the whole deal — not just the introduction.</p>
           <div className="mx-auto mt-14 max-w-xl rounded-[2.5rem] bg-home-plum p-6 text-primary-foreground sm:p-8">
@@ -137,11 +137,11 @@ function Homepage() {
               ))}
             </div>
           </div>
-          <div className="mt-14 flex justify-center"><Link to="/welcome" className={`${cta} bg-home-brown text-primary-foreground`}>Get started today</Link></div>
+          <div className="mt-14 flex justify-center"><Link to="/welcome" className={`${cta} bg-home-electric text-primary-foreground`}>Get started today</Link></div>
         </section>
 
         {/* FAQ (mustard) */}
-        <section className="bg-home-mustard px-5 py-16 text-home-brown">
+        <section className="bg-home-sky px-5 py-16 text-home-brown">
           <h2 className="text-center text-4xl font-extrabold">Questions</h2>
           <Accordion type="single" collapsible className="mx-auto mt-8 max-w-2xl">
             {[

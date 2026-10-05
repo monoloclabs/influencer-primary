@@ -271,9 +271,9 @@ export const creator = {
 
 export const dashboardStats = [
   { label: "Earnings", value: "$32,900", sub: "+$5,760 last payout", tone: "green" as const, icon: "wallet", to: "/wallet", positive: true },
-  { label: "Active campaigns", value: "3", sub: "1 needs content", tone: "orange" as const, icon: "briefcase", to: "/plans" },
-  { label: "Pending approvals", value: "3", sub: "Decisions waiting", tone: "blue" as const, icon: "shield", to: "/messages" },
-  { label: "Pending payments", value: "$13,500", sub: "2 releases due", tone: "violet" as const, icon: "clock", to: "/timeline", positive: true },
+  { label: "Campaigns", value: "3", sub: "1 needs content", tone: "orange" as const, icon: "briefcase", to: "/plans" },
+  { label: "Approvals", value: "3", sub: "Decisions waiting", tone: "blue" as const, icon: "shield", to: "/messages" },
+  { label: "Pending", value: "$13,500", sub: "Incoming from 2 releases", tone: "violet" as const, icon: "clock", to: "/timeline", positive: true },
 ];
 
 export type ApprovalKind = "brand_offer" | "contract_terms" | "content_revision";
