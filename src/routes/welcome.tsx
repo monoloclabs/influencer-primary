@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/welcome")({
   head: () => ({
     meta: [
-      { title: "Welcome to INFLUENCER — Creators and brands, one deal flow" },
+      { title: "Welcome to INFLUENCER, Creators and brands, one deal flow" },
       { name: "description", content: "Choose your side: run your creator business, or post briefs and get matched with creators." },
       { property: "og:title", content: "Welcome to INFLUENCER" },
       { property: "og:description", content: "Creators and brands, one deal flow. Pick your side to get started." },

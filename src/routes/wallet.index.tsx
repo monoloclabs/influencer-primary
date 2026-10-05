@@ -7,9 +7,9 @@ import { InfluencerMark } from "@/components/alfred/InfluencerMark";
 export const Route = createFileRoute("/wallet/")({
   head: () => ({
     meta: [
-      { title: "Wallet — INFLUENCER" },
+      { title: "Wallet | INFLUENCER" },
       { name: "description", content: "Your creator wallet balance, card and money actions in one calm place." },
-      { property: "og:title", content: "Wallet — INFLUENCER" },
+      { property: "og:title", content: "Wallet | INFLUENCER" },
       { property: "og:description", content: "Balance, card, top ups and controls inside your creator wallet." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -26,7 +26,7 @@ const actions = [
 
 const recent = [
   { id: "1", title: "Yellow Chilli", meta: "Today · 13:20", amount: "-₦18,400", icon: ShoppingBag, tone: "neutral" as const },
-  { id: "2", title: "Salary — Northline", meta: "Yesterday", amount: "+₦620,000", icon: ArrowDownLeft, tone: "green" as const },
+  { id: "2", title: "Salary, Northline", meta: "Yesterday", amount: "+₦620,000", icon: ArrowDownLeft, tone: "green" as const },
   { id: "3", title: "Electricity · Alfred paid", meta: "Yesterday · instruction", amount: "-₦15,000", icon: Zap, tone: "orange" as const },
   { id: "4", title: "Netflix", meta: "28 Aug · subscription", amount: "-₦7,500", icon: Repeat, tone: "violet" as const },
 ];

@@ -6,13 +6,13 @@ import { Card, IconBadge } from "@/components/alfred/ui";
 export const Route = createFileRoute("/assistant")({
   head: () => ({
     meta: [
-      { title: "Assistant — INFLUENCER" },
+      { title: "Assistant | INFLUENCER" },
       {
         name: "description",
         content:
           "Your creator business co-pilot: price a campaign, draft a brand pitch, summarise earnings or check deadlines.",
       },
-      { property: "og:title", content: "Assistant — INFLUENCER" },
+      { property: "og:title", content: "Assistant | INFLUENCER" },
       { property: "og:description", content: "Ask about rates, pitches, earnings and campaign deadlines." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -38,7 +38,7 @@ function AssistantScreen() {
         What should I handle for your business?
       </h2>
       <p className="mt-2.5 text-[0.9375rem] text-muted-foreground">
-        It knows your campaigns, your rates and your payment schedule — so it can price, draft and
+        It knows your campaigns, your rates and your payment schedule, so it can price, draft and
         flag what's coming.
       </p>
 

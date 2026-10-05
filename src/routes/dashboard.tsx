@@ -27,13 +27,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
-      { title: "INFLUENCER — Your creator business, in one place" },
+      { title: "INFLUENCER, Your creator business, in one place" },
       {
         name: "description",
         content:
           "Track brand campaigns, deliverables, approvals and earnings from one creator command centre.",
       },
-      { property: "og:title", content: "INFLUENCER — Your creator business, in one place" },
+      { property: "og:title", content: "INFLUENCER, Your creator business, in one place" },
       {
         property: "og:description",
         content: "Brand deals, deliverables, decisions and payouts in one calm mobile dashboard.",

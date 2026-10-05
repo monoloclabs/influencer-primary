@@ -14,7 +14,7 @@ export const Route = createFileRoute("/brand/campaign/$campaignId")({
   },
   head: ({ loaderData }) =>
     loaderData
-      ? brandMeta(`${loaderData.campaign.title} — Brand campaign`, loaderData.campaign.objective)
+      ? brandMeta(`${loaderData.campaign.title}, Brand campaign`, loaderData.campaign.objective)
       : { meta: [{ title: "Campaign unavailable" }, { name: "robots", content: "noindex" }] },
   notFoundComponent: () => (
     <BrandShell title="Not found">

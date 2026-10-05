@@ -8,13 +8,13 @@ import { brandCampaigns } from "@/data/brand";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/brand/files")({
-  head: () => brandMeta("Files & Documents — Brand workspace | INFLUENCER", "Contracts, briefs and invoices alongside brand logos, guidelines and creative packs."),
+  head: () => brandMeta("Files & Documents, Brand workspace | INFLUENCER", "Contracts, briefs and invoices alongside brand logos, guidelines and creative packs."),
   component: BrandFiles,
 });
 
 const documents = [
-  { id: "d1", name: "Creator agreement — CR-408", meta: "Summer Lift Series · Signed Oct 2", kind: "Contract", icon: FileSignature, tint: "bg-tint-blue text-tint-blue-foreground", status: "Signed", tone: "green" as const },
-  { id: "d2", name: "Usage rights addendum — CR-221", meta: "Recovery Range Teaser · Awaiting signature", kind: "Contract", icon: FileSignature, tint: "bg-tint-blue text-tint-blue-foreground", status: "Pending", tone: "amber" as const },
+  { id: "d1", name: "Creator agreement, CR-408", meta: "Summer Lift Series · Signed Oct 2", kind: "Contract", icon: FileSignature, tint: "bg-tint-blue text-tint-blue-foreground", status: "Signed", tone: "green" as const },
+  { id: "d2", name: "Usage rights addendum, CR-221", meta: "Recovery Range Teaser · Awaiting signature", kind: "Contract", icon: FileSignature, tint: "bg-tint-blue text-tint-blue-foreground", status: "Pending", tone: "amber" as const },
   { id: "d3", name: "Summer Lift Series brief", meta: "3 deliverables · Updated Sep 29", kind: "Brief", icon: FileText, tint: "bg-tint-violet text-tint-violet-foreground", status: "Live", tone: "blue" as const },
   { id: "d4", name: "Hydration bottle launch brief", meta: "Matching creators · Posted 2 days ago", kind: "Brief", icon: FileText, tint: "bg-tint-violet text-tint-violet-foreground", status: "Draft", tone: "neutral" as const },
   { id: "d5", name: "Invoice INV-1042", meta: "Kickoff milestone · $6,250", kind: "Invoice", icon: Receipt, tint: "bg-tint-green text-tint-green-foreground", status: "Paid", tone: "green" as const },
@@ -25,7 +25,7 @@ const assets = [
   { id: "a1", name: "Logo pack", meta: "SVG, PNG · Light and dark", icon: Shapes, tint: "bg-tint-blue text-tint-blue-foreground" },
   { id: "a2", name: "Brand guidelines", meta: "Type, colour, tone of voice", icon: Palette, tint: "bg-tint-violet text-tint-violet-foreground" },
   { id: "a3", name: "Product photography", meta: "42 images · Summer range", icon: Image, tint: "bg-tint-amber text-tint-amber-foreground" },
-  { id: "a4", name: "Creative deck — Summer Lift", meta: "18 slides · Do's and don'ts", icon: Presentation, tint: "bg-tint-green text-tint-green-foreground" },
+  { id: "a4", name: "Creative deck, Summer Lift", meta: "18 slides · Do's and don'ts", icon: Presentation, tint: "bg-tint-green text-tint-green-foreground" },
 ];
 
 function BrandFiles() {

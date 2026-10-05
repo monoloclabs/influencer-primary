@@ -8,9 +8,9 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/tasks")({
   head: () => ({
     meta: [
-      { title: "Production tasks — INFLUENCER" },
+      { title: "Production tasks | INFLUENCER" },
       { name: "description", content: "Scripts, shoots, edits and revisions across your live campaigns, grouped by when they matter." },
-      { property: "og:title", content: "Production tasks — INFLUENCER" },
+      { property: "og:title", content: "Production tasks | INFLUENCER" },
       { property: "og:description", content: "Your campaign production work, grouped by when it matters." },
     ],
   }),

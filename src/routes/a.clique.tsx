@@ -19,9 +19,9 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/a/clique")({
   head: () => ({
     meta: [
-      { title: "Brand network — INFLUENCER" },
+      { title: "Brand network | INFLUENCER" },
       { name: "description", content: "Every brand you work with: partnerships, payouts and the full relationship history." },
-      { property: "og:title", content: "Brand network — INFLUENCER" },
+      { property: "og:title", content: "Brand network | INFLUENCER" },
       { property: "og:description", content: "Your 360° relationship record with each brand partner." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

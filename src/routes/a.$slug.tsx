@@ -7,9 +7,9 @@ import { AButton, ActionPair, Card, IconBadge } from "@/components/alfred/ui";
 export const Route = createFileRoute("/a/$slug")({
   head: () => ({
     meta: [
-      { title: "Coming soon — INFLUENCER" },
+      { title: "Coming soon | INFLUENCER" },
       { name: "description", content: "This part of INFLUENCER is designed and on the way." },
-      { property: "og:title", content: "Coming soon — INFLUENCER" },
+      { property: "og:title", content: "Coming soon | INFLUENCER" },
       { property: "og:description", content: "This part of INFLUENCER is designed and on the way." },
       { name: "robots", content: "noindex" },
     ],
@@ -68,7 +68,7 @@ function PlaceholderScreen() {
         </IconBadge>
         <p className="mt-4 text-[1.0625rem] font-bold">Being built next</p>
         <p className="mx-auto mt-2 max-w-[19rem] text-sm text-muted-foreground">
-          {meta.title} is part of the INFLUENCER architecture. The screen is designed — it just isn't
+          {meta.title} is part of the INFLUENCER architecture. The screen is designed, it just isn't
           wired up in this preview yet.
         </p>
         <ActionPair

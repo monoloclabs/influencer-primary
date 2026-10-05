@@ -10,13 +10,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/timeline")({
   head: () => ({
     meta: [
-      { title: "Timeline — INFLUENCER" },
+      { title: "Timeline | INFLUENCER" },
       {
         name: "description",
         content:
           "Every payout, fee and campaign milestone in order: transactions on one side, campaign events on the other.",
       },
-      { property: "og:title", content: "Timeline — INFLUENCER" },
+      { property: "og:title", content: "Timeline | INFLUENCER" },
       {
         property: "og:description",
         content: "A chronological record of creator earnings and campaign milestones.",

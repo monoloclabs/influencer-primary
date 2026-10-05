@@ -19,8 +19,8 @@ export const Route = createFileRoute("/brand/$slug")({
     return destination;
   },
   head: ({ loaderData }) => loaderData
-    ? brandMeta(`${loaderData.title} — Brand workspace | INFLUENCER`, loaderData.description)
-    : { meta: [{ title: "Brand page unavailable — INFLUENCER" }, { name: "robots", content: "noindex" }, { name: "description", content: "This brand page is unavailable." }, { property: "og:title", content: "Brand page unavailable — INFLUENCER" }, { property: "og:description", content: "This brand page is unavailable." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] },
+    ? brandMeta(`${loaderData.title}, Brand workspace | INFLUENCER`, loaderData.description)
+    : { meta: [{ title: "Brand page unavailable | INFLUENCER" }, { name: "robots", content: "noindex" }, { name: "description", content: "This brand page is unavailable." }, { property: "og:title", content: "Brand page unavailable | INFLUENCER" }, { property: "og:description", content: "This brand page is unavailable." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] },
   component: BrandPlaceholder,
 });
 

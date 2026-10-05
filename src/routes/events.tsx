@@ -9,9 +9,9 @@ import { BrandMark } from "@/components/influencer/Marks";
 export const Route = createFileRoute("/events")({
   head: () => ({
     meta: [
-      { title: "Shoots and events — INFLUENCER" },
+      { title: "Shoots and events | INFLUENCER" },
       { name: "description", content: "Shoots, brand meetings, launches and collaborations on your schedule." },
-      { property: "og:title", content: "Shoots and events — INFLUENCER" },
+      { property: "og:title", content: "Shoots and events | INFLUENCER" },
       { property: "og:description", content: "Upcoming shoots and brand dates, some belonging to a campaign." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

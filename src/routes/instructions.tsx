@@ -8,9 +8,9 @@ import { Switch } from "@/components/ui/switch";
 export const Route = createFileRoute("/instructions")({
   head: () => ({
     meta: [
-      { title: "Instructions — INFLUENCER" },
+      { title: "Instructions | INFLUENCER" },
       { name: "description", content: "Standing rules for how your campaigns, rates and deliverables are handled." },
-      { property: "og:title", content: "Instructions — INFLUENCER" },
+      { property: "og:title", content: "Instructions | INFLUENCER" },
       { property: "og:description", content: "The standing rules INFLUENCER follows on your behalf." },
     ],
   }),
@@ -34,7 +34,7 @@ function InstructionsScreen() {
     <AppShell title="Instructions">
       <h2 className="text-[1.75rem] leading-tight font-extrabold">Standing instructions</h2>
       <p className="mt-1.5 text-[0.9375rem] text-muted-foreground">
-        Rules that run without being asked again. Tasks are work you do — these are decisions handled
+        Rules that run without being asked again. Tasks are work you do, these are decisions handled
         for you.
       </p>
 

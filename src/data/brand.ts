@@ -1,5 +1,5 @@
 // Brand-side sample data. Creators are always anonymous here: identified by
-// a match code, tier and reach band only — never names or handles.
+// a match code, tier and reach band only, never names or handles.
 
 export const brandAccount = { name: "Gymshark", contact: "Marcus Vance", period: "This quarter" };
 
@@ -89,7 +89,7 @@ export const brandApprovals: BrandApproval[] = [
     id: "ba1",
     kind: "content",
     campaignId: "bc1",
-    title: "Hero Reel — first cut",
+    title: "Hero Reel, first cut",
     creatorCode: "CR-408",
     summary: "45s Reel, gym floor footage, caption draft attached.",
     details: ["Length: 45 seconds", "Caption mentions #SummerLift and discount code", "Music: licensed track", "Posting window: Oct 8, 6pm"],
@@ -113,11 +113,11 @@ export const briefsAwaitingMatch = [
 
 export const brandTransactions = [
   { id: "bt0", title: "Milestone due, Recovery Range final", amount: -3000, date: "Oct 12", pending: true },
-  { id: "bt1", title: "Escrow deposit — Summer Lift Series", amount: -12500, date: "Oct 1" },
-  { id: "bt2", title: "Milestone released — CR-408 kickoff", amount: -6250, date: "Oct 3" },
-  { id: "bt3", title: "Escrow deposit — Recovery Range", amount: -6000, date: "Sep 28" },
-  { id: "bt4", title: "Refund — unused usage add-on", amount: 450, date: "Sep 20" },
-  { id: "bt5", title: "Final payout — Spring Training Drop", amount: -9250, date: "May 2" },
+  { id: "bt1", title: "Escrow deposit, Summer Lift Series", amount: -12500, date: "Oct 1" },
+  { id: "bt2", title: "Milestone released, CR-408 kickoff", amount: -6250, date: "Oct 3" },
+  { id: "bt3", title: "Escrow deposit, Recovery Range", amount: -6000, date: "Sep 28" },
+  { id: "bt4", title: "Refund, unused usage add-on", amount: 450, date: "Sep 20" },
+  { id: "bt5", title: "Final payout, Spring Training Drop", amount: -9250, date: "May 2" },
 ];
 
 export const brandActivity = [

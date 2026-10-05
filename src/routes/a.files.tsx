@@ -10,12 +10,12 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/a/files")({
   head: () => ({
     meta: [
-      { title: "Contracts and briefs — INFLUENCER" },
+      { title: "Contracts and briefs | INFLUENCER" },
       {
         name: "description",
         content: "Signed contracts, creative briefs, usage terms and invoices for every brand deal.",
       },
-      { property: "og:title", content: "Contracts and briefs — INFLUENCER" },
+      { property: "og:title", content: "Contracts and briefs | INFLUENCER" },
       { property: "og:description", content: "Deal terms, usage rights and briefs kept in one place." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -42,7 +42,7 @@ const docs: Doc[] = [
   {
     id: "f1",
     brand: "Gymshark",
-    title: "Autumn Athlete Series — signed contract",
+    title: "Autumn Athlete Series, signed contract",
     category: "Contracts",
     format: "PDF · 1.4 MB",
     signed: "Signed 8 October",
@@ -58,7 +58,7 @@ const docs: Doc[] = [
   {
     id: "f2",
     brand: "Gymshark",
-    title: "Campaign brief — training-led storytelling",
+    title: "Campaign brief, training-led storytelling",
     category: "Briefs",
     format: "PDF · 820 KB",
     signed: "Received 2 October",
@@ -73,7 +73,7 @@ const docs: Doc[] = [
   {
     id: "f3",
     brand: "Gymshark",
-    title: "Usage extension — 30 extra paid days",
+    title: "Usage extension, 30 extra paid days",
     category: "Usage",
     format: "PDF · 310 KB",
     signed: "Awaiting your decision",
@@ -88,7 +88,7 @@ const docs: Doc[] = [
   {
     id: "f4",
     brand: "Spotify",
-    title: "Wrapped Creator Push — offer terms",
+    title: "Wrapped Creator Push, offer terms",
     category: "Contracts",
     format: "PDF · 640 KB",
     signed: "Unsigned · expires in 3 days",
@@ -119,7 +119,7 @@ const docs: Doc[] = [
   {
     id: "f6",
     brand: "Sephora",
-    title: "Holiday Glow Edit — final contract",
+    title: "Holiday Glow Edit, final contract",
     category: "Contracts",
     format: "PDF · 1.1 MB",
     signed: "Completed 29 August",
@@ -134,7 +134,7 @@ const docs: Doc[] = [
   {
     id: "f7",
     brand: "Apple Music",
-    title: "Summer Sessions — usage and archive terms",
+    title: "Summer Sessions, usage and archive terms",
     category: "Usage",
     format: "PDF · 460 KB",
     signed: "Signed 3 July",

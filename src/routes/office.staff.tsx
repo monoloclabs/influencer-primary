@@ -9,9 +9,9 @@ import { employees, type Employee } from "@/data/office";
 export const Route = createFileRoute("/office/staff")({
   head: () => ({
     meta: [
-      { title: "Staff — Alfred Office" },
+      { title: "Staff, Alfred Office" },
       { name: "description", content: "Your employees, their roles, pay and contact details in one place." },
-      { property: "og:title", content: "Staff — Alfred Office" },
+      { property: "og:title", content: "Staff, Alfred Office" },
       { property: "og:description", content: "Employees, roles, pay and contact details." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

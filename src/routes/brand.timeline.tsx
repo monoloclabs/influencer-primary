@@ -8,7 +8,7 @@ import { FileCheck2, MessagesSquare, FilePlus2, UserCheck, Flag } from "lucide-r
 const activityIcons = { a1: FileCheck2, a2: MessagesSquare, a3: FilePlus2, a4: UserCheck, a5: Flag } as const;
 
 export const Route = createFileRoute("/brand/timeline")({
-  head: () => brandMeta("Brand timeline — INFLUENCER", "Escrow deposits, payouts and campaign activity in one history."),
+  head: () => brandMeta("Brand timeline | INFLUENCER", "Escrow deposits, payouts and campaign activity in one history."),
   component: BrandTimeline,
 });
 

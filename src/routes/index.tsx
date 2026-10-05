@@ -10,9 +10,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "INFLUENCER — Brands and creators, in motion" },
+      { title: "INFLUENCER, Brands and creators, in motion" },
       { name: "description", content: "Connect brands and creators, launch campaigns quickly, track live deliverables and release milestone-verified payouts." },
-      { property: "og:title", content: "INFLUENCER — Brands and creators, in motion" },
+      { property: "og:title", content: "INFLUENCER, Brands and creators, in motion" },
       { property: "og:description", content: "Brief to live in minutes, with tracked deliverables and milestone-verified payouts." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -41,7 +41,7 @@ function Homepage() {
       </div></header>
 
       <main>
-        {/* 1 — Hero */}
+        {/* 1, Hero */}
         <section className="mx-auto grid min-h-[calc(min(100svh,52rem)-5.25rem)] max-w-[1440px] content-between px-5 pt-8 pb-6 sm:px-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(22rem,0.7fr)] lg:gap-10 lg:px-12 lg:pt-14">
           <div className="relative z-10">
             <p className="mb-5 max-w-xl text-sm font-bold uppercase tracking-[0.12em]">One platform. Both sides of the deal.</p>
@@ -61,7 +61,7 @@ function Homepage() {
           </div>
         </section>
 
-        {/* 2 — Connect / Create / Clear */}
+        {/* 2, Connect / Create / Clear */}
         <section className="bg-home-ink text-primary-foreground">
           <div className="mx-auto grid max-w-[1440px] gap-px bg-primary-foreground/15 md:grid-cols-3">
             {[["01", "Connect", "Brands find creators with the audience, fit and proof to make the work matter."], ["02", "Create", "Briefs become live campaigns with every deliverable visible as it moves."], ["03", "Clear", "Payments stay in escrow, then release automatically when milestones are verified."]].map(([number, title, copy]) => (
@@ -70,7 +70,7 @@ function Homepage() {
           </div>
         </section>
 
-        {/* 3 — Creators (magenta, varied-size cards) */}
+        {/* 3, Creators (magenta, varied-size cards) */}
         <section className="bg-home-magenta px-5 py-20 text-primary-foreground sm:py-28">
           <h2 className={sectionHead}>Turn your audience into income.</h2>
           <p className={sectionCopy}>Discover paid brand work, run every campaign from one place, track each deliverable and see exactly when your money lands. Build a creator business, not a side hustle.</p>
@@ -84,7 +84,7 @@ function Homepage() {
               <p className="mt-3 text-3xl font-extrabold">$12,000</p>
               <div className="mt-3 flex h-11 items-center justify-center rounded-full bg-home-ink text-sm font-bold text-primary-foreground">Accept offer</div>
               <p className="mt-4 text-xs font-bold">Deliverables</p>
-              {["Reel — my year in sound", "YouTube integration · 60s", "Story set"].map((d, i) => (
+              {["Reel, my year in sound", "YouTube integration · 60s", "Story set"].map((d, i) => (
                 <div key={d} className="flex items-center gap-2 border-b border-border py-2.5 text-xs last:border-0"><span className={`grid h-5 w-5 place-items-center rounded-full ${i === 0 ? "bg-home-lime" : "bg-surface"}`}>{i === 0 && <Check className="h-3 w-3" strokeWidth={3.5} />}</span>{d}</div>
               ))}
             </div>
@@ -101,7 +101,7 @@ function Homepage() {
           <div className="mt-14 flex justify-center"><Link to="/welcome" className={`${cta} bg-home-lime text-home-ink`}>Start as a creator</Link></div>
         </section>
 
-        {/* 4 — Brands (lime, stacked tilted platform cards) */}
+        {/* 4, Brands (lime, stacked tilted platform cards) */}
         <section className="bg-home-yellow px-5 py-20 text-home-forest sm:py-28">
           <h2 className={sectionHead}>Reach the people who matter.</h2>
           <p className={sectionCopy}>Find relevant creators, build campaigns across many of them at once, manage briefs, approve work and watch progress and spend in real time.</p>
@@ -121,10 +121,10 @@ function Homepage() {
           <div className="mt-8 flex justify-center"><Link to="/welcome" className={`${cta} bg-home-forest text-primary-foreground`}>Post a brief</Link></div>
         </section>
 
-        {/* 5 — Different (sage + plum stat cards) */}
+        {/* 5, Different (sage + plum stat cards) */}
         <section className="bg-home-sage px-5 py-20 text-home-electric sm:py-28">
           <h2 className={sectionHead}>One deal flow. Not a directory.</h2>
-          <p className={sectionCopy}>Creators and brands work in the same commercial workflow. Reach becomes campaign inventory, and we run the whole deal — not just the introduction.</p>
+          <p className={sectionCopy}>Creators and brands work in the same commercial workflow. Reach becomes campaign inventory, and we run the whole deal, not just the introduction.</p>
           <div className="mx-auto mt-14 max-w-xl rounded-[2.5rem] bg-home-plum p-6 text-primary-foreground sm:p-8">
             <div className="grid grid-cols-2 gap-3">
               <div className="col-span-2 flex items-center justify-between rounded-3xl bg-home-navy p-5"><div className="flex -space-x-2">{["Gymshark", "Sephora", "Notion"].map((b) => <span key={b} className="grid h-11 w-11 place-items-center rounded-full bg-card ring-2 ring-home-navy"><BrandMark brand={b} className="h-6 w-6" /></span>)}</div><div className="text-right"><p className="text-3xl font-semibold">24</p><p className="text-xs font-bold">Creators matched</p></div></div>
@@ -148,7 +148,7 @@ function Homepage() {
               ["How do creators get paid?", "Brand funds sit in escrow and release automatically when each milestone is approved."],
               ["How do brands find creators?", "Post a brief and we match you with creators whose audience fits your goals."],
               ["What does it cost?", "Pricing details are coming soon."],
-              ["Can I be both a creator and a brand?", "Yes — pick a side on the welcome screen and switch any time."],
+              ["Can I be both a creator and a brand?", "Yes, pick a side on the welcome screen and switch any time."],
             ].map(([q, a]) => (
               <AccordionItem key={q} value={q ?? ""} className="border-home-brown/20">
                 <AccordionTrigger className="text-left text-lg font-bold">{q}</AccordionTrigger>

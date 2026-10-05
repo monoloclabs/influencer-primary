@@ -7,9 +7,9 @@ import { AButton, ActionPair, Card, IconBadge, Pill } from "@/components/alfred/
 export const Route = createFileRoute("/approvals")({
   head: () => ({
     meta: [
-      { title: "Approvals — Alfred" },
+      { title: "Approvals, Alfred" },
       { name: "description", content: "Actions Alfred wants to take on your behalf, waiting for your go-ahead." },
-      { property: "og:title", content: "Approvals — Alfred" },
+      { property: "og:title", content: "Approvals, Alfred" },
       { property: "og:description", content: "Approve or decline what Alfred is about to do for you." },
     ],
   }),
@@ -22,7 +22,7 @@ const items = [
     icon: Tv,
     tone: "orange" as const,
     tag: "Money",
-    title: "Pay DSTV subscription — ₦24,500",
+    title: "Pay DSTV subscription, ₦24,500",
     detail: "From your instruction “keep my subscriptions alive”. Renews tomorrow at 00:00.",
   },
   {
@@ -72,7 +72,7 @@ function ApprovalsScreen() {
               {state ? (
                 <div className="mt-4 flex items-center gap-2 rounded-full bg-surface px-4 py-3 text-sm font-bold">
                   <Check className="h-4 w-4 text-primary" strokeWidth={3} />
-                  {state === "approved" ? "Approved — Alfred is on it" : "Declined"}
+                  {state === "approved" ? "Approved, Alfred is on it" : "Declined"}
                 </div>
               ) : (
                 <ActionPair

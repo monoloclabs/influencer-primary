@@ -31,7 +31,7 @@ export function AppShell({ title, children }: { title: string; children: ReactNo
         <h1 className="flex min-w-0 items-center justify-center gap-1.5 text-base font-bold tracking-tight text-primary">
           <span className="truncate">INFLUENCER</span>
           <InfluencerMark className="h-[1.15rem] w-[1.15rem] shrink-0" />
-          <span className="sr-only">— {title}</span>
+          <span className="sr-only">- {title}</span>
         </h1>
         <button
           aria-label="Notifications"

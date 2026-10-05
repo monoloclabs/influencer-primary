@@ -9,12 +9,12 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/a/calendar")({
   head: () => ({
     meta: [
-      { title: "Content calendar — INFLUENCER" },
+      { title: "Content calendar | INFLUENCER" },
       {
         name: "description",
         content: "Every deliverable, draft review and posting date across your live campaigns.",
       },
-      { property: "og:title", content: "Content calendar — INFLUENCER" },
+      { property: "og:title", content: "Content calendar | INFLUENCER" },
       { property: "og:description", content: "Your month of deliverables, without the clutter." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -37,14 +37,14 @@ type Entry = {
 };
 
 const entries: Entry[] = [
-  { id: "cal1", brand: "Gymshark", title: "Hero Reel — morning session", platform: "Instagram", day: "Tue", date: "14 Oct", time: "Post 7:30 PM", state: "Drafted", campaignId: "c1", week: "this" },
-  { id: "cal2", brand: "Gymshark", title: "Story set — kit unboxing", platform: "Instagram", day: "Thu", date: "16 Oct", time: "Post 12:00 PM", state: "Planned", campaignId: "c1", week: "this" },
+  { id: "cal1", brand: "Gymshark", title: "Hero Reel, morning session", platform: "Instagram", day: "Tue", date: "14 Oct", time: "Post 7:30 PM", state: "Drafted", campaignId: "c1", week: "this" },
+  { id: "cal2", brand: "Gymshark", title: "Story set, kit unboxing", platform: "Instagram", day: "Thu", date: "16 Oct", time: "Post 12:00 PM", state: "Planned", campaignId: "c1", week: "this" },
   { id: "cal3", brand: "Notion", title: "Template link Stories", platform: "Instagram", day: "Fri", date: "17 Oct", time: "Post 9:00 AM", state: "Live", campaignId: "c3", week: "this" },
-  { id: "cal4", brand: "Gymshark", title: "TikTok — 5 lifts, 5 cues", platform: "TikTok", day: "Mon", date: "20 Oct", time: "Post 6:00 PM", state: "Planned", campaignId: "c1", week: "next" },
+  { id: "cal4", brand: "Gymshark", title: "TikTok, 5 lifts, 5 cues", platform: "TikTok", day: "Mon", date: "20 Oct", time: "Post 6:00 PM", state: "Planned", campaignId: "c1", week: "next" },
   { id: "cal5", brand: "Gymshark", title: "Hero Reel draft due with brand", platform: "Instagram", day: "Wed", date: "22 Oct", time: "Submit by 10:00 AM", state: "In brand review", campaignId: "c1", week: "next" },
   { id: "cal6", brand: "Apple Music", title: "Summer Sessions cutdown", platform: "YouTube", day: "Fri", date: "24 Oct", time: "Post 5:00 PM", state: "Planned", campaignId: "c5", week: "next" },
-  { id: "cal7", brand: "Spotify", title: "Reel — my year in sound", platform: "Instagram", day: "Thu", date: "4 Dec", time: "Post 8:00 PM", state: "Planned", campaignId: "c2", week: "later" },
-  { id: "cal8", brand: "Spotify", title: "YouTube integration — 60s", platform: "YouTube", day: "Tue", date: "9 Dec", time: "Post 6:30 PM", state: "Planned", campaignId: "c2", week: "later" },
+  { id: "cal7", brand: "Spotify", title: "Reel, my year in sound", platform: "Instagram", day: "Thu", date: "4 Dec", time: "Post 8:00 PM", state: "Planned", campaignId: "c2", week: "later" },
+  { id: "cal8", brand: "Spotify", title: "YouTube integration, 60s", platform: "YouTube", day: "Tue", date: "9 Dec", time: "Post 6:30 PM", state: "Planned", campaignId: "c2", week: "later" },
 ];
 
 const stateTone: Record<Entry["state"], "neutral" | "blue" | "amber" | "green"> = {

@@ -103,9 +103,9 @@ export const campaigns: Campaign[] = [
     brief: "Training-led storytelling. Real sweat, no studio gloss. Product in frame within 3 seconds.",
     summary: ["1 Reel · 60s", "3 Stories", "1 TikTok", "30-day paid usage"],
     deliverables: [
-      { id: "d1", title: "Hero Reel — morning session", platform: "Instagram", due: "14 Oct", state: "Drafted" },
-      { id: "d2", title: "Story set — kit unboxing", platform: "Instagram", due: "16 Oct", state: "Not started" },
-      { id: "d3", title: "TikTok — 5 lifts, 5 cues", platform: "TikTok", due: "20 Oct", state: "Not started" },
+      { id: "d1", title: "Hero Reel, morning session", platform: "Instagram", due: "14 Oct", state: "Drafted" },
+      { id: "d2", title: "Story set, kit unboxing", platform: "Instagram", due: "16 Oct", state: "Not started" },
+      { id: "d3", title: "TikTok, 5 lifts, 5 cues", platform: "TikTok", due: "20 Oct", state: "Not started" },
     ],
     requirements: [
       { id: "r1", title: "Tag @gymshark and #GymsharkAthlete", meta: "Every deliverable" },
@@ -113,7 +113,7 @@ export const campaigns: Campaign[] = [
       { id: "r3", title: "Submit drafts 48h before posting", meta: "Brand review window" },
     ],
     files: ["Campaign brief.pdf", "Brand guidelines.pdf", "Signed contract.pdf"],
-    nudge: "Your hero draft is due in 3 days — submit it for brand review.",
+    nudge: "Your hero draft is due in 3 days, submit it for brand review.",
   },
   {
     id: "c2",
@@ -128,12 +128,12 @@ export const campaigns: Campaign[] = [
     fees: "Platform fee 10% · $1,200",
     terms: "Net 30 after final approval",
     contact: "Devon Ilesanmi · Creator Marketing",
-    brief: "Personal, warm, music-first. Your year in sound — no scripted product claims.",
+    brief: "Personal, warm, music-first. Your year in sound, no scripted product claims.",
     summary: ["2 Reels", "1 YouTube integration", "90-day usage"],
     deliverables: [
-      { id: "d1", title: "Reel — my year in sound", platform: "Instagram", due: "4 Dec", state: "Not started" },
-      { id: "d2", title: "YouTube integration — 60s", platform: "YouTube", due: "9 Dec", state: "Not started" },
-      { id: "d3", title: "Reel — playlist reveal", platform: "Instagram", due: "12 Dec", state: "Not started" },
+      { id: "d1", title: "Reel, my year in sound", platform: "Instagram", due: "4 Dec", state: "Not started" },
+      { id: "d2", title: "YouTube integration, 60s", platform: "YouTube", due: "9 Dec", state: "Not started" },
+      { id: "d3", title: "Reel, playlist reveal", platform: "Instagram", due: "12 Dec", state: "Not started" },
     ],
     requirements: [
       { id: "r1", title: "Accept before 28 September", meta: "Offer expires in 3 days" },
@@ -158,15 +158,15 @@ export const campaigns: Campaign[] = [
     brief: "Show the real system you run your business on. Screen-record heavy, calm voiceover.",
     summary: ["1 YouTube video", "2 Stories", "Perpetual organic usage"],
     deliverables: [
-      { id: "d1", title: "YouTube — how I run my business", platform: "YouTube", due: "12 Sep", state: "Live" },
-      { id: "d2", title: "Story set — template link", platform: "Instagram", due: "14 Sep", state: "Live" },
+      { id: "d1", title: "YouTube, how I run my business", platform: "YouTube", due: "12 Sep", state: "Live" },
+      { id: "d2", title: "Story set, template link", platform: "Instagram", due: "14 Sep", state: "Live" },
     ],
     requirements: [
       { id: "r1", title: "Affiliate link in description", meta: "Tracked" },
       { id: "r2", title: "Invoice submitted", meta: "20 September" },
     ],
     files: ["Invoice INV-0241.pdf", "Approval confirmation.pdf"],
-    nudge: "Brand approved everything — payment releases on 26 September.",
+    nudge: "Brand approved everything, payment releases on 26 September.",
   },
   {
     id: "c4",
@@ -184,8 +184,8 @@ export const campaigns: Campaign[] = [
     brief: "Soft, glowy, honest. Show the routine, not the ad.",
     summary: ["2 Reels", "4 Stories", "60-day usage"],
     deliverables: [
-      { id: "d1", title: "Reel — evening routine", platform: "Instagram", due: "10 Aug", state: "Live" },
-      { id: "d2", title: "Reel — 3 shades tested", platform: "Instagram", due: "17 Aug", state: "Live" },
+      { id: "d1", title: "Reel, evening routine", platform: "Instagram", due: "10 Aug", state: "Live" },
+      { id: "d2", title: "Reel, 3 shades tested", platform: "Instagram", due: "17 Aug", state: "Live" },
     ],
     requirements: [
       { id: "r1", title: "Paid partnership label", meta: "Applied" },
@@ -210,7 +210,7 @@ export const campaigns: Campaign[] = [
     brief: "Cinematic, music-led, shot outdoors. Minimal talking to camera.",
     summary: ["1 YouTube film", "3 Reels", "6-month usage"],
     deliverables: [
-      { id: "d1", title: "YouTube film — summer sessions", platform: "YouTube", due: "18 Jul", state: "Approved" },
+      { id: "d1", title: "YouTube film, summer sessions", platform: "YouTube", due: "18 Jul", state: "Approved" },
       { id: "d2", title: "Reel cutdowns ×3", platform: "Instagram", due: "25 Jul", state: "Approved" },
     ],
     requirements: [
@@ -218,7 +218,7 @@ export const campaigns: Campaign[] = [
       { id: "r2", title: "Raise invoice", meta: "Done · 31 July" },
     ],
     files: ["Final cut approval.pdf", "Invoice INV-0233.pdf"],
-    nudge: "Everything is approved — the invoice is with Apple Music finance.",
+    nudge: "Everything is approved, the invoice is with Apple Music finance.",
   },
 ];
 
@@ -293,7 +293,7 @@ export const approvalQueue: {
     id: "ap1",
     kind: "brand_offer",
     brand: "Spotify",
-    title: "New campaign offer — Wrapped Creator Push",
+    title: "New campaign offer, Wrapped Creator Push",
     meta: "2 Reels + 1 YouTube integration · December",
     value: "$12,000",
     tone: "violet",
@@ -303,7 +303,7 @@ export const approvalQueue: {
     id: "ap2",
     kind: "contract_terms",
     brand: "Gymshark",
-    title: "Usage extension — 30 extra paid days",
+    title: "Usage extension, 30 extra paid days",
     meta: "Amends the Autumn Athlete Series contract",
     value: "+$1,750",
     tone: "orange",
@@ -314,7 +314,7 @@ export const approvalQueue: {
     id: "ap3",
     kind: "content_revision",
     brand: "Notion",
-    title: "Revision request — trim the intro",
+    title: "Revision request, trim the intro",
     meta: "Brand wants the hook in the first 5 seconds",
     value: "No fee change",
     tone: "blue",
@@ -324,9 +324,9 @@ export const approvalQueue: {
 ];
 
 export const upcomingDeliverables = [
-  { id: "u1", when: "14 Oct", title: "Hero Reel — morning session", brand: "Gymshark", tone: "orange" as const, tag: "Instagram", platforms: ["Instagram", "Threads"] },
-  { id: "u2", when: "16 Oct", title: "Story set — kit unboxing", brand: "Gymshark", tone: "blue" as const, tag: "Instagram", platforms: ["Instagram"] },
-  { id: "u3", when: "20 Oct", title: "TikTok — 5 lifts, 5 cues", brand: "Gymshark", tone: "violet" as const, tag: "TikTok", platforms: ["TikTok", "Instagram", "X"] },
+  { id: "u1", when: "14 Oct", title: "Hero Reel, morning session", brand: "Gymshark", tone: "orange" as const, tag: "Instagram", platforms: ["Instagram", "Threads"] },
+  { id: "u2", when: "16 Oct", title: "Story set, kit unboxing", brand: "Gymshark", tone: "blue" as const, tag: "Instagram", platforms: ["Instagram"] },
+  { id: "u3", when: "20 Oct", title: "TikTok, 5 lifts, 5 cues", brand: "Gymshark", tone: "violet" as const, tag: "TikTok", platforms: ["TikTok", "Instagram", "X"] },
 ];
 
 export type TimelineGroup = {
@@ -338,16 +338,16 @@ export const transactions: TimelineGroup[] = [
   {
     day: "This week",
     items: [
-      { id: "x1", time: "Tue", title: "Sephora — Holiday Glow Edit", meta: "Payout cleared", amount: "+$5,760.00", tone: "green" as const, tag: "Paid" },
-      { id: "x2", time: "Tue", title: "Platform fee — Sephora", meta: "10% of gross", amount: "-$640.00", tone: "neutral" as const, tag: "Fee" },
-      { id: "x3", time: "Mon", title: "Notion — Creator Workspace Tour", meta: "Releases 26 September", amount: "$4,680.00", tone: "orange" as const, tag: "Pending" },
+      { id: "x1", time: "Tue", title: "Sephora, Holiday Glow Edit", meta: "Payout cleared", amount: "+$5,760.00", tone: "green" as const, tag: "Paid" },
+      { id: "x2", time: "Tue", title: "Platform fee, Sephora", meta: "10% of gross", amount: "-$640.00", tone: "neutral" as const, tag: "Fee" },
+      { id: "x3", time: "Mon", title: "Notion, Creator Workspace Tour", meta: "Releases 26 September", amount: "$4,680.00", tone: "orange" as const, tag: "Pending" },
     ],
   },
   {
     day: "Earlier this month",
     items: [
-      { id: "x4", time: "12 Sep", title: "Apple Music — Summer Sessions", meta: "Invoice raised · Net 30", amount: "$8,820.00", tone: "amber" as const, tag: "Pending" },
-      { id: "x5", time: "04 Sep", title: "Gymshark — signature payment", meta: "50% upfront cleared", amount: "+$4,250.00", tone: "green" as const, tag: "Paid" },
+      { id: "x4", time: "12 Sep", title: "Apple Music, Summer Sessions", meta: "Invoice raised · Net 30", amount: "$8,820.00", tone: "amber" as const, tag: "Pending" },
+      { id: "x5", time: "04 Sep", title: "Gymshark, signature payment", meta: "50% upfront cleared", amount: "+$4,250.00", tone: "green" as const, tag: "Paid" },
       { id: "x6", time: "01 Sep", title: "Withdrawal to bank", meta: "Sterling · ****4471", amount: "-$6,000.00", tone: "neutral" as const, tag: "Withdrawal" },
     ],
   },
@@ -357,17 +357,17 @@ export const campaignEvents: TimelineGroup[] = [
   {
     day: "This week",
     items: [
-      { id: "e1", time: "Wed", title: "Draft submitted — Gymshark hero Reel", meta: "Awaiting brand approval", tone: "orange" as const, tag: "Submission" },
-      { id: "e2", time: "Tue", title: "Content approved — Notion workspace tour", meta: "Brand signed off", tone: "green" as const, tag: "Approval" },
-      { id: "e3", time: "Mon", title: "Offer received — Spotify Wrapped", meta: "Expires in 3 days", tone: "violet" as const, tag: "Offer" },
+      { id: "e1", time: "Wed", title: "Draft submitted, Gymshark hero Reel", meta: "Awaiting brand approval", tone: "orange" as const, tag: "Submission" },
+      { id: "e2", time: "Tue", title: "Content approved, Notion workspace tour", meta: "Brand signed off", tone: "green" as const, tag: "Approval" },
+      { id: "e3", time: "Mon", title: "Offer received, Spotify Wrapped", meta: "Expires in 3 days", tone: "violet" as const, tag: "Offer" },
     ],
   },
   {
     day: "Earlier this month",
     items: [
-      { id: "e4", time: "12 Sep", title: "Campaign completed — Apple Music", meta: "All deliverables approved", tone: "green" as const, tag: "Milestone" },
-      { id: "e5", time: "04 Sep", title: "Contract signed — Gymshark", meta: "45-day exclusivity agreed", tone: "blue" as const, tag: "Contract" },
-      { id: "e6", time: "01 Sep", title: "Offer accepted — Gymshark", meta: "Moved to Active", tone: "blue" as const, tag: "Decision" },
+      { id: "e4", time: "12 Sep", title: "Campaign completed, Apple Music", meta: "All deliverables approved", tone: "green" as const, tag: "Milestone" },
+      { id: "e5", time: "04 Sep", title: "Contract signed, Gymshark", meta: "45-day exclusivity agreed", tone: "blue" as const, tag: "Contract" },
+      { id: "e6", time: "01 Sep", title: "Offer accepted, Gymshark", meta: "Moved to Active", tone: "blue" as const, tag: "Decision" },
     ],
   },
 ];

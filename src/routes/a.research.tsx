@@ -9,9 +9,9 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/a/research")({
   head: () => ({
     meta: [
-      { title: "Rate research — INFLUENCER" },
+      { title: "Rate research | INFLUENCER" },
       { name: "description", content: "See what creators at your size charge, and price a deal before you reply." },
-      { property: "og:title", content: "Rate research — INFLUENCER" },
+      { property: "og:title", content: "Rate research | INFLUENCER" },
       { property: "og:description", content: "Market rates by platform and tier, plus a quick deal estimator." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

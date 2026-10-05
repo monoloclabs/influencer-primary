@@ -8,12 +8,12 @@ import { employees, expenditure, officeActivity, salaryRows } from "@/data/offic
 export const Route = createFileRoute("/office/")({
   head: () => ({
     meta: [
-      { title: "My Desk — Alfred Office" },
+      { title: "My Desk, Alfred Office" },
       {
         name: "description",
         content: "Your business at a glance: staff, salaries, expenditure and everything happening today.",
       },
-      { property: "og:title", content: "My Desk — Alfred Office" },
+      { property: "og:title", content: "My Desk, Alfred Office" },
       { property: "og:description", content: "A calm operating desk for your staff, salaries and work." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -31,7 +31,7 @@ function MyDeskScreen() {
       <p className="eyebrow text-primary">Friday · 4 September</p>
       <h2 className="mt-1.5 text-[2rem] leading-[1.1] font-extrabold">My Desk</h2>
       <p className="mt-2 text-[0.9375rem] text-muted-foreground">
-        Brightlane Stores — {employees.length} people, {pending.length} salaries still to run this month.
+        Brightlane Stores, {employees.length} people, {pending.length} salaries still to run this month.
       </p>
 
       {/* Staff */}
