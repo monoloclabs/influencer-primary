@@ -1,20 +1,16 @@
-# Public homepage, adaptive welcome, and shared integrations
+# Partnership form and creator icon pass
 
-## Build
-- Move the existing creator dashboard from `/` to `/dashboard`, then make `/` the public first-load homepage in preview and published builds.
-- Update only creator navigation that must still point to the moved dashboard; leave all creator screen content and the brand transaction styling unchanged.
-- Build a bold, color-block public homepage for both creators and brands, with one Get Started action to `/welcome`.
-- Rework `/welcome` into genuinely distinct creator and brand states while preserving its toggle and primary action styling.
-- Build one reusable Integrations screen and render it inside both `/a/integrations` and `/brand/integrations`, parameterized as Tola or Gymshark.
+## Changes
+1. Pin the partnership form header and Send request button. Only the fields between them scroll, including when many social handles are added.
+2. Accept arbitrary prototype text in social handle and website fields, without URL validation.
+3. Add repeatable social handle rows with an icon-only platform picker, an @ handle field and a plus control. Offer TikTok, Instagram, Facebook, X, Snapchat and YouTube using recognizable platform logos.
+4. Replace icon artwork only on creator bottom navigation, drawer, Dashboard snapshots, Shoots & Events, Instructions and Money. Use detailed filled artwork with gray outlines and gray drop shadows, without background containers. Selected bottom navigation icons become solid orange. Preserve navigation chrome, labels, links and existing screen content. Leave brand screens unchanged.
 
-## Visual direction
-- Homepage: large confident typography, strong flat color fields, chunky graphic forms, and bold pictograms rather than thin dashboard-style icons.
-- Welcome creator state: current dark red background, deal/payment moments, and brand marks.
-- Welcome brand state: a contrasting background, offset platform/reach cards, and recognizable social platform marks.
-- Integrations: a clean logo-led grid using recognizable Slack, Gmail, Drive, Canva, YouTube, and Instagram marks.
+## Assumptions
+- The partnership form remains a prototype thank-you flow, with no message delivery added.
+- No new reference attachment is available in this message. Use the described detailed filled, gray outlined and shadowed style; exact reference matching requires the image.
 
 ## Technical details
-- Keep all data static; no Cloud or database is needed.
-- Reuse a single integrations component with role-specific shell and account-name props.
-- Add unique metadata for the new homepage and moved dashboard route.
-- Verify homepage → welcome → both dashboards, both integrations paths, mobile/desktop layouts, and current build health.
+- Use a shared creator-only SVG icon component with semantic artwork and shadow tokens, without changing shared brand icon components.
+- Reuse a shared social handles field wherever the specified prototype input exists.
+- Check passive build/error signals only. No browser automation or test scripts.

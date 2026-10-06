@@ -1,5 +1,11 @@
 # Alfred roadmap
 
+## Partnership and creator icon pass
+- [ ] Pin partnership header and submit button, scroll fields only
+- [ ] Relax prototype URL validation and add repeatable platform handle rows
+- [ ] Replace artwork on specified creator icon surfaces, preserving brand screens and navigation chrome
+- [ ] Check passive build/error signals only
+
 ## Navigation (clarified)
 - [x] Main bottom nav: Home · Timeline · Plans · Messages · Assistant
 - [x] Create becomes floating orange + above main nav
