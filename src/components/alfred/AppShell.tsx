@@ -1,6 +1,13 @@
 import { useRouterState } from "@tanstack/react-router";
 import { Link } from "@/components/alfred/ui";
-import { LayoutGrid, CalendarClock, FileCheck2, Sparkles, MessageCircleMore, Plus, Briefcase } from "lucide-react";
+import {
+  LayoutGrid,
+  CalendarClock,
+  FileCheck2,
+  Sparkles,
+  Briefcase,
+} from "@/components/alfred/CreatorIcon";
+import { MessageCircleMore, Plus } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { AlfredDrawer } from "./AlfredDrawer";
@@ -66,15 +73,10 @@ export function AppShell({ title, children }: { title: string; children: ReactNo
                       className="flex flex-col items-center gap-1 py-1.5"
                       aria-current={active ? "page" : undefined}
                     >
-                      <span className="relative">
-                        <Icon
-                          className={cn("h-6 w-6", active ? "text-primary" : "text-muted-foreground")}
-                          strokeWidth={active ? 2.4 : 1.9}
-                        />
-                        {"dot" in t && t.dot && (
-                          <span className="absolute -top-0.5 -right-1 h-2 w-2 rounded-full bg-destructive" />
-                        )}
-                      </span>
+                      <Icon active={active} className="h-6 w-6" />
+                      {"dot" in t && t.dot && (
+                        <span className="absolute -top-0.5 -right-1 h-2 w-2 rounded-full bg-destructive" />
+                      )}
                       <span
                         className={cn(
                           "text-[0.6875rem]",
