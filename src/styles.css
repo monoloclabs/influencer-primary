@@ -91,10 +91,9 @@
 }
 
 :root {
-  --creator-icon-fill: oklch(0.78 0 0);
-  --creator-icon-outline: oklch(0.48 0 0);
-  --creator-icon-detail: oklch(0.97 0 0);
-  --creator-icon-shadow: oklch(0.3 0 0 / 30%);
+  --creator-icon-fill: #ffffff;
+  --creator-icon-outline: #18181b;
+  --creator-icon-detail: #18181b;
   --radius: 1rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.179 0.004 286);
@@ -219,13 +218,13 @@
 }
 
 .creator-icon {
-  filter: drop-shadow(0 2px 1px var(--creator-icon-shadow));
+  filter: drop-shadow(2px 2.2px 0px rgba(0, 0, 0, 0.95));
   overflow: visible;
 }
 .creator-icon-active {
   --creator-icon-fill: var(--primary);
-  --creator-icon-outline: var(--primary);
-  --creator-icon-detail: var(--primary-foreground);
+  --creator-icon-outline: #000000;
+  --creator-icon-detail: #ffffff;
 }
 
 @utility eyebrow {
