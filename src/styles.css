@@ -91,6 +91,10 @@
 }
 
 :root {
+  --creator-icon-fill: oklch(0.78 0 0);
+  --creator-icon-outline: oklch(0.48 0 0);
+  --creator-icon-detail: oklch(0.97 0 0);
+  --creator-icon-shadow: oklch(0.3 0 0 / 30%);
   --radius: 1rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.179 0.004 286);
@@ -174,6 +178,9 @@
 }
 
 .dark {
+  --creator-icon-fill: oklch(0.72 0 0);
+  --creator-icon-outline: oklch(0.88 0 0);
+  --creator-icon-detail: oklch(0.25 0 0);
   --background: oklch(0.179 0.004 286);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.22 0.004 286);
@@ -209,6 +216,16 @@
   h3 {
     letter-spacing: -0.02em;
   }
+}
+
+.creator-icon {
+  filter: drop-shadow(0 2px 1px var(--creator-icon-shadow));
+  overflow: visible;
+}
+.creator-icon-active {
+  --creator-icon-fill: var(--primary);
+  --creator-icon-outline: var(--primary);
+  --creator-icon-detail: var(--primary-foreground);
 }
 
 @utility eyebrow {

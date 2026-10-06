@@ -14,3 +14,7 @@ Use the shared CampaignState provider for offer decisions and activation creatio
 Keep unfinished brand drawer destinations under the brand route namespace and render them with the brand shell; this prevents navigation into creator-only screens while brand features are pending.
 
 Render creator and brand integrations from one shared screen with account context supplied by each route; this keeps connection UI and behavior identical across roles.
+
+Use the creator-only CreatorIcon artwork module on designated creator navigation and money surfaces, never in brand shells; this keeps artwork consistent without changing brand styling.
+
+Use SocialHandlesField for prototype partnership social inputs and keep partnership header/footer outside the scrolling field area; this preserves repeatable input behavior and visible submission controls.
