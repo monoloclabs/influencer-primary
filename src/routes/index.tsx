@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowRight, Check, Handshake, Mail, Menu, MessageCircle, Phone, X } from "lucide-react";
 import { toast } from "sonner";
-import { Link } from "@/components/alfred/ui";
+import { AButton, Link } from "@/components/alfred/ui";
+import { SocialHandlesField } from "@/components/influencer/SocialHandlesField";
 import { InfluencerMark } from "@/components/alfred/InfluencerMark";
 import { BrandMark, PlatformMark } from "@/components/influencer/Marks";
 import { Sheet, SheetClose, SheetContent, SheetTitle } from "@/components/ui/sheet";
@@ -199,17 +200,18 @@ function Homepage() {
       </Sheet>
 
       <Sheet open={partner} onOpenChange={setPartner}>
-        <SheetContent side="bottom" hideClose className="max-h-[92svh] overflow-y-auto rounded-t-[2rem] border-0 px-5 pt-6 pb-10">
-          <div className="flex items-center justify-between">
+        <SheetContent side="bottom" hideClose className="flex max-h-[92svh] flex-col gap-0 overflow-hidden rounded-t-[2rem] border-0 p-0">
+          <div className="flex shrink-0 items-center justify-between bg-background px-5 pt-6 pb-4">
             <SheetTitle className="text-2xl font-extrabold">Partner with us</SheetTitle>
             <SheetClose aria-label="Close" className="grid h-9 w-9 place-items-center rounded-full bg-surface active:scale-95"><X className="h-4 w-4" strokeWidth={3} /></SheetClose>
           </div>
-          <div className="mt-5 grid grid-cols-2 rounded-full bg-surface p-1">
+          <form noValidate onSubmit={(e) => { e.preventDefault(); setPartner(false); toast.success("Thanks, we will be in touch soon."); }} className="flex min-h-0 flex-1 flex-col overflow-hidden">
+          <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain px-5 pb-5">
+          <div className="grid grid-cols-2 rounded-full bg-surface p-1">
             {(["Brand", "Influencer"] as const).map((r) => (
               <button key={r} type="button" onClick={() => { setPRole(r); setPType(""); }} className={`h-11 rounded-full text-sm font-bold ${pRole === r ? "bg-home-ink text-primary-foreground" : "text-muted-foreground"}`}>{r}</button>
             ))}
           </div>
-          <form onSubmit={(e) => { e.preventDefault(); setPartner(false); toast.success("Thanks, we will be in touch soon."); }} className="mt-5 space-y-4">
             <div>
               <p className="mb-2 text-sm font-bold">Type of partnership</p>
               <div className="flex flex-wrap gap-2">
@@ -221,15 +223,18 @@ function Homepage() {
             {[
               ["Contact number", "tel", "+234 800 000 0000"],
               ["Email", "email", "you@company.com"],
-              ["Social handle", "text", "@handle"],
-              ["Website", "url", "https://"],
+              ["Website", "text", "https://"],
             ].map(([l, t, p]) => (
               <label key={l} className="block">
                 <span className="mb-1.5 block text-sm font-bold">{l}</span>
                 <input type={t} placeholder={p} required={l === "Email"} className="h-12 w-full rounded-2xl bg-surface px-4 text-base outline-none focus:ring-2 focus:ring-primary" />
               </label>
             ))}
-            <button type="submit" className="h-14 w-full rounded-full bg-home-ink text-base font-bold text-primary-foreground active:scale-[0.98]">Send request</button>
+            <SocialHandlesField />
+          </div>
+          <div className="shrink-0 border-t border-border bg-background px-5 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+            <AButton type="submit" size="lg" className="h-14 w-full bg-home-ink text-primary-foreground">Send request</AButton>
+          </div>
           </form>
         </SheetContent>
       </Sheet>
