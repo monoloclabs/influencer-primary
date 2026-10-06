@@ -1,5 +1,6 @@
 import { Link as RouterLink, useRouterState } from "@tanstack/react-router";
-import { ArrowLeft, ArrowLeftRight, ShieldCheck, Wallet } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import { ArrowLeftRight, ShieldCheck, Wallet } from "@/components/alfred/CreatorIcon";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
@@ -42,6 +43,7 @@ export function WalletShell({ title, children }: { title: string; children: Reac
                   aria-current={active ? "page" : undefined}
                 >
                   <Icon
+                    active={active}
                     className={cn("h-6 w-6", active ? "text-primary" : "text-muted-foreground")}
                     strokeWidth={active ? 2.4 : 1.9}
                   />
