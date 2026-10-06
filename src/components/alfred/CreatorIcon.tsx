@@ -44,7 +44,7 @@ const art: Record<string, Artwork> = {
 
 function icon(name: string) {
   return function CreatorArtwork({ active = false, className, strokeWidth: _strokeWidth, ...props }: IconProps) {
-    const artwork = art[name] ?? art.document;
+    const artwork = art[name] ?? art["document"];
     if (!artwork) return null;
     return <svg {...props} aria-hidden="true" viewBox="0 0 24 24" className={cn("creator-icon h-6 w-6 shrink-0", active && "creator-icon-active", className)} fill="var(--creator-icon-fill)" stroke="var(--creator-icon-outline)" strokeWidth="1.1" strokeLinejoin="round" strokeLinecap="round">
       <path d={artwork.body} />
