@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ArrowLeft, CalendarDays } from "lucide-react";
 import { AppShell } from "@/components/alfred/AppShell";
+import { ItemDetailSheet } from "@/components/alfred/ItemDetailSheet";
 import { AButton, Card, Link, Pill } from "@/components/alfred/ui";
 import { BrandMark, PlatformMark } from "@/components/influencer/Marks";
 import { cn } from "@/lib/utils";
@@ -64,6 +65,9 @@ const platformFilters = ["All", "Instagram", "TikTok", "YouTube"];
 
 function ContentCalendarScreen() {
   const [platform, setPlatform] = useState("All");
+  const [sel, setSel] = useState<Entry | null>(null);
+  const [states, setStates] = useState<Record<string, Entry["state"]>>({});
+  const stateOf = (e: Entry) => states[e.id] ?? e.state;
 
   const visible = useMemo(
     () => (platform === "All" ? entries : entries.filter((e) => e.platform === platform)),
@@ -127,7 +131,7 @@ function ContentCalendarScreen() {
               <p className="eyebrow mb-3 px-1 text-muted-foreground">{g.label}</p>
               <div className="space-y-2.5">
                 {items.map((e) => (
-                  <Card key={e.id} className="flex items-center gap-3.5 p-4">
+                  <button key={e.id} type="button" onClick={() => setSel(e)} className="block w-full text-left active:scale-[0.99]"><Card className="flex items-center gap-3.5 p-4">
                     <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-surface">
                       <span className="text-[0.625rem] font-bold uppercase text-muted-foreground">{e.day}</span>
                       <span className="text-[0.8125rem] font-extrabold leading-none">{e.date.split(" ")[0]}</span>
@@ -142,8 +146,8 @@ function ContentCalendarScreen() {
                       <p className="mt-1 truncate text-[0.9375rem] font-bold">{e.title}</p>
                       <p className="truncate text-xs text-muted-foreground">{e.time}</p>
                     </div>
-                    <Pill tone={stateTone[e.state]}>{e.state}</Pill>
-                  </Card>
+                    <Pill tone={stateTone[stateOf(e)]}>{stateOf(e)}</Pill>
+                  </Card></button>
                 ))}
               </div>
             </section>
@@ -162,6 +166,24 @@ function ContentCalendarScreen() {
           </AButton>
         </Link>
       </div>
+      <ItemDetailSheet
+        open={!!sel}
+        onOpenChange={(v) => !v && setSel(null)}
+        eyebrow={sel ? `${sel.brand} | ${sel.platform}` : ""}
+        title={sel?.title ?? ""}
+        mark={sel ? <BrandMark brand={sel.brand} className="h-5 w-5 text-foreground" /> : null}
+        rows={sel ? [
+          { label: "Date", value: `${sel.day}, ${sel.date}` },
+          { label: "Timing", value: sel.time },
+          { label: "Platform", value: <span className="inline-flex items-center gap-1.5"><PlatformMark platform={sel.platform} className="h-3.5 w-3.5" />{sel.platform}</span> },
+          { label: "Status", value: <Pill tone={stateTone[stateOf(sel)]}>{stateOf(sel)}</Pill> },
+        ] : []}
+        actions={sel && <>
+          {stateOf(sel) === "Planned" && <AButton size="lg" className="w-full" onClick={() => setStates((s) => ({ ...s, [sel.id]: "Drafted" }))}>Mark as drafted</AButton>}
+          {stateOf(sel) === "Drafted" && <AButton size="lg" className="w-full" onClick={() => setStates((s) => ({ ...s, [sel.id]: "In brand review" }))}>Send to brand for review</AButton>}
+          {sel.campaignId && <Link to="/plan/$planId" params={{ planId: sel.campaignId }} className="block" onClick={() => setSel(null)}><AButton variant="secondary" size="lg" className="w-full">Open campaign</AButton></Link>}
+        </>}
+      />
     </AppShell>
   );
 }
