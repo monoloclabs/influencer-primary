@@ -1,14 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@/components/alfred/ui";
-import {
-  ArrowRight,
-  Briefcase,
-  ChevronRight,
-  Clock4,
-  ShieldCheck,
-  Sparkles,
-  Wallet,
-} from "lucide-react";
+import { ArrowRight, ChevronRight, Sparkles } from "lucide-react";
+import { Briefcase, Clock4, ShieldCheck, Wallet } from "@/components/alfred/CreatorIcon";
 import { AppShell } from "@/components/alfred/AppShell";
 import { AButton, ActionPair, Card, IconBadge, Pill, SectionHeader } from "@/components/alfred/ui";
 import {
@@ -102,9 +95,7 @@ function DashboardScreen() {
             <Link key={s.label} to={s.to} className="active:scale-[0.98]">
               <Card className="h-full p-4">
                 <div className="flex items-center gap-2">
-                  <span className={cn("grid h-8 w-8 shrink-0 place-items-center rounded-xl text-primary-foreground", solidTone[s.tone])}>
-                    <Icon className="h-4 w-4" strokeWidth={2.8} />
-                  </span>
+                  <Icon className="h-6 w-6 shrink-0" />
                   <p className="min-w-0 flex-1 truncate text-sm font-bold">{s.label}</p>
                   <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground/50" strokeWidth={2.4} />
                 </div>
