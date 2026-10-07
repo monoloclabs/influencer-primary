@@ -45,7 +45,7 @@ const art: Record<string, Artwork> = {
 
 function icon(name: string) {
   return function CreatorArtwork({ active = false, className, strokeWidth = 1.8, ...props }: IconProps) {
-    const artwork = art[name] ?? art["document"];
+    const artwork = (art[name] ?? art["document"]) as { body?: string; detail?: string };
     const body = artwork.body ?? "";
     const detail = artwork.detail ?? "";
 
