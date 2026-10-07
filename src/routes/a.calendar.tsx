@@ -181,7 +181,7 @@ function ContentCalendarScreen() {
         actions={sel && <>
           {stateOf(sel) === "Planned" && <AButton size="lg" className="w-full" onClick={() => setStates((s) => ({ ...s, [sel.id]: "Drafted" }))}>Mark as drafted</AButton>}
           {stateOf(sel) === "Drafted" && <AButton size="lg" className="w-full" onClick={() => setStates((s) => ({ ...s, [sel.id]: "In brand review" }))}>Send to brand for review</AButton>}
-          {sel.campaignId && <Link to="/plan/$planId" params={{ planId: sel.campaignId }} className="block" onClick={() => setSel(null)}><AButton variant="secondary" size="lg" className="w-full">Open campaign</AButton></Link>}
+          {sel.campaignId && <Link to={`/plan/${sel.campaignId}`} className="block" onClick={() => setSel(null)}><AButton variant="secondary" size="lg" className="w-full">Open campaign</AButton></Link>}
         </>}
       />
     </AppShell>
