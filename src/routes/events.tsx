@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@/components/alfred/ui";
-import { CalendarDays, Camera, Video, Mic, Users, Plane } from "@/components/alfred/CreatorIcon";
+import { useState } from "react";
+import { Clapperboard, Camera, Video, Mic, Users, Plane } from "@/components/alfred/CreatorIcon";
+import { ItemDetailSheet } from "@/components/alfred/ItemDetailSheet";
 import { AppShell } from "@/components/alfred/AppShell";
-import { AButton, Card, IconBadge } from "@/components/alfred/ui";
+import { AButton, Card } from "@/components/alfred/ui";
 import { BrandMark } from "@/components/influencer/Marks";
 
 
@@ -38,7 +40,19 @@ const groups = [
   },
 ];
 
+type EventItem = (typeof groups)[number]["items"][number];
+
+const prep: Record<string, string[]> = {
+  e1: ["Pack Gymshark kit, two colourways", "Charge lights and mic", "Confirm studio access at 7:30 AM"],
+  e2: ["Clean desk setup", "Load the Notion template", "Record screen at 60fps"],
+  e3: ["Review the Spotify brief", "Prepare rate questions"],
+  e4: ["RSVP confirmed", "Plan two Stories from the venue"],
+  e5: ["Boarding pass saved", "Pack Sephora product set"],
+};
+
 function EventsScreen() {
+  const [sel, setSel] = useState<EventItem | null>(null);
+  const [done, setDone] = useState<Record<string, boolean>>({});
   return (
     <AppShell title="Shoots and events">
       <h2 className="text-[1.75rem] leading-tight font-extrabold">Shoots and events</h2>
@@ -53,7 +67,7 @@ function EventsScreen() {
             <p className="eyebrow mb-3 px-1 text-muted-foreground">{g.label}</p>
             <div className="space-y-2.5">
               {g.items.map((e) => (
-                <Card key={e.id} className="flex items-center gap-3.5 p-4">
+                <button key={e.id} type="button" onClick={() => setSel(e)} className="block w-full text-left active:scale-[0.99]"><Card className="flex items-center gap-3.5 p-4">
                   <e.icon className="h-6 w-6 shrink-0" />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-[0.9375rem] font-bold">{e.title}</p>
@@ -66,8 +80,7 @@ function EventsScreen() {
                       <BrandMark brand={e.plan} className="h-[1.05rem] w-[1.05rem] text-foreground" />
                     </span>
                   )}
-                </Card>
-
+                </Card></button>
               ))}
             </div>
           </section>
@@ -76,7 +89,7 @@ function EventsScreen() {
 
       <div className="mt-8 rounded-4xl bg-surface p-5">
         <p className="flex items-center gap-2 text-[0.9375rem] font-semibold">
-          <CalendarDays className="h-4 w-4 text-primary" strokeWidth={2.4} />
+          <Clapperboard className="h-4 w-4" />
           Most dates belong to a campaign.
         </p>
         <Link to="/plans" className="mt-4 block">
@@ -86,6 +99,39 @@ function EventsScreen() {
         </Link>
       </div>
 
+      <ItemDetailSheet
+        open={!!sel}
+        onOpenChange={(v) => !v && setSel(null)}
+        eyebrow="Shoot or event"
+        title={sel?.title ?? ""}
+        mark={sel && "plan" in sel && sel.plan ? <BrandMark brand={sel.plan} className="h-5 w-5 text-foreground" /> : sel ? <sel.icon className="h-5 w-5" /> : null}
+        rows={sel ? [
+          { label: "When", value: sel.when },
+          { label: "Where", value: sel.where },
+          { label: "Campaign", value: "plan" in sel && sel.plan ? sel.plan : "Personal" },
+        ] : []}
+        actions={<>
+          <Link to="/plans" className="block" onClick={() => setSel(null)}><AButton size="lg" className="w-full">Open campaign</AButton></Link>
+          <AButton variant="secondary" size="lg" className="w-full" onClick={() => setSel(null)}>Close</AButton>
+        </>}
+      >
+        {sel && (
+          <div className="mt-5">
+            <p className="eyebrow mb-2 px-1 text-muted-foreground">Prep checklist</p>
+            <div className="space-y-2">
+              {(prep[sel.id] ?? []).map((t) => {
+                const k = sel.id + t;
+                return (
+                  <label key={t} className="flex items-center gap-3 rounded-2xl bg-surface px-4 py-3 text-sm font-semibold">
+                    <input type="checkbox" checked={!!done[k]} onChange={() => setDone((d) => ({ ...d, [k]: !d[k] }))} className="h-4 w-4 accent-[var(--primary)]" />
+                    <span className={done[k] ? "text-muted-foreground line-through" : ""}>{t}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </ItemDetailSheet>
     </AppShell>
   );
 }
