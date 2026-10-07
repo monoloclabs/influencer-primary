@@ -1,8 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { Link } from "@/components/alfred/ui";
+import { X, ChevronRight } from "lucide-react";
 import {
-  X,
-  ChevronRight,
   CheckCircle2,
   CalendarDays,
   Calendar,
@@ -22,7 +21,7 @@ import {
   Settings,
   DoorOpen,
   Workflow,
-} from "lucide-react";
+} from "@/components/alfred/CreatorIcon";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { IconBadge } from "./ui";
 import { InfluencerMark } from "./InfluencerMark";
@@ -92,9 +91,7 @@ function LifeRow({ item, onNavigate }: { item: Item; onNavigate: () => void }) {
       onClick={onNavigate}
       className="flex items-center gap-3.5 px-3 py-3.5 active:bg-surface"
     >
-      <IconBadge tone={item.blue ? "blue" : "neutral"} shape="squircle" size="sm">
-        <Icon className="h-[1.05rem] w-[1.05rem]" strokeWidth={2.2} />
-      </IconBadge>
+      <Icon className="h-6 w-6 shrink-0" />
       <span className="min-w-0 flex-1">
         <span
           className={cn(
@@ -121,9 +118,7 @@ function AlfredRow({ item, onNavigate }: { item: Item; onNavigate: () => void })
       onClick={onNavigate}
       className="flex items-center gap-3.5 rounded-2xl px-2 py-2.5 active:bg-surface"
     >
-      <IconBadge tone="orange" shape="round" size="sm">
-        <Icon className="h-[1.05rem] w-[1.05rem]" strokeWidth={2.1} />
-      </IconBadge>
+      <Icon className="h-6 w-6 shrink-0" />
       <span className="min-w-0 flex-1">
         <span className="block truncate text-[0.9375rem] font-semibold">{item.label}</span>
         {item.meta && (

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Plus, Repeat, HandCoins, Wallet, Mails, Clock, ShieldCheck } from "lucide-react";
+import { Plus, Repeat, HandCoins, Wallet, Mails, Clock, ShieldCheck } from "@/components/alfred/CreatorIcon";
 import { AppShell } from "@/components/alfred/AppShell";
 import { AButton, Card, IconBadge, Pill } from "@/components/alfred/ui";
 import { Switch } from "@/components/ui/switch";
@@ -56,9 +56,7 @@ function InstructionsScreen() {
       <div className="mt-6 space-y-3">
         {rules.map((r) => (
           <Card key={r.id} className="flex items-start gap-3.5 p-4">
-            <IconBadge tone={r.tone} shape="squircle" size="md">
-              <r.icon className="h-5 w-5" strokeWidth={2.1} />
-            </IconBadge>
+            <r.icon className="h-6 w-6 shrink-0" />
             <div className="min-w-0 flex-1">
               <p className="text-[0.9375rem] leading-snug font-bold">{r.title}</p>
               <div className="mt-2 flex items-center gap-2">

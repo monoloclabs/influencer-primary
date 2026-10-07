@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@/components/alfred/ui";
-import { CalendarDays, Camera, Video, Mic, Users, Plane } from "lucide-react";
+import { CalendarDays, Camera, Video, Mic, Users, Plane } from "@/components/alfred/CreatorIcon";
 import { AppShell } from "@/components/alfred/AppShell";
 import { AButton, Card, IconBadge } from "@/components/alfred/ui";
 import { BrandMark } from "@/components/influencer/Marks";
@@ -54,9 +54,7 @@ function EventsScreen() {
             <div className="space-y-2.5">
               {g.items.map((e) => (
                 <Card key={e.id} className="flex items-center gap-3.5 p-4">
-                  <IconBadge tone={e.tone} shape="round" size="md">
-                    <e.icon className="h-5 w-5" strokeWidth={2.2} />
-                  </IconBadge>
+                  <e.icon className="h-6 w-6 shrink-0" />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-[0.9375rem] font-bold">{e.title}</p>
                     <p className="truncate text-xs text-muted-foreground">
