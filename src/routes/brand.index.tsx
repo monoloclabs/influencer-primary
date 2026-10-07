@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@/components/alfred/ui";
-import { ArrowRight, Briefcase, Clock4, FileCheck2, Wallet } from "lucide-react";
+import { ArrowRight, Briefcase, Clock4, CircleCheckBig, Wallet } from "lucide-react";
 import { BrandShell, brandMeta } from "@/components/brand/BrandShell";
 import { BrandMark } from "@/components/influencer/Marks";
 import { brandAccount, brandActivity, brandApprovals, brandCampaigns, briefsAwaitingMatch, money } from "@/data/brand";
@@ -17,7 +17,7 @@ function BrandDashboard() {
   const stats = [
     { label: "Campaigns", value: String(active), sub: "Active", icon: Briefcase, tint: "bg-tint-blue", fg: "text-tint-blue-foreground" },
     { label: "Money", value: money(spend), sub: "Spend this quarter", icon: Wallet, tint: "bg-tint-green", fg: "text-tint-green-foreground" },
-    { label: "Approvals", value: String(brandApprovals.length), sub: "Pending", icon: FileCheck2, tint: "bg-tint-amber", fg: "text-tint-amber-foreground" },
+    { label: "Approvals", value: String(brandApprovals.length), sub: "Pending", icon: CircleCheckBig, tint: "bg-tint-amber", fg: "text-tint-amber-foreground" },
     { label: "Briefs", value: String(briefsAwaitingMatch.length), sub: "Awaiting match", icon: Clock4, tint: "bg-tint-violet", fg: "text-tint-violet-foreground" },
   ];
 

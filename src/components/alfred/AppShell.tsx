@@ -2,8 +2,8 @@ import { useRouterState } from "@tanstack/react-router";
 import { Link } from "@/components/alfred/ui";
 import {
   LayoutGrid,
-  CalendarClock,
-  FileCheck2,
+  History,
+  CircleCheckBig,
   Sparkles,
   Briefcase,
 } from "@/components/alfred/CreatorIcon";
@@ -15,9 +15,9 @@ import { InfluencerMark } from "./InfluencerMark";
 
 const tabs = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutGrid },
-  { to: "/timeline", label: "Timeline", icon: CalendarClock },
+  { to: "/timeline", label: "Timeline", icon: History },
   { to: "/plans", label: "Campaigns", icon: Briefcase },
-  { to: "/messages", label: "Approvals", icon: FileCheck2, dot: true },
+  { to: "/messages", label: "Approvals", icon: CircleCheckBig, dot: true },
   { to: "/assistant", label: "Assistant", icon: Sparkles },
 ] as const;
 

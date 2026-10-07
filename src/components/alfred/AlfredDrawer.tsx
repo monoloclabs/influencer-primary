@@ -21,6 +21,9 @@ import {
   Settings,
   DoorOpen,
   Workflow,
+  Clapperboard,
+  Store,
+  CreditCardRepeat,
 } from "@/components/alfred/CreatorIcon";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { IconBadge } from "./ui";
@@ -34,7 +37,7 @@ type Item = { label: string; icon: IconType; to: string; meta?: string; blue?: b
 const workspace: Item[] = [
   { label: "Activations", icon: Workflow, to: "/activations", meta: "Campaign execution in progress", blue: true },
   { label: "Production tasks", icon: CheckCircle2, to: "/tasks", meta: "4 due this week", blue: true },
-  { label: "Shoots and events", icon: CalendarDays, to: "/events", meta: "3 shoots this week", blue: true },
+  { label: "Shoots and events", icon: Clapperboard, to: "/events", meta: "3 shoots this week", blue: true },
   { label: "Content calendar", icon: Calendar, to: "/a/calendar", meta: "Your posting schedule", blue: true },
 ];
 
@@ -42,7 +45,7 @@ const workspace: Item[] = [
 const library: Item[] = [
   { label: "Contracts and briefs", icon: Folder, to: "/a/files", meta: "Deal terms and usage rights" },
   { label: "Media kit and rates", icon: BadgeCheck, to: "/a/media-kit", meta: "Audience, results, pricing" },
-  { label: "Brand network", icon: Users, to: "/a/clique", meta: "Partnerships, payouts, full history" },
+  { label: "Brand network", icon: Store, to: "/a/clique", meta: "Partnerships, payouts, full history" },
   { label: "Rate research", icon: Library, to: "/a/research", meta: "What other creators charge" },
 ];
 
@@ -53,7 +56,7 @@ const rules: Item[] = [
 
 const money: Item[] = [
   { label: "Wallet", icon: Wallet, to: "/wallet", meta: "Earnings and payouts" },
-  { label: "Tool subscriptions", icon: Repeat, to: "/a/tool-subscriptions", meta: "Creative tools and software" },
+  { label: "Tool subscriptions", icon: CreditCardRepeat, to: "/a/tool-subscriptions", meta: "Creative tools and software" },
 ];
 
 const account: Item[] = [

@@ -1,6 +1,6 @@
 import { useRouterState } from "@tanstack/react-router";
 import { Link, AButton } from "@/components/alfred/ui";
-import { LayoutGrid, FilePlus2, Briefcase, FileCheck2, CalendarClock, X } from "lucide-react";
+import { LayoutGrid, FilePlus2, Briefcase, CircleCheckBig, History, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { InfluencerMark } from "@/components/alfred/InfluencerMark";
@@ -8,10 +8,10 @@ import { BrandDrawer } from "./BrandDrawer";
 
 const tabs = [
   { to: "/brand", label: "Dashboard", icon: LayoutGrid },
-  { to: "/brand/timeline", label: "Timeline", icon: CalendarClock },
+  { to: "/brand/timeline", label: "Timeline", icon: History },
   { to: "/brand/brief", label: "Post a Brief", icon: FilePlus2 },
   { to: "/brand/campaigns", label: "Campaigns", icon: Briefcase },
-  { to: "/brand/approvals", label: "Approvals", icon: FileCheck2, dot: true },
+  { to: "/brand/approvals", label: "Approvals", icon: CircleCheckBig, dot: true },
 ] as const;
 
 export function BrandShell({ title, children, focused = false }: { title: string; children: ReactNode; focused?: boolean }) {
