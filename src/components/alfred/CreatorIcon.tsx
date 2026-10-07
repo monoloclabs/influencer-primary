@@ -45,7 +45,7 @@ const art: Record<string, Artwork> = {
 
 function icon(name: string) {
   return function CreatorArtwork({ active = false, className, strokeWidth = 1.8, ...props }: IconProps) {
-    const artwork = art[name] ?? art.document;
+    const artwork = art[name] ?? art["document"];
     const body = artwork.body ?? "";
     const detail = artwork.detail ?? "";
 
@@ -78,7 +78,7 @@ export const ShoppingBag = icon("bag"), Zap = icon("zap"), SlidersHorizontal = i
 export const ArrowLeftRight = icon("arrows");
 export const FileSignature = icon("document");
 export const Handshake = icon("users");
-export const ScissorsLineDashed = icon("scissors") as typeof icon("document");
+export const ScissorsLineDashed = icon("scissors");
 export const Car = icon("car");
 export const Tv = icon("tv");
 export const Send = icon("outgoing");
