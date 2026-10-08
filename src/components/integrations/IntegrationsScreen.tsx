@@ -71,11 +71,11 @@ export function IntegrationsScreen({ accountName }: { accountName: string }) {
         })}
       </div>
 
-      <div className="mt-6 flex gap-2.5">
-        <AButton size="lg" className="flex-[2]">Browse connections</AButton>
-        <button type="button" onClick={() => setConnected(new Set())} className="flex h-12 flex-1 items-center justify-center gap-1.5 rounded-full bg-destructive/10 px-4 text-sm font-bold text-destructive active:scale-[0.98]">
+      <div className="mt-6 flex flex-col gap-2.5">
+        <AButton size="lg" className="w-full">Browse connections</AButton>
+        <button type="button" onClick={() => setConnected(new Set())} className="flex h-12 w-full items-center justify-center gap-1.5 rounded-full bg-destructive/10 px-4 text-sm font-bold text-destructive active:scale-[0.98]">
           <Trash2 className="h-4 w-4" strokeWidth={2.4} />
-          Remove
+          Remove connections
         </button>
       </div>
     </>

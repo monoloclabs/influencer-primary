@@ -15,12 +15,12 @@ type Kind = "Review deadline" | "Submission" | "Go live" | "Milestone";
 type Entry = { id: string; campaign: string; creator: string; title: string; platform: string; day: string; date: string; time: string; kind: Kind; week: "this" | "next" | "later" };
 
 const entries: Entry[] = [
-  { id: "b1", campaign: "Summer Lift Series", creator: "CR-408", title: "Review Hero Reel first cut", platform: "Instagram", day: "Tue", date: "14 Oct", time: "Decide by 5:00 PM", kind: "Review deadline", week: "this" },
-  { id: "b2", campaign: "Recovery Range Teaser", creator: "CR-221", title: "Story set submission", platform: "Instagram", day: "Thu", date: "16 Oct", time: "Expected by 12:00 PM", kind: "Submission", week: "this" },
-  { id: "b3", campaign: "Summer Lift Series", creator: "CR-408", title: "Kickoff milestone, $6,250 released", platform: "Instagram", day: "Fri", date: "17 Oct", time: "Escrow release", kind: "Milestone", week: "this" },
-  { id: "b4", campaign: "Summer Lift Series", creator: "CR-408", title: "TikTok, 5 lifts, 5 cues", platform: "TikTok", day: "Mon", date: "20 Oct", time: "Goes live 6:00 PM", kind: "Go live", week: "next" },
-  { id: "b5", campaign: "Recovery Range Teaser", creator: "CR-221", title: "Approve usage-rights counter-offer", platform: "TikTok", day: "Wed", date: "22 Oct", time: "Decide by 10:00 AM", kind: "Review deadline", week: "next" },
-  { id: "b6", campaign: "Summer Lift Series", creator: "CR-408", title: "YouTube cutdown submission", platform: "YouTube", day: "Fri", date: "24 Oct", time: "Expected by 5:00 PM", kind: "Submission", week: "next" },
+  { id: "b1", campaign: "Summer Lift Series", creator: "@tolacreates", title: "Review Hero Reel first cut", platform: "Instagram", day: "Tue", date: "14 Oct", time: "Decide by 5:00 PM", kind: "Review deadline", week: "this" },
+  { id: "b2", campaign: "Recovery Range Teaser", creator: "@amaramoves", title: "Story set submission", platform: "Instagram", day: "Thu", date: "16 Oct", time: "Expected by 12:00 PM", kind: "Submission", week: "this" },
+  { id: "b3", campaign: "Summer Lift Series", creator: "@tolacreates", title: "Kickoff milestone, $6,250 released", platform: "Instagram", day: "Fri", date: "17 Oct", time: "Escrow release", kind: "Milestone", week: "this" },
+  { id: "b4", campaign: "Summer Lift Series", creator: "@tolacreates", title: "TikTok, 5 lifts, 5 cues", platform: "TikTok", day: "Mon", date: "20 Oct", time: "Goes live 6:00 PM", kind: "Go live", week: "next" },
+  { id: "b5", campaign: "Recovery Range Teaser", creator: "@amaramoves", title: "Approve usage-rights counter-offer", platform: "TikTok", day: "Wed", date: "22 Oct", time: "Decide by 10:00 AM", kind: "Review deadline", week: "next" },
+  { id: "b6", campaign: "Summer Lift Series", creator: "@tolacreates", title: "YouTube cutdown submission", platform: "YouTube", day: "Fri", date: "24 Oct", time: "Expected by 5:00 PM", kind: "Submission", week: "next" },
   { id: "b7", campaign: "Hydration bottle launch", creator: "Matching", title: "Creator match window closes", platform: "Instagram", day: "Mon", date: "3 Nov", time: "Brief milestone", kind: "Milestone", week: "later" },
 ];
 
@@ -30,7 +30,9 @@ const filters = ["All", "Review deadline", "Submission", "Go live", "Milestone"]
 
 function BrandCalendar() {
   const [filter, setFilter] = useState<(typeof filters)[number]>("All");
-  const visible = useMemo(() => (filter === "All" ? entries : entries.filter((e) => e.kind === filter)), [filter]);
+  const [creator, setCreator] = useState("All");
+  const creators = useMemo(() => Array.from(new Set(entries.map((e) => e.creator))), []);
+  const visible = useMemo(() => entries.filter((e) => (filter === "All" || e.kind === filter) && (creator === "All" || e.creator === creator)), [filter, creator]);
   const reviews = entries.filter((e) => e.kind === "Review deadline").length;
   const subs = entries.filter((e) => e.kind === "Submission").length;
 
@@ -48,7 +50,13 @@ function BrandCalendar() {
         ))}
       </div>
 
-      <div className="mt-5 flex gap-2 overflow-x-auto pb-1">
+      <label htmlFor="creator-filter" className="mt-5 block px-1 text-xs font-bold text-muted-foreground">Creator</label>
+      <select id="creator-filter" value={creator} onChange={(e) => setCreator(e.target.value)} className="mt-2 h-12 w-full rounded-2xl border border-border bg-card px-4 text-sm font-semibold">
+        <option value="All">All creators</option>
+        {creators.map((c) => <option key={c} value={c}>{c}</option>)}
+      </select>
+
+      <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
         {filters.map((f) => (
           <button key={f} onClick={() => setFilter(f)} className={cn("h-9 shrink-0 rounded-full px-4 text-[0.8125rem] font-semibold", filter === f ? "bg-foreground text-background" : "bg-surface text-muted-foreground")}>{f}</button>
         ))}

@@ -33,7 +33,15 @@ export function ActivationSetup({ open, onOpenChange, initialCampaignId = "", in
         <IconBadge tone="blue" shape="round" size="lg" className="mx-auto mt-6"><Workflow className="h-6 w-6" /></IconBadge>
         <h3 className="mt-4 text-center text-xl font-extrabold">Activate new campaign</h3>
         <p className="mt-2 text-center text-sm text-muted-foreground">Choose an accepted campaign and an execution structure for its content and schedule.</p>
-        <label className="mt-6 block text-xs font-bold text-muted-foreground" htmlFor="setup-campaign">Accepted campaign</label>
+        <div className="mt-6 grid grid-cols-2 gap-2">
+          {activationTemplates.filter((t) => t.id === "submit-content" || t.id === "workspace-project").map((t) => (
+            <button key={t.id} type="button" onClick={() => setSelectedTemplate(t.id)} className={"rounded-2xl p-3 text-left " + (templateId === t.id ? "bg-primary text-primary-foreground" : "bg-surface")}>
+              <span className="block text-sm font-extrabold">{t.name}</span>
+              <span className={"mt-0.5 block text-[0.6875rem] leading-snug " + (templateId === t.id ? "opacity-90" : "text-muted-foreground")}>{t.id === "workspace-project" ? "Spans campaigns" : "Send a draft"}</span>
+            </button>
+          ))}
+        </div>
+        <label className="mt-5 block text-xs font-bold text-muted-foreground" htmlFor="setup-campaign">Accepted campaign</label>
         <select id="setup-campaign" value={campaignId} onChange={(event) => setSelectedCampaign(event.target.value)} className="mt-2 h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm font-semibold">
           <option value="">{campaignsReadyForActivation.length ? "Select campaign" : "No accepted campaigns available"}</option>
           {campaignsReadyForActivation.map((campaign) => <option key={campaign.id} value={campaign.id}>{campaign.brand}, {campaign.title}</option>)}

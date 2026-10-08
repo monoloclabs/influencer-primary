@@ -13,6 +13,7 @@ import {
   Settings,
   LifeBuoy,
   DoorOpen,
+  Users,
 } from "lucide-react";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { InfluencerMark } from "@/components/alfred/InfluencerMark";
@@ -24,6 +25,7 @@ type Item = { label: string; icon: IconType; to: string; meta?: string };
 const workspace: Item[] = [
   { label: "Calendar", icon: Calendar, to: "/brand/calendar", meta: "Campaign dates and deliverables" },
   { label: "Files & Documents", icon: Folder, to: "/brand/files", meta: "Briefs, contracts and assets" },
+  { label: "Creator network", icon: Users, to: "/brand/network", meta: "Every creator, full history" },
 ];
 const ai: Item[] = [{ label: "Assistant", icon: Sparkles, to: "/brand/assistant", meta: "Draft briefs and review content" }];
 const rules: Item[] = [{ label: "Instructions", icon: ScrollText, to: "/brand/instructions", meta: "Standing brand rules" }];
