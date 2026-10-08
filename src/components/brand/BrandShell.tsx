@@ -1,6 +1,6 @@
 import { useRouterState } from "@tanstack/react-router";
 import { Link, AButton } from "@/components/alfred/ui";
-import { LayoutGrid, FilePlus2, Briefcase, CircleCheckBig, History, X } from "lucide-react";
+import { LayoutGrid, FilePlus2, Briefcase, CircleCheckBig, History, X, Bell } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { InfluencerMark } from "@/components/alfred/InfluencerMark";
@@ -32,7 +32,7 @@ export function BrandShell({ title, children, focused = false }: { title: string
           <InfluencerMark className="h-[1.15rem] w-[1.15rem] shrink-0" />
           <span className="sr-only">- {title}</span>
         </h1>
-        {focused ? <Link to="/brand" aria-label="Close brief" className="grid h-11 w-11 place-items-center rounded-full bg-surface"><X className="h-5 w-5" /></Link> : <span aria-hidden className="w-[3.25rem]" />}
+        {focused ? <Link to="/brand" aria-label="Close brief" className="grid h-11 w-11 place-items-center rounded-full bg-surface"><X className="h-5 w-5" /></Link> : <button aria-label="Notifications" className="relative grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card shadow-card"><Bell className="h-5 w-5" strokeWidth={2.2} /><span className="absolute top-2.5 right-2.5 h-2 w-2 rounded-full bg-primary" /></button>}
       </header>
       {!focused && <BrandDrawer open={open} onOpenChange={setOpen} />}
 
