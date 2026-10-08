@@ -103,4 +103,3 @@ export const Store = icon("store");
 export const CreditCardRepeat = icon("subscription");
 export const Bell = icon("bell");
 export const Gift = icon("gift");
-export const Bell = icon("bell");
