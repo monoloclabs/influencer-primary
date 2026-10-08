@@ -7,7 +7,7 @@ import {
   Sparkles,
   Briefcase,
 } from "@/components/alfred/CreatorIcon";
-import { MessageCircleMore, Plus } from "lucide-react";
+import { Bell, Plus } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { AlfredDrawer } from "./AlfredDrawer";
@@ -44,7 +44,7 @@ export function AppShell({ title, children }: { title: string; children: ReactNo
           aria-label="Notifications"
           className="relative grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card shadow-card"
         >
-          <MessageCircleMore className="h-5 w-5" strokeWidth={2.2} />
+          <Bell className="h-5 w-5" strokeWidth={2.2} />
           <span className="absolute top-2.5 right-2.5 h-2 w-2 rounded-full bg-primary" />
         </button>
       </header>

@@ -51,6 +51,8 @@ export type ActivationStatus = "planning" | "producing" | "scheduled" | "live" |
 export const activationTemplates = [
   { id: "content-calendar", name: "Content calendar", description: "Plan production, drafts, review and publishing around the campaign dates.", steps: ["Set production dates", "Prepare drafts for brand review", "Schedule approved posts"] },
   { id: "video-rollout", name: "Video rollout", description: "A video-first workflow from shoot through edit, approval and posting.", steps: ["Plan and shoot footage", "Edit and submit video drafts", "Publish approved videos"] },
+  { id: "submit-content", name: "Submit content", description: "Upload a finished draft against a campaign deliverable and send it straight to the brand for review.", steps: ["Pick the deliverable", "Attach the draft and caption", "Send to brand for approval"] },
+  { id: "workspace-project", name: "Workspace project", description: "Work that spans several campaigns, like a shared shoot day or an evergreen asset library.", steps: ["Name the project", "Link the campaigns it serves", "Track shared tasks and files"] },
   { id: "social-series", name: "Social series", description: "Coordinate multiple posts across the campaign's channels.", steps: ["Outline the post series", "Prepare platform-specific assets", "Schedule and publish the series"] },
 ] as const;
 

@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { Check, Plus } from "lucide-react";
+import { Check, Plus, Trash2 } from "lucide-react";
 import { siGmail, siGooglecalendar, siGoogledrive, siInstagram, siYoutube, type SimpleIcon } from "simple-icons";
 import { AButton } from "@/components/alfred/ui";
 import { cn } from "@/lib/utils";
@@ -69,6 +69,14 @@ export function IntegrationsScreen({ accountName }: { accountName: string }) {
             </article>
           );
         })}
+      </div>
+
+      <div className="mt-6 flex flex-col gap-2.5">
+        <AButton size="lg" className="w-full">Browse connections</AButton>
+        <button type="button" onClick={() => setConnected(new Set())} className="flex h-12 w-full items-center justify-center gap-1.5 rounded-full bg-destructive/10 px-4 text-sm font-bold text-destructive active:scale-[0.98]">
+          <Trash2 className="h-4 w-4" strokeWidth={2.4} />
+          Remove connections
+        </button>
       </div>
     </>
   );

@@ -20,6 +20,7 @@ import {
   LifeBuoy,
   Settings,
   DoorOpen,
+  Gift,
   Workflow,
   Clapperboard,
   Store,
@@ -61,7 +62,7 @@ const money: Item[] = [
 
 const account: Item[] = [
   { label: "Creator profile", icon: User, to: "/a/profile" },
-  { label: "What's new", icon: Sparkles, to: "/a/whats-new" },
+  { label: "What's new", icon: Gift, to: "/a/whats-new" },
   { label: "Invite a creator", icon: UserPlus, to: "/a/invite" },
   { label: "Settings", icon: Settings, to: "/a/settings" },
   { label: "Support", icon: LifeBuoy, to: "/a/support" },

@@ -43,6 +43,7 @@ import { Route as BrandCampaignsRouteImport } from './routes/brand.campaigns'
 import { Route as BrandFilesRouteImport } from './routes/brand.files'
 import { Route as BrandInstructionsRouteImport } from './routes/brand.instructions'
 import { Route as BrandIntegrationsRouteImport } from './routes/brand.integrations'
+import { Route as BrandNetworkRouteImport } from './routes/brand.network'
 import { Route as BrandTimelineRouteImport } from './routes/brand.timeline'
 import { Route as OfficeIndexRouteImport } from './routes/office.index'
 import { Route as OfficeSalariesRouteImport } from './routes/office.salaries'
@@ -224,6 +225,11 @@ const BrandIntegrationsRoute = BrandIntegrationsRouteImport.update({
   path: '/brand/integrations',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BrandNetworkRoute = BrandNetworkRouteImport.update({
+  id: '/brand/network',
+  path: '/brand/network',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BrandTimelineRoute = BrandTimelineRouteImport.update({
   id: '/brand/timeline',
   path: '/brand/timeline',
@@ -309,6 +315,7 @@ export interface FileRoutesByFullPath {
   '/brand/files': typeof BrandFilesRoute
   '/brand/instructions': typeof BrandInstructionsRoute
   '/brand/integrations': typeof BrandIntegrationsRoute
+  '/brand/network': typeof BrandNetworkRoute
   '/brand/timeline': typeof BrandTimelineRoute
   '/office/salaries': typeof OfficeSalariesRoute
   '/office/staff': typeof OfficeStaffRoute
@@ -353,6 +360,7 @@ export interface FileRoutesByTo {
   '/brand/files': typeof BrandFilesRoute
   '/brand/instructions': typeof BrandInstructionsRoute
   '/brand/integrations': typeof BrandIntegrationsRoute
+  '/brand/network': typeof BrandNetworkRoute
   '/brand/timeline': typeof BrandTimelineRoute
   '/office/salaries': typeof OfficeSalariesRoute
   '/office/staff': typeof OfficeStaffRoute
@@ -400,6 +408,7 @@ export interface FileRoutesById {
   '/brand/files': typeof BrandFilesRoute
   '/brand/instructions': typeof BrandInstructionsRoute
   '/brand/integrations': typeof BrandIntegrationsRoute
+  '/brand/network': typeof BrandNetworkRoute
   '/brand/timeline': typeof BrandTimelineRoute
   '/office/salaries': typeof OfficeSalariesRoute
   '/office/staff': typeof OfficeStaffRoute
@@ -448,6 +457,7 @@ export interface FileRouteTypes {
     | '/brand/files'
     | '/brand/instructions'
     | '/brand/integrations'
+    | '/brand/network'
     | '/brand/timeline'
     | '/office/salaries'
     | '/office/staff'
@@ -492,6 +502,7 @@ export interface FileRouteTypes {
     | '/brand/files'
     | '/brand/instructions'
     | '/brand/integrations'
+    | '/brand/network'
     | '/brand/timeline'
     | '/office/salaries'
     | '/office/staff'
@@ -538,6 +549,7 @@ export interface FileRouteTypes {
     | '/brand/files'
     | '/brand/instructions'
     | '/brand/integrations'
+    | '/brand/network'
     | '/brand/timeline'
     | '/office/salaries'
     | '/office/staff'
@@ -585,6 +597,7 @@ export interface RootRouteChildren {
   BrandFilesRoute: typeof BrandFilesRoute
   BrandInstructionsRoute: typeof BrandInstructionsRoute
   BrandIntegrationsRoute: typeof BrandIntegrationsRoute
+  BrandNetworkRoute: typeof BrandNetworkRoute
   BrandTimelineRoute: typeof BrandTimelineRoute
   PlanPlanIdRoute: typeof PlanPlanIdRoute
   BrandIndexRoute: typeof BrandIndexRoute
@@ -831,6 +844,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrandIntegrationsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brand/network': {
+      id: '/brand/network'
+      path: '/brand/network'
+      fullPath: '/brand/network'
+      preLoaderRoute: typeof BrandNetworkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/brand/timeline': {
       id: '/brand/timeline'
       path: '/brand/timeline'
@@ -970,6 +990,7 @@ const rootRouteChildren: RootRouteChildren = {
   BrandFilesRoute: BrandFilesRoute,
   BrandInstructionsRoute: BrandInstructionsRoute,
   BrandIntegrationsRoute: BrandIntegrationsRoute,
+  BrandNetworkRoute: BrandNetworkRoute,
   BrandTimelineRoute: BrandTimelineRoute,
   PlanPlanIdRoute: PlanPlanIdRoute,
   BrandIndexRoute: BrandIndexRoute,
