@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import type { CSSProperties } from "react";
 import { Link } from "@/components/alfred/ui";
 import { ArrowRight, ChevronRight, Sparkles } from "lucide-react";
 import { Briefcase, Clock4, ShieldCheck, Wallet } from "@/components/alfred/CreatorIcon";
@@ -102,7 +103,7 @@ function DashboardScreen() {
             <Link key={s.label} to={s.to} className="active:scale-[0.98]">
               <Card className="h-full p-4">
                 <div className="flex items-center gap-2">
-                  <Icon className="h-6 w-6 shrink-0" style={statColors[s.label] as React.CSSProperties} />
+                  <Icon className="h-6 w-6 shrink-0" style={statColors[s.label] as CSSProperties} />
                   <p className="min-w-0 flex-1 truncate text-sm font-bold">{s.label}</p>
                   <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground/50" strokeWidth={2.4} />
                 </div>
