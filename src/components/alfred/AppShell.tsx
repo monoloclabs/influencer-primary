@@ -21,12 +21,20 @@ const tabs = [
   { to: "/assistant", label: "Assistant", icon: Sparkles },
 ] as const;
 
-export function AppShell({ title, children }: { title: string; children: ReactNode }) {
+export function AppShell({
+  title,
+  children,
+  className,
+}: {
+  title: string;
+  children: ReactNode;
+  className?: string;
+}) {
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-[520px] flex-col bg-background">
+    <div className={cn("mx-auto flex min-h-screen w-full max-w-[520px] flex-col bg-background", className)}>
       <header className="sticky top-0 z-30 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 bg-background/85 px-5 pt-4 pb-3 backdrop-blur-xl">
         <button
           aria-label="Open menu"
