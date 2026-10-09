@@ -31,7 +31,7 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { InfluencerMark } from "./InfluencerMark";
 import { cn } from "@/lib/utils";
 
-type IconType = React.ComponentType<{ className?: string; strokeWidth?: number; tone?: string | undefined; style?: React.CSSProperties }>;
+type IconType = React.ComponentType<{ className?: string; strokeWidth?: number; tone?: string | undefined; style?: React.CSSProperties | undefined }>;
 type Item = { label: string; icon: IconType; to: string; meta?: string; blue?: boolean; card?: string; tone?: string };
 
 /** Workspace, where creator work and campaign execution happen. */
