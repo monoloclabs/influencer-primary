@@ -141,12 +141,12 @@ export function BrandDrawer({ open, onOpenChange }: { open: boolean; onOpenChang
                   </Link>
                 );
               })}
-              <button onClick={logout} className="flex w-full items-center gap-3.5 px-2 py-3 text-left active:opacity-70">
-                <DoorOpen className="h-5 w-5 shrink-0 text-destructive" strokeWidth={1.9} />
-                <span className="text-[0.9375rem] font-semibold text-destructive">Logout</span>
-              </button>
             </div>
           </Group>
+          <button onClick={logout} className="mx-auto mt-10 flex items-center justify-center gap-2.5 px-6 py-3 active:opacity-70">
+            <DoorOpen className="h-5 w-5 shrink-0 text-destructive" strokeWidth={1.9} />
+            <span className="text-[0.9375rem] font-semibold text-destructive">Logout</span>
+          </button>
         </div>
       </SheetContent>
     </Sheet>

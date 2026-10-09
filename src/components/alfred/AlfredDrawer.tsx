@@ -31,7 +31,7 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { InfluencerMark } from "./InfluencerMark";
 import { cn } from "@/lib/utils";
 
-type IconType = React.ComponentType<{ className?: string; strokeWidth?: number; tone?: string | undefined }>;
+type IconType = React.ComponentType<{ className?: string; strokeWidth?: number; tone?: string | undefined; style?: React.CSSProperties | undefined }>;
 type Item = { label: string; icon: IconType; to: string; meta?: string; blue?: boolean; card?: string; tone?: string };
 
 /** Workspace, where creator work and campaign execution happen. */
@@ -47,7 +47,7 @@ const library: Item[] = [
   { label: "Contracts and briefs", icon: Folder, to: "/a/files", meta: "Deal terms and usage rights", card: "bg-tint-blue", tone: "var(--tint-blue-foreground)" },
   { label: "Media kit and rates", icon: BadgeCheck, to: "/a/media-kit", meta: "Audience, results, pricing", card: "bg-tint-green", tone: "var(--tint-green-foreground)" },
   { label: "Brand network", icon: Store, to: "/a/clique", meta: "Partnerships, payouts, full history", card: "bg-tint-violet", tone: "var(--tint-violet-foreground)" },
-  { label: "Rate research", icon: Library, to: "/a/research", meta: "What other creators charge", card: "bg-tint-amber", tone: "var(--tint-amber-foreground)" },
+  { label: "Rate research", icon: Library, to: "/a/research", meta: "What other creators charge", card: "bg-[color-mix(in_oklch,var(--electric-magenta)_14%,white)]", tone: "var(--electric-magenta)" },
 ];
 
 /** Rules, the standing operating instructions Alfred follows. */
@@ -86,6 +86,21 @@ function Group({
   );
 }
 
+const orangeIcon = { "--creator-icon-fill": "var(--primary-soft)", "--creator-icon-detail": "var(--primary)", "--creator-icon-outline": "var(--primary)" } as React.CSSProperties;
+const greenIcon = { "--creator-icon-fill": "var(--tint-green)", "--creator-icon-detail": "var(--tint-green-foreground)", "--creator-icon-outline": "var(--tint-green-foreground)" } as React.CSSProperties;
+
+/** Plain rounded building line icon, no shadow. */
+function OfficeBuilding({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="none" stroke="currentColor" strokeWidth={1.9} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6.5 21V5.5A2.5 2.5 0 0 1 9 3h6a2.5 2.5 0 0 1 2.5 2.5V21" />
+      <path d="M3 21h18" />
+      <path d="M10 7h.01M14 7h.01M10 10.5h.01M14 10.5h.01M10 14h.01M14 14h.01" strokeWidth={2.6} />
+      <path d="M10.5 21v-2.5a1.5 1.5 0 0 1 3 0V21" />
+    </svg>
+  );
+}
+
 /** Life row: divided list item, tinted icon, delta text, no chevron. */
 function LifeRow({ item, onNavigate }: { item: Item; onNavigate: () => void }) {
   const Icon = item.icon;
@@ -95,7 +110,7 @@ function LifeRow({ item, onNavigate }: { item: Item; onNavigate: () => void }) {
       onClick={onNavigate}
       className="flex items-center gap-3.5 px-3 py-3.5 active:bg-surface"
     >
-      <Icon className="h-6 w-6 shrink-0" tone="var(--primary)" />
+      <Icon className="h-6 w-6 shrink-0" style={orangeIcon} />
       <span className="min-w-0 flex-1">
         <span
           className={cn(
@@ -167,7 +182,7 @@ export function AlfredDrawer({
         </div>
 
         <div className="px-4 pb-12">
-          <Group label="Workspace">
+          <Group label="Workspace" labelClassName="text-primary">
             <div className="divide-y divide-border/70 rounded-3xl border border-border/70 bg-card px-1.5 shadow-card">
               {workspace.map((i) => (
                 <LifeRow key={i.label} item={i} onNavigate={close} />
@@ -175,7 +190,7 @@ export function AlfredDrawer({
             </div>
           </Group>
 
-          <Group label="Library">
+          <Group label="Library" labelClassName="text-tint-blue-foreground">
             <div className="grid grid-cols-2 gap-2.5">
               {library.map((i) => {
                 const Icon = i.icon;
@@ -199,7 +214,7 @@ export function AlfredDrawer({
             </div>
           </Group>
 
-          <Group label="Rules">
+          <Group label="Rules" labelClassName="text-tint-violet-foreground">
             <div className="rounded-3xl bg-primary-soft p-1.5">
               {rules.map((i) => (
                 <AlfredRow key={i.label} item={i} onNavigate={close} />
@@ -207,7 +222,7 @@ export function AlfredDrawer({
             </div>
           </Group>
 
-          <Group label="Money">
+          <Group label="Money" labelClassName="text-tint-green-foreground">
             <div className="space-y-2.5">
               {money.map((i) => {
                 const Icon = i.icon;
@@ -218,7 +233,7 @@ export function AlfredDrawer({
                     onClick={close}
                     className="flex items-center gap-4 rounded-3xl border border-border/70 bg-card px-4 py-4 shadow-card active:scale-[0.99]"
                   >
-                    <Icon className="h-6 w-6 shrink-0" tone={i.tone} />
+                    <Icon className="h-6 w-6 shrink-0" style={i.label === "Wallet" ? greenIcon : undefined} tone={i.label === "Wallet" ? undefined : i.tone} />
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-[0.9375rem] font-bold">{i.label}</span>
                       <span className="block truncate text-xs text-muted-foreground">{i.meta}</span>
@@ -233,11 +248,11 @@ export function AlfredDrawer({
             <Link
               to="/office"
               onClick={close}
-              className="block rounded-3xl bg-tint-amber p-4 active:scale-[0.98]"
+              className="block rounded-3xl bg-[var(--electric-yellow)] p-4 text-foreground active:scale-[0.98]"
             >
-              <Building className="h-6 w-6" />
+              <OfficeBuilding className="h-7 w-7 text-foreground" />
               <p className="mt-3 text-sm font-bold">My Office</p>
-              <p className="text-xs text-muted-foreground">Premium · your team side</p>
+              <p className="text-xs text-foreground/80">Premium · your team side</p>
             </Link>
           </div>
 
@@ -259,7 +274,7 @@ export function AlfredDrawer({
             </Link>
           </Group>
 
-          <Group label="Account" labelClassName="text-primary">
+          <Group label="Account" labelClassName="text-foreground">
             <div>
               {account.map((i) => {
                 const Icon = i.icon;
@@ -275,15 +290,15 @@ export function AlfredDrawer({
                   </Link>
                 );
               })}
-              <button
-                onClick={logout}
-                className="flex w-full items-center gap-3.5 px-2 py-3 text-left active:opacity-70"
-              >
-                <DoorOpen className="h-5 w-5 shrink-0" tone="var(--destructive)" />
-                <span className="text-[0.9375rem] font-semibold text-destructive">Logout</span>
-              </button>
             </div>
           </Group>
+          <button
+            onClick={logout}
+            className="mx-auto mt-10 flex items-center justify-center gap-2.5 px-6 py-3 active:opacity-70"
+          >
+            <DoorOpen className="h-5 w-5 shrink-0" tone="var(--destructive)" />
+            <span className="text-[0.9375rem] font-semibold text-destructive">Logout</span>
+          </button>
         </div>
       </SheetContent>
     </Sheet>
