@@ -54,7 +54,7 @@ const art: Record<string, Artwork> = {
 };
 
 function icon(name: string) {
-  return function CreatorArtwork({ active = false, tone, className, style, strokeWidth = 1.8, ...props }: IconProps & { tone?: string }) {
+  return function CreatorArtwork({ active = false, tone, className, style, strokeWidth = 1.8, ...props }: IconProps & { tone?: string | undefined }) {
     const artwork = (art[name] ?? art["document"]) as { body?: string; detail?: string };
     const body = artwork.body ?? "";
     const detail = artwork.detail ?? "";
@@ -103,7 +103,7 @@ export const History = icon("clockin");
 export const CircleCheckBig = icon("check");
 export const Store = icon("store");
 /** Tool subscriptions: four electric tokens, two above, two below. */
-export function CreditCardRepeat({ className, active: _a, tone: _t, strokeWidth = 1.8, ...props }: IconProps & { tone?: string }) {
+export function CreditCardRepeat({ className, active: _a, tone: _t, strokeWidth = 1.8, ...props }: IconProps & { tone?: string | undefined }) {
   const dots = [
     { cx: 7, cy: 7, c: "var(--electric-cyan)" },
     { cx: 17, cy: 7, c: "var(--electric-magenta)" },
