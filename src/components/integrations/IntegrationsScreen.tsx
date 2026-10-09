@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { Check, Plus, Trash2 } from "lucide-react";
+import { Check, Plus } from "lucide-react";
 import { siGmail, siGooglecalendar, siGoogledrive, siInstagram, siYoutube, type SimpleIcon } from "simple-icons";
 import { AButton } from "@/components/alfred/ui";
 import { cn } from "@/lib/utils";
