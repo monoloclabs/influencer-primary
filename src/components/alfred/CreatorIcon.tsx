@@ -1,4 +1,4 @@
-import type { SVGProps } from "react";
+import type { SVGProps, CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 
 type IconProps = SVGProps<SVGSVGElement> & { active?: boolean; strokeWidth?: number };
@@ -15,16 +15,16 @@ const art: Record<string, Artwork> = {
   bell: { body: "M12 3a6 6 0 0 1 6 6v3.5c0 1.2.5 2.3 1.4 3.1.4.4.1 1.1-.5 1.1H5.1c-.6 0-.9-.7-.5-1.1.9-.8 1.4-1.9 1.4-3.1V9a6 6 0 0 1 6-6z", detail: "M10 19.5a2 2 0 0 0 4 0" },
   briefcase: { body: "M6 7h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-8a3 3 0 0 1 3-3z M8.5 7V5.5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2V7", detail: "M3.5 12.5c5.5 2.5 11.5 2.5 17 0 M11 14h2" },
   document: { body: "M8.5 3h7a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-7a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3z", detail: "M9 8h6 M9 12h6 M9 16h3.5" },
-  sparkles: { body: "M11 2.8c.7 4.2 2.9 6.4 7.1 7.1-4.2.7-6.4 2.9-7.1 7.1-.7-4.2-2.9-6.4-7.1-7.1 4.2-.7 6.4-2.9 7.1-7.1z M18.5 14.8c.35 1.75 1.2 2.6 2.95 2.95-1.75.35-2.6 1.2-2.95 2.95-.35-1.75-1.2-2.6-2.95-2.95 1.75-.35 2.6-1.2 2.95-2.95z", detail: "M5 3.5v2 M4 4.5h2" },
+  sparkles: { body: "M10 3.2c.4 0 .7.3.8.7l1 4.1a3 3 0 0 0 2.2 2.2l4.1 1c.9.2.9 1.4 0 1.6l-4.1 1a3 3 0 0 0-2.2 2.2l-1 4.1c-.2.9-1.4.9-1.6 0l-1-4.1a3 3 0 0 0-2.2-2.2l-4.1-1c-.9-.2-.9-1.4 0-1.6l4.1-1A3 3 0 0 0 8.2 8l1-4.1c.1-.4.4-.7.8-.7z", detail: "M18.5 2.8v4.4 M16.3 5h4.4" },
   wallet: { body: "M6.5 5H18a2.5 2.5 0 0 1 2.5 2.5v9A2.5 2.5 0 0 1 18 19H6.5A3 3 0 0 1 3.5 16V8A3 3 0 0 1 6.5 5z M14.5 10h6v4h-6a2 2 0 0 1 0-4z", detail: "M16 12h.5 M6.5 8.5h5" },
   clock: { body: "M12 2.8a9.2 9.2 0 1 1 0 18.4 9.2 9.2 0 0 1 0-18.4z", detail: "M12 7.5V12l3 2" },
   shield: { body: "M11.2 2.6a2 2 0 0 1 1.6 0l5.7 2.4A2 2 0 0 1 19.8 7v4.5c0 4.6-3.6 8.2-7 9.6a2 2 0 0 1-1.6 0c-3.4-1.4-7-5-7-9.6V7a2 2 0 0 1 1.3-2z", detail: "M8.8 11.8l2.3 2.3 4-4.2" },
   folder: { body: "M5.5 4.5h3.3a2 2 0 0 1 1.6.8l1.1 1.5a2 2 0 0 0 1.6.7h5.4a2.5 2.5 0 0 1 2.5 2.5v7.5a3 3 0 0 1-3 3H5.5a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3z", detail: "M3 10.5h18 M7 15h6" },
-  scroll: { body: "M7 3.5h10a2.5 2.5 0 0 1 2.5 2.5v10.5 M7 3.5A2.5 2.5 0 0 0 4.5 6v.5h2.5 M7 3.5A2.5 2.5 0 0 1 9.5 6v12a2.5 2.5 0 0 0 5 0v-1.5h5V18a2.5 2.5 0 0 1-2.5 2.5h-5", detail: "M12.5 8h4 M12.5 11.5h4" },
+  scroll: { body: "M7.5 3h9A2.5 2.5 0 0 1 19 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 18.5v-13A2.5 2.5 0 0 1 7.5 3z", detail: "M9 8.5h6 M9 12.5h4" },
   users: { body: "M8.5 4a3.2 3.2 0 1 1 0 6.4 3.2 3.2 0 0 1 0-6.4z M2.5 19c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5a1.5 1.5 0 0 1-1.5 1.5H4A1.5 1.5 0 0 1 2.5 19z M16 5a2.8 2.8 0 1 1 0 5.6", detail: "M17 13.6c2.6.4 4.5 2.3 4.5 5a1.5 1.5 0 0 1-1.5 1.5h-2.5" },
   user: { body: "M12 3.5a4 4 0 1 1 0 8 4 4 0 0 1 0-8z M4.5 19c0-3.6 3.4-6 7.5-6s7.5 2.4 7.5 6a1.5 1.5 0 0 1-1.5 1.5H6A1.5 1.5 0 0 1 4.5 19z", detail: "" },
   repeat: { body: "M4 11V9.5A3.5 3.5 0 0 1 7.5 6H19 M16 3l3 3-3 3 M20 13v1.5a3.5 3.5 0 0 1-3.5 3.5H5 M8 21l-3-3 3-3", detail: "" },
-  plug: { body: "M8 8h8a1 1 0 0 1 1 1v2.5a5 5 0 0 1-10 0V9a1 1 0 0 1 1-1z M10.5 16h3v2.5a1.5 1.5 0 0 1-3 0z", detail: "M9.5 3.8V8 M14.5 3.8V8" },
+  plug: { body: "M6.5 7.5h11a1.5 1.5 0 0 1 1.5 1.5v2.5a7 7 0 0 1-14 0V9a1.5 1.5 0 0 1 1.5-1.5z", detail: "M9.5 2.8v4.7 M14.5 2.8v4.7 M12 18.5v2.7" },
   settings: { body: "M10.4 3.2a1.6 1.6 0 0 1 3.2 0l.2 1a1.6 1.6 0 0 0 2.3 1l.9-.5a1.6 1.6 0 0 1 2.2 2.3l-.5.9a1.6 1.6 0 0 0 1 2.3l1 .2a1.6 1.6 0 0 1 0 3.2l-1 .2a1.6 1.6 0 0 0-1 2.3l.5.9a1.6 1.6 0 0 1-2.2 2.3l-.9-.5a1.6 1.6 0 0 0-2.3 1l-.2 1a1.6 1.6 0 0 1-3.2 0l-.2-1a1.6 1.6 0 0 0-2.3-1l-.9.5a1.6 1.6 0 0 1-2.2-2.3l.5-.9a1.6 1.6 0 0 0-1-2.3l-1-.2a1.6 1.6 0 0 1 0-3.2l1-.2a1.6 1.6 0 0 0 1-2.3l-.5-.9a1.6 1.6 0 0 1 2.2-2.3l.9.5a1.6 1.6 0 0 0 2.3-1z", detail: "M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" },
   support: { body: "M12 2.8a9.2 9.2 0 1 1 0 18.4 9.2 9.2 0 0 1 0-18.4z", detail: "M12 8.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7z M6 6l3 3 M15 15l3 3 M18 6l-3 3 M9 15l-3 3" },
   door: { body: "M7.5 3.5h5a2.5 2.5 0 0 1 2.5 2.5v12a2.5 2.5 0 0 1-2.5 2.5h-5A2.5 2.5 0 0 1 5 18V6a2.5 2.5 0 0 1 2.5-2.5z", detail: "M11.5 12h.01 M17.5 9l3 3-3 3 M20.5 12H15" },
@@ -49,11 +49,12 @@ const art: Record<string, Artwork> = {
   car: { body: "M7.2 6h9.6a2 2 0 0 1 1.8 1.2l1.7 3.8a3 3 0 0 1 .7 1.9V17a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 17v-4.1a3 3 0 0 1 .7-1.9l1.7-3.8A2 2 0 0 1 7.2 6z", detail: "M4 11.5h16 M7 14.5h1 M16 14.5h1" },
   gift: { body: "M5 10h14v8.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 18.5z M4.5 7h15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z", detail: "M12 7v14 M12 7c-1.2-2.8-4.8-3.4-4.8-1.2C7.2 7 9.8 7 12 7z M12 7c1.2-2.8 4.8-3.4 4.8-1.2C16.8 7 14.2 7 12 7z" },
   userplus: { body: "M10 3.8a3.8 3.8 0 1 1 0 7.6 3.8 3.8 0 0 1 0-7.6z M3 19c0-3.4 3.1-5.8 7-5.8s7 2.4 7 5.8a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 19z", detail: "M19 7.5v5 M16.5 10h5" },
+  office: { body: "M4.5 9h15a1.5 1.5 0 0 1 1.5 1.5V12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1.5A1.5 1.5 0 0 1 4.5 9z M5 13h3v7.5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z M16 13h3v7.5a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1z M9.5 3.5h5a1.5 1.5 0 0 1 1.5 1.5v4H8V5a1.5 1.5 0 0 1 1.5-1.5z", detail: "M11 16.5h2" },
   clockin: { body: "M12 3.5a8.5 8.5 0 1 1 0 17 8.5 8.5 0 0 1 0-17z M10 1.8h4", detail: "M12 8v4.2l2.8 1.8 M18.6 5.4l1.2-1.2" },
 };
 
 function icon(name: string) {
-  return function CreatorArtwork({ active = false, className, strokeWidth = 1.8, ...props }: IconProps) {
+  return function CreatorArtwork({ active = false, tone, className, style, strokeWidth = 1.8, ...props }: IconProps & { tone?: string }) {
     const artwork = (art[name] ?? art["document"]) as { body?: string; detail?: string };
     const body = artwork.body ?? "";
     const detail = artwork.detail ?? "";
@@ -61,6 +62,7 @@ function icon(name: string) {
     return (
       <svg
         {...props}
+        style={tone && !active ? ({ ...style, "--creator-icon-fill": tone, "--creator-icon-detail": "#ffffff" } as CSSProperties) : style}
         aria-hidden="true"
         viewBox="0 0 24 24"
         className={cn("creator-icon h-6 w-6 shrink-0", active && "creator-icon-active", className)}
@@ -100,6 +102,22 @@ export const Clapperboard = icon("clapper");
 export const History = icon("clockin");
 export const CircleCheckBig = icon("check");
 export const Store = icon("store");
-export const CreditCardRepeat = icon("subscription");
+/** Tool subscriptions: four electric tokens, two above, two below. */
+export function CreditCardRepeat({ className, active: _a, tone: _t, strokeWidth = 1.8, ...props }: IconProps & { tone?: string }) {
+  const dots = [
+    { cx: 7, cy: 7, c: "var(--electric-cyan)" },
+    { cx: 17, cy: 7, c: "var(--electric-magenta)" },
+    { cx: 7, cy: 17, c: "var(--electric-yellow)" },
+    { cx: 17, cy: 17, c: "var(--electric-violet)" },
+  ];
+  return (
+    <svg {...props} aria-hidden="true" viewBox="0 0 24 24" className={cn("creator-icon h-6 w-6 shrink-0", className)}>
+      {dots.map((d) => (
+        <circle key={d.c} cx={d.cx} cy={d.cy} r={4.2} fill={d.c} stroke="var(--creator-icon-outline)" strokeWidth={strokeWidth} />
+      ))}
+    </svg>
+  );
+}
+export const Building = icon("office");
 export const Bell = icon("bell");
 export const Gift = icon("gift");
