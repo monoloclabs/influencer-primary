@@ -25,14 +25,14 @@ import {
   Clapperboard,
   Store,
   CreditCardRepeat,
+  Building,
 } from "@/components/alfred/CreatorIcon";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { IconBadge } from "./ui";
 import { InfluencerMark } from "./InfluencerMark";
 import { cn } from "@/lib/utils";
 
-type IconType = React.ComponentType<{ className?: string; strokeWidth?: number }>;
-type Item = { label: string; icon: IconType; to: string; meta?: string; blue?: boolean };
+type IconType = React.ComponentType<{ className?: string; strokeWidth?: number; tone?: string | undefined }>;
+type Item = { label: string; icon: IconType; to: string; meta?: string; blue?: boolean; card?: string; tone?: string };
 
 /** Workspace, where creator work and campaign execution happen. */
 const workspace: Item[] = [
@@ -44,10 +44,10 @@ const workspace: Item[] = [
 
 /** Library, creator business and reference material. */
 const library: Item[] = [
-  { label: "Contracts and briefs", icon: Folder, to: "/a/files", meta: "Deal terms and usage rights" },
-  { label: "Media kit and rates", icon: BadgeCheck, to: "/a/media-kit", meta: "Audience, results, pricing" },
-  { label: "Brand network", icon: Store, to: "/a/clique", meta: "Partnerships, payouts, full history" },
-  { label: "Rate research", icon: Library, to: "/a/research", meta: "What other creators charge" },
+  { label: "Contracts and briefs", icon: Folder, to: "/a/files", meta: "Deal terms and usage rights", card: "bg-tint-blue", tone: "var(--tint-blue-foreground)" },
+  { label: "Media kit and rates", icon: BadgeCheck, to: "/a/media-kit", meta: "Audience, results, pricing", card: "bg-tint-green", tone: "var(--tint-green-foreground)" },
+  { label: "Brand network", icon: Store, to: "/a/clique", meta: "Partnerships, payouts, full history", card: "bg-tint-violet", tone: "var(--tint-violet-foreground)" },
+  { label: "Rate research", icon: Library, to: "/a/research", meta: "What other creators charge", card: "bg-tint-amber", tone: "var(--tint-amber-foreground)" },
 ];
 
 /** Rules, the standing operating instructions Alfred follows. */
@@ -56,7 +56,7 @@ const rules: Item[] = [
 ];
 
 const money: Item[] = [
-  { label: "Wallet", icon: Wallet, to: "/wallet", meta: "Earnings and payouts" },
+  { label: "Wallet", icon: Wallet, to: "/wallet", meta: "Earnings and payouts", tone: "var(--tint-green-foreground)" },
   { label: "Tool subscriptions", icon: CreditCardRepeat, to: "/a/tool-subscriptions", meta: "Creative tools and software" },
 ];
 
@@ -95,7 +95,7 @@ function LifeRow({ item, onNavigate }: { item: Item; onNavigate: () => void }) {
       onClick={onNavigate}
       className="flex items-center gap-3.5 px-3 py-3.5 active:bg-surface"
     >
-      <Icon className="h-6 w-6 shrink-0" />
+      <Icon className="h-6 w-6 shrink-0" tone="var(--primary)" />
       <span className="min-w-0 flex-1">
         <span
           className={cn(
@@ -122,7 +122,7 @@ function AlfredRow({ item, onNavigate }: { item: Item; onNavigate: () => void })
       onClick={onNavigate}
       className="flex items-center gap-3.5 rounded-2xl px-2 py-2.5 active:bg-surface"
     >
-      <Icon className="h-6 w-6 shrink-0" />
+      <Icon className="h-6 w-6 shrink-0" tone="var(--primary)" />
       <span className="min-w-0 flex-1">
         <span className="block truncate text-[0.9375rem] font-semibold">{item.label}</span>
         {item.meta && (
@@ -184,9 +184,9 @@ export function AlfredDrawer({
                     key={i.label}
                     to={i.to}
                     onClick={close}
-                    className="rounded-2xl border border-border/70 bg-card p-3.5 shadow-card active:scale-[0.98]"
+                    className={cn("rounded-2xl p-3.5 active:scale-[0.98]", i.card)}
                   >
-                    <Icon className="h-5 w-5 text-tint-violet-foreground" strokeWidth={2.2} />
+                    <Icon className="h-6 w-6" tone={i.tone} />
                     <span className="mt-2.5 block text-xs font-semibold leading-snug">{i.label}</span>
                     {i.meta && (
                       <span className="mt-0.5 block text-[0.6875rem] leading-snug text-muted-foreground">
@@ -218,7 +218,7 @@ export function AlfredDrawer({
                     onClick={close}
                     className="flex items-center gap-4 rounded-3xl border border-border/70 bg-card px-4 py-4 shadow-card active:scale-[0.99]"
                   >
-                    <Icon className="h-6 w-6 shrink-0 text-foreground" strokeWidth={2.4} />
+                    <Icon className="h-6 w-6 shrink-0" tone={i.tone} />
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-[0.9375rem] font-bold">{i.label}</span>
                       <span className="block truncate text-xs text-muted-foreground">{i.meta}</span>
@@ -235,7 +235,7 @@ export function AlfredDrawer({
               onClick={close}
               className="block rounded-3xl bg-tint-amber p-4 active:scale-[0.98]"
             >
-              <Briefcase className="h-5 w-5 text-tint-amber-foreground" strokeWidth={2.3} />
+              <Building className="h-6 w-6" />
               <p className="mt-3 text-sm font-bold">My Office</p>
               <p className="text-xs text-muted-foreground">Premium · your team side</p>
             </Link>
@@ -248,9 +248,7 @@ export function AlfredDrawer({
               onClick={close}
               className="flex items-center gap-3.5 rounded-3xl bg-surface px-4 py-3.5 active:opacity-80"
             >
-              <IconBadge tone="dark" shape="round" size="sm">
-                <Plug className="h-[1.05rem] w-[1.05rem]" strokeWidth={2.1} />
-              </IconBadge>
+              <Plug className="h-8 w-8 shrink-0" tone="var(--primary)" />
               <span className="min-w-0 flex-1">
                 <span className="block text-[0.9375rem] font-semibold">Integrations</span>
                 <span className="block text-xs text-muted-foreground">
@@ -281,7 +279,7 @@ export function AlfredDrawer({
                 onClick={logout}
                 className="flex w-full items-center gap-3.5 px-2 py-3 text-left active:opacity-70"
               >
-                <DoorOpen className="h-5 w-5 shrink-0 text-destructive" strokeWidth={1.9} />
+                <DoorOpen className="h-5 w-5 shrink-0" tone="var(--destructive)" />
                 <span className="text-[0.9375rem] font-semibold text-destructive">Logout</span>
               </button>
             </div>

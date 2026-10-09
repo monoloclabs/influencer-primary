@@ -73,7 +73,7 @@ export function IntegrationsScreen({ accountName }: { accountName: string }) {
 
       <div className="mt-6 flex gap-2.5">
         <AButton size="lg" className="flex-1">Browse plugins</AButton>
-        <button type="button" className="flex h-12 flex-1 items-center justify-center gap-1.5 rounded-full bg-tint-blue px-4 text-sm font-bold text-tint-blue-foreground active:scale-[0.98]">
+        <button type="button" className="flex h-14 flex-1 items-center justify-center gap-1.5 rounded-full bg-tint-blue px-4 text-[0.9375rem] leading-none font-bold text-tint-blue-foreground active:scale-[0.98]">
           <Plus className="h-4 w-4" strokeWidth={3} />
           Add
         </button>

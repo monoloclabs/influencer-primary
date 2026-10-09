@@ -94,6 +94,10 @@
   --creator-icon-fill: #ffffff;
   --creator-icon-outline: #18181b;
   --creator-icon-detail: #18181b;
+  --electric-cyan: oklch(0.82 0.16 210);
+  --electric-magenta: oklch(0.66 0.29 345);
+  --electric-yellow: oklch(0.92 0.19 105);
+  --electric-violet: oklch(0.58 0.28 295);
   --radius: 1rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.179 0.004 286);
